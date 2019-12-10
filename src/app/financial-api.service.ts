@@ -1,54 +1,27 @@
-import { Injectable } from '@angular/core';
-
-const alpha = require('alphavantage')({ key: '0NCCP7Q9F1OD5W8E' });
-
+import { Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class FinancialApiService {
 
-  constructor() { }
+reqURL(fun:string, symbol:string)
+{
+  return("https://www.alphavantage.co/query?function=" + fun + "&symbol=" + symbol + "&apikey=0NCCP7Q9F1OD5W8E");
+}
 
-  getIntraDay()
-  {
-    alpha.data.intraday(`msft`).then(data => {
-      console.log(data);
-    });
-  }
+constructor(private http: HttpClient) { }
 
-  getBatch()
-  {
-    alpha.data.batch([`msft`, `aapl`]).then(data => {
-      console.log(data);
-    });
-  }
+getData()
+{
+  this.http.get(this.reqURL("TIME_SERIES_DAILY", "msft")).subscribe(res =>{
+    console.log(res);
+  })
+}
 
-  getForex()
-  {
-    alpha.forex.rate('btc', 'usd').then(data => {
-      console.log(data);
-    });
-  }
 
-  getCrypto()
-  {
-    alpha.crypto.daily('btc', 'usd').then(data => {
-      console.log(data);
-    });
-  }
 
-  getTechnical()
-  {
-    alpha.technical.sma(`msft`, `daily`, 60, `close`).then(data => {
-      console.log(data);
-    });
-  }
 
-  getPerformance()
-  {
-    alpha.performance.sector().then(data => {
-      console.log(data);
-    });
-  }
+  
   
 }

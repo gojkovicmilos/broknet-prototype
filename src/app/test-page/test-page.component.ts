@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FinancialApiService } from '../financial-api.service';
-import { fstat } from 'fs';
 
 @Component({
   selector: 'app-test-page',
@@ -9,13 +8,16 @@ import { fstat } from 'fs';
 })
 export class TestPageComponent implements OnInit {
 
-  constructor(fs: FinancialApiService) { }
+  constructor(private fs: FinancialApiService) { }
 
   ngOnInit() {
   }
 
   getIntraDay()
   {
+    return this.fs.getData();
   }
+
+ 
 
 }
