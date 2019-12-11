@@ -3,9 +3,9 @@ export class Article
     author:string;
     content:string;
     description:string;
-    published:string;
+    publishedAt:string;
     source:{id:string, name:string};
     title:string;
     url:string;
-    imgUrl:string;
+    urlToImage:string;
 }
