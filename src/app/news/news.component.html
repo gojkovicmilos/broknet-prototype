@@ -1,6 +1,6 @@
 
-<div *ngFor="let article of articles">
-    <mat-card class="example-card">
+<div style="padding-right: 2rem; padding-left: 2rem;">
+    <mat-card *ngFor="let article of articles">
         <mat-card-header>
           <mat-card-title>{{article.title}}</mat-card-title>
           <mat-card-subtitle>{{article.publishedAt}}</mat-card-subtitle>

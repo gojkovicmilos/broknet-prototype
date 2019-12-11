@@ -1,0 +1,15 @@
+mat-card {
+    margin-bottom: 1rem; 
+    border: 1px solid #e91e63; 
+    box-shadow: 0 0px 8px 0 #e91e63;
+}
+
+mat-card:hover {
+    box-shadow: 0 0px 24px 0 #e91e63;
+    -moz-box-shadow: 0 0px 24px 0 #e91e63;
+    -webkit-box-shadow: 0 0px 24px 0 #e91e63;   
+}
+
+mat-card:first-child {
+    margin-top: 1rem;
+}
