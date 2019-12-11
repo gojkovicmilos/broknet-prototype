@@ -8,6 +8,11 @@ import { NewsApiService } from '../news-api.service';
   styleUrls: ['./test-page.component.css']
 })
 export class TestPageComponent implements OnInit {
+  links = ['All', 'Stock', 'Crypto', 'Forex'];
+  activeLink = this.links[0];
+  showStock = true;
+  showCrypto = true;
+  showForex = true;
 
   typed:string = "";
 
@@ -20,6 +25,29 @@ export class TestPageComponent implements OnInit {
   {
     return this.ns.getTopHeadlines();
   }
+  show(link: String): void {
+    switch(link) {
+      case "Stock":
+        this.showStock = true;
+        this.showCrypto = false;
+        this.showForex = false;
+      case "Forex":
+        this.showStock = false;
+        this.showCrypto = false;
+        this.showForex = true;
+      case "Crypto":
+        this.showStock = false;
+        this.showCrypto = true;
+        this.showForex = false;
+      case "All":
+        this.showStock = true;
+        this.showCrypto = true;
+        this.showForex = true;
+    }
+    console.log(link);
+      
+  }
+
 
   getSector()
   {
