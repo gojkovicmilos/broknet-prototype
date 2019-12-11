@@ -15,6 +15,9 @@ import { MatListModule } from '@angular/material/list';
 import { TestPageComponent } from './test-page/test-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatListModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
