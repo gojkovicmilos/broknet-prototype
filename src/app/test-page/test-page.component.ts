@@ -8,16 +8,76 @@ import { FinancialApiService } from '../financial-api.service';
 })
 export class TestPageComponent implements OnInit {
 
+  typed:string = "";
+
   constructor(private fs: FinancialApiService) { }
 
   ngOnInit() {
   }
 
-  getIntraDay()
+
+  getSector()
   {
-    return this.fs.getData();
+    return this.fs.getSector();
   }
 
+  getStockQuote(symbol:string)
+  {
+    return this.fs.getStockQuote(symbol);
+  }
+
+  searchSymbol(query:string)
+  {
+    return this.fs.searchSymbol(query);
+  }
+
+  
+  getStockDaily(symbol:string)
+  {
+    return this.fs.getStockDaily(symbol);
+  }
+
+  getStockWeekly(symbol:string)
+  {
+    return this.fs.getStockDaily(symbol);
+  }
+
+  getStockMonthly(symbol:string)
+  {
+    return this.fs.getStockDaily(symbol);
+  }
+
+  
+  getCryptoDaily(symbol:string, market:string)
+  {
+    return this.fs.getCryptoDaily(symbol, market);
+  }
+
+  getCryptoWeekly(symbol:string, market:string)
+  {
+    return this.fs.getCryptoWeekly(symbol, market);
+  }
+
+  getCryptoMonthly(symbol:string, market:string)
+  {
+    return this.fs.getCryptoMonthly(symbol, market);
+  }
+  
+  
+  getForexDaily(fromSymbol:string, toSymbol:string)
+  {
+    return this.fs.getForexDaily(fromSymbol, toSymbol);
+  }
+
+  getForexWeekly(fromSymbol:string, toSymbol:string)
+  {
+    return this.fs.getForexWeekly(fromSymbol, toSymbol);
+  }
+
+  getForexMonthly(fromSymbol:string, toSymbol:string)
+  {
+    return this.fs.getForexMonthly(fromSymbol, toSymbol);
+  }
  
 
 }
