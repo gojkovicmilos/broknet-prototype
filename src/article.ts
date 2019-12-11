@@ -1,5 +1,6 @@
 export class Article
 {
+    id:string;
     author:string;
     content:string;
     description:string;

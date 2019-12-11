@@ -13,4 +13,19 @@ export class FirebaseService {
   {
     return this.db.collection('stocks').add(value);
   }
+
+  createArticle(value)
+  {
+    return this.db.collection('articles').add(value);
+  }
+
+  getStocks()
+  {
+    return this.db.collection('stocks').snapshotChanges();
+  }
+
+  getNews()
+  {
+    return this.db.collection('articles').snapshotChanges();
+  }
 }

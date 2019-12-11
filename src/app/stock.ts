@@ -2,6 +2,7 @@ import { StockData } from './stock-data';
 
 export class Stock
 {
+    id:string;
     symbol:string;
     open:number;
     high:number;

@@ -3,6 +3,7 @@ import { FinancialApiService } from '../financial-api.service';
 import { NewsApiService } from '../news-api.service';
 import { element } from 'protractor';
 import { Stock } from '../stock';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-test-page',
@@ -22,18 +23,21 @@ export class TestPageComponent implements OnInit {
 
   typed:string = "";
 
-  constructor(private fs: FinancialApiService, private ns:NewsApiService) { }
+  constructor(private fs: FinancialApiService, private ns:NewsApiService, private fbs:FirebaseService) { }
 
   ngOnInit() {
 
-    this.symbols.forEach(element =>{
+    
 
-      this.getStockQuote(element);
-      this.getStockDaily(element);
+    this.fbs.getStocks().subscribe(actionArray =>{
 
+      this.stocks = actionArray.map(item =>{
+        return{
+          id: item.payload.doc.id,
+          ...item.payload.doc.data() as Stock}
+          
+      });
     });
-
-    this.stocks = JSON.parse(localStorage.getItem('stocks'));
 
 
     
@@ -66,6 +70,14 @@ export class TestPageComponent implements OnInit {
       
   }
 
+  fillDb()
+  {
+    this.stocks.forEach(element => {
+
+      this.fbs.createStock(element);
+      
+    });
+  }
 
   getSector()
   {
