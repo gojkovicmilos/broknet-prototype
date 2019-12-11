@@ -14,7 +14,7 @@ export class NewsComponent implements OnInit {
   articles:Article[] = [];
 
   ngOnInit() {
-
+    this.ns.getTopHeadlines();
     this.articles = JSON.parse(localStorage.getItem('articles'));
     console.log(this.articles);
   }
