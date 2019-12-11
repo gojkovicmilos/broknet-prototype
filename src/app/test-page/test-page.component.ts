@@ -9,9 +9,9 @@ import { FinancialApiService } from '../financial-api.service';
 export class TestPageComponent implements OnInit {
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
-  showStock = false;
-  showCrypto = false;
-  showForex = false;
+  showStock = true;
+  showCrypto = true;
+  showForex = true;
 
   typed:string = "";
 
