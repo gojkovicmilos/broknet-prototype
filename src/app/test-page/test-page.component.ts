@@ -72,12 +72,12 @@ export class TestPageComponent implements OnInit {
 
   getStockWeekly(symbol:string)
   {
-    return this.fs.getStockDaily(symbol);
+    return this.fs.getStockWeekly(symbol);
   }
 
   getStockMonthly(symbol:string)
   {
-    return this.fs.getStockDaily(symbol);
+    return this.fs.getStockMonthly(symbol);
   }
 
   

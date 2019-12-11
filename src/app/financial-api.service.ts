@@ -2,6 +2,9 @@ import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FirebaseService } from './firebase.service';
 import { Stock } from './stock';
+import { StockData } from './stock-data';
+import { element } from 'protractor';
+import { elementAt } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +12,13 @@ export class FinancialApiService
 {
 
   stocks:Stock[] = [];
+
+  
+
+  daily:any = {};
+  stockData:any = {};
+  stockDaily:StockData[] = [];
+  ids:string[] = [];
 
   newStock:any = {};
 
@@ -47,8 +57,53 @@ export class FinancialApiService
   getStockDaily(symbol:string)
   {
     this.http.get(this.reqSymbol("TIME_SERIES_DAILY", symbol)).subscribe(res =>{
-      console.log(res);
-    })
+
+      this.stockData = res["Time Series (Daily)"];
+
+      Object.keys(this.stockData).forEach(element => {
+        this.ids.push(element);
+        
+      });
+
+      let j = -1;
+
+      this.stocks.forEach(element => {
+
+        if(element.symbol.toLowerCase() == symbol.toLowerCase())
+        {
+          j = this.stocks.indexOf(element);
+        }
+        
+      });
+
+      let i = 0;
+      
+      Object.values(this.stockData).forEach(element => {
+        
+        this.daily.id = this.ids[i];
+        this.daily.open = element["1. open"] as number;
+        this.daily.high = element["2. high"] as number;
+        this.daily.low = element["3. low"] as number;
+        this.daily.close = element["4. close"] as number;
+        this.daily.volume = element["5. volume"] as number;
+        
+        
+        this.stockDaily.push(this.daily as StockData);
+
+        this.stocks[j].daily.push(this.daily as StockData);
+
+        this.daily = {};
+        i++;
+        
+      });
+
+      
+      this.stockDaily = [];
+      console.log(this.stocks);
+    });
+
+    
+    
   }
 
 
@@ -100,10 +155,15 @@ export class FinancialApiService
       this.newStock.prevClose = res['Global Quote'][['08. previous close']]as number;
       this.newStock.change = res['Global Quote'][['09. change']]as number;
       this.newStock.changePercent = res['Global Quote'][['10. change percent']];
+      this.newStock.daily = [];
       this.stocks.push(this.newStock as Stock);
       this.newStock = {};
       console.log(this.stocks);
-    })
+
+
+      
+    });
+    
   }
 
   searchSymbol(query:string)

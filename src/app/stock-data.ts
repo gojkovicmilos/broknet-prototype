@@ -1,5 +1,6 @@
 export class StockData
 {
+    id:string;
     open:number;
     high:number;
     low:number;

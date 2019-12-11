@@ -1,3 +1,5 @@
+import { StockData } from './stock-data';
+
 export class Stock
 {
     symbol:string;
@@ -10,4 +12,8 @@ export class Stock
     prevClose:number;
     change:number;
     changePercent:string;
+    daily:StockData[];
+    weekly:StockData[];
+    monthly:StockData[];
+
 }
