@@ -7,12 +7,40 @@ import { FinancialApiService } from '../financial-api.service';
   styleUrls: ['./test-page.component.css']
 })
 export class TestPageComponent implements OnInit {
+  links = ['All', 'Stock', 'Crypto', 'Forex'];
+  activeLink = this.links[0];
+  showStock = false;
+  showCrypto = false;
+  showForex = false;
 
   typed:string = "";
 
   constructor(private fs: FinancialApiService) { }
 
   ngOnInit() {
+  }
+
+  show(link: String): void {
+    switch(link) {
+      case "Stock":
+        this.showStock = true;
+        this.showCrypto = false;
+        this.showForex = false;
+      case "Forex":
+        this.showStock = false;
+        this.showCrypto = false;
+        this.showForex = true;
+      case "Crypto":
+        this.showStock = false;
+        this.showCrypto = true;
+        this.showForex = false;
+      case "All":
+        this.showStock = true;
+        this.showCrypto = true;
+        this.showForex = true;
+    }
+    console.log(link);
+      
   }
 
 

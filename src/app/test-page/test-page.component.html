@@ -1,19 +1,35 @@
-<button mat-button (click)="getSector()">Get Sector</button>
+<nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let link of links"
+        (click)="activeLink = link; show(link);"
+        [active]="activeLink == link"> {{link}} </a>
+</nav>
+
+<div style="margin-top: 1rem">
+    <button mat-button (click)="getSector()">Get Sector</button>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Label</mat-label>
+        <input matInput name="search" (change)="searchSymbol(typed)" [(ngModel)]="typed" placeholder="Label" value="value">
+    </mat-form-field>
+</div>
 
 
-<input matInput name="search" (change)="searchSymbol(typed)" [(ngModel)]="typed" placeholder="label" value="value">
 
-<button mat-button (click)="getStockQuote(typed)">Get Stock Quote</button>
 
-<button mat-button (click)="getStockDaily(typed)">Get Stock Daily</button>
-<button mat-button (click)="getStockWeekly(typed)">Get Stock Weekly</button>
-<button mat-button (click)="getStockMonthly(typed)">Get Stock Monthly</button>
+<div *ngIf="showStock">
+    <button mat-button (click)="getStockQuote(typed)">Get Stock Quote</button>
 
-<button mat-button (click)="getCryptoDaily(typed, 'CNY')">Get Crypto Daily</button>
-<button mat-button (click)="getCryptoWeekly(typed, 'CNY')">Get Crypto Weekly</button>
-<button mat-button (click)="getCryptoMonthly(typed, 'CNY')">Get Crypto Monthly</button>
-
-<button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Weekly</button>
-<button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Daily</button>
-<button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Monthly</button>
-
+    <button mat-button (click)="getStockDaily(typed)">Get Stock Daily</button>
+    <button mat-button (click)="getStockWeekly(typed)">Get Stock Weekly</button>
+    <button mat-button (click)="getStockMonthly(typed)">Get Stock Monthly</button>
+</div>
+<div *ngIf="showCrypto">
+    <button mat-button (click)="getCryptoDaily(typed, 'CNY')">Get Crypto Daily</button>
+    <button mat-button (click)="getCryptoWeekly(typed, 'CNY')">Get Crypto Weekly</button>
+    <button mat-button (click)="getCryptoMonthly(typed, 'CNY')">Get Crypto Monthly</button>
+</div>
+<div *ngIf="showForex">
+    <button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Weekly</button>
+    <button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Daily</button>
+    <button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Monthly</button>
+</div>
