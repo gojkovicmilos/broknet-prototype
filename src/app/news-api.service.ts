@@ -10,7 +10,7 @@ export class NewsApiService {
 
   getTopHeadlines()
   {
-    this.http.get("https://newsapi.org/v2/top-headlines?category=business&apiKey=0ddacba682974e2eb952e80e315bb170").subscribe(res =>{
+    this.http.get("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0ddacba682974e2eb952e80e315bb170").subscribe(res =>{
       console.log(res);
     });
   }
