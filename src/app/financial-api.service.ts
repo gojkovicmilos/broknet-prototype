@@ -1,5 +1,6 @@
 import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FirebaseService } from './firebase.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +36,7 @@ reqCrypto(fun:string, symbol:string, market:string)
 
 
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, private fbs:FirebaseService) { }
 
 getStockDaily(symbol:string)
 {
@@ -84,6 +85,7 @@ getStockQuote(symbol:string)
 {
   this.http.get(this.reqSymbol("GLOBAL_QUOTE", symbol)).subscribe(res =>{
     console.log(res);
+    this.fbs.createStock(res);
   })
 }
 

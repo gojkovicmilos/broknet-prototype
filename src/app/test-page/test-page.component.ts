@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FinancialApiService } from '../financial-api.service';
+import { NewsApiService } from '../news-api.service';
 
 @Component({
   selector: 'app-test-page',
@@ -10,11 +11,15 @@ export class TestPageComponent implements OnInit {
 
   typed:string = "";
 
-  constructor(private fs: FinancialApiService) { }
+  constructor(private fs: FinancialApiService, private ns:NewsApiService) { }
 
   ngOnInit() {
   }
 
+  getTopHeadlines()
+  {
+    return this.ns.getTopHeadlines();
+  }
 
   getSector()
   {

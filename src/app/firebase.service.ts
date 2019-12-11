@@ -8,5 +8,9 @@ export class FirebaseService {
 
   constructor(private db: AngularFirestore) { }
 
-  
+
+  createStock(value)
+  {
+    return this.db.collection('stocks').add(value);
+  }
 }
