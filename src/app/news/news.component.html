@@ -1,0 +1,15 @@
+
+<div *ngFor="let article of articles">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{article.title}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="{{article.urlToImage}}" >
+        <mat-card-content>
+          <p>{{article.description}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a href="{{article.url}}">Learn more</a>
+        </mat-card-actions>
+      </mat-card>
+</div>

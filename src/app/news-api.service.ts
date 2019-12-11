@@ -15,10 +15,10 @@ export class NewsApiService {
   {
     this.http.get("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0ddacba682974e2eb952e80e315bb170").subscribe(res =>{
       this.articles = res['articles'];
-      this.articles.forEach(element => {
-        console.log(element.title);
-        
-      });
+      localStorage.setItem('articles', JSON.stringify(this.articles));
+      
     });
+
+    
   }
 }
