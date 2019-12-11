@@ -4,6 +4,7 @@ import { NewsApiService } from '../news-api.service';
 import { element } from 'protractor';
 import { Stock } from '../stock';
 import { FirebaseService } from '../firebase.service';
+import * as CanvasJS from '../../assets/canvasjs.min.js'
 
 @Component({
   selector: 'app-test-page',
@@ -19,6 +20,7 @@ export class TestPageComponent implements OnInit {
 
   stocks:Stock[] = [];
 
+
   symbols = ["msft", "aapl"];
 
   typed:string = "";
@@ -26,8 +28,6 @@ export class TestPageComponent implements OnInit {
   constructor(private fs: FinancialApiService, private ns:NewsApiService, private fbs:FirebaseService) { }
 
   ngOnInit() {
-
-    
 
     this.fbs.getStocks().subscribe(actionArray =>{
 
@@ -37,7 +37,24 @@ export class TestPageComponent implements OnInit {
           ...item.payload.doc.data() as Stock}
           
       });
+
+      setTimeout(()=>
+        this.stocks.forEach(element => {
+
+          this.drawChart(this.stocks.indexOf(element));
+          
+        
+
+      })
+      ), 2000;
+      
+
+
     });
+
+    
+
+    
 
 
     
@@ -79,6 +96,34 @@ export class TestPageComponent implements OnInit {
     });
   }
 
+  drawChart(i:number)
+  {
+    let dataPoints = [];
+    this.stocks[i].daily.forEach(element => {
+
+      console.log(element.close+0.0001);
+      dataPoints.push({y: Math.round(element.close)});
+      
+    });
+
+    let chart = new CanvasJS.Chart("chartContainer" + i, {
+      zoomEnabled: true,
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: "Daily Close"
+      },
+      data: [
+      {
+        type: "line",                
+        dataPoints: dataPoints
+      }]
+    });
+      
+    chart.render();
+
+  }
+
   getSector()
   {
     return this.fs.getSector();
@@ -86,7 +131,7 @@ export class TestPageComponent implements OnInit {
 
   getStockQuote(symbol:string)
   {
-    return this.fs.getStockQuote(symbol);
+    console.log(this.stocks[0].daily);
   }
 
   searchSymbol(query:string)

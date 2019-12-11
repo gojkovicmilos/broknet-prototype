@@ -7,6 +7,8 @@
 <div style="margin-top: 1.5rem">
     <button mat-button (click)="getSector()">Get Sector</button>
 
+    
+
     <mat-form-field appearance="outline">
         <mat-label>Label</mat-label>
         <input matInput name="search" (change)="searchSymbol(typed)" [(ngModel)]="typed" placeholder="Label" value="value">
@@ -20,7 +22,7 @@
 
 
 <div *ngIf="showStock">
-    <button mat-button (click)="getStockQuote(typed)">Get Stock Quote</button>
+    <button mat-button (click)="drawChart()">Draw Chart</button>
 
     <button mat-button (click)="getStockDaily(typed)">Get Stock Daily</button>
     <button mat-button (click)="getStockWeekly(typed)">Get Stock Weekly</button>
@@ -44,7 +46,7 @@
 </div>
 
 <div style="padding-right: 2rem; padding-left: 2rem;">
-    <mat-card *ngFor="let stock of stocks">
+    <mat-card *ngFor="let stock of stocks; let i=index">
         <mat-card-header>
           <mat-card-title>{{stock.symbol}}</mat-card-title>
         </mat-card-header>
@@ -58,6 +60,7 @@
           <p>Latest Day: {{stock.latestDay}}</p>
           <p>Change: {{stock.change}}</p>
           <p>Change Percent: {{stock.changePercent}}</p>
+          <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
         </mat-card-content>
       </mat-card>
 </div>
