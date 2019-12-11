@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FinancialApiService } from '../financial-api.service';
 import { NewsApiService } from '../news-api.service';
+import { element } from 'protractor';
+import { Stock } from '../stock';
 
 @Component({
   selector: 'app-test-page',
@@ -14,11 +16,27 @@ export class TestPageComponent implements OnInit {
   showCrypto = true;
   showForex = true;
 
+  stocks:Stock[] = [];
+
+  symbols = ["msft", "aapl"];
+
   typed:string = "";
 
   constructor(private fs: FinancialApiService, private ns:NewsApiService) { }
 
   ngOnInit() {
+
+    this.symbols.forEach(element =>{
+
+      this.getStockQuote(element);
+      this.getStockDaily(element);
+
+    });
+
+    this.stocks = JSON.parse(localStorage.getItem('stocks'));
+
+
+    
   }
 
   getTopHeadlines()

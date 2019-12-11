@@ -42,3 +42,22 @@
 
     <mat-divider></mat-divider>
 </div>
+
+<div style="padding-right: 2rem; padding-left: 2rem;">
+    <mat-card *ngFor="let stock of stocks">
+        <mat-card-header>
+          <mat-card-title>{{stock.symbol}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>High: {{stock.high}}</p>
+          <p>Low: {{stock.low}}</p>
+          <p>Open: {{stock.open}}</p>
+          <p>Price: {{stock.price}}</p>
+          <p>Volume: {{stock.volume}}</p>
+          <p>Previous Close: {{stock.prevClose}}</p>
+          <p>Latest Day: {{stock.latestDay}}</p>
+          <p>Change: {{stock.change}}</p>
+          <p>Change Percent: {{stock.changePercent}}</p>
+        </mat-card-content>
+      </mat-card>
+</div>

@@ -99,7 +99,7 @@ export class FinancialApiService
 
       
       this.stockDaily = [];
-      console.log(this.stocks);
+      localStorage.setItem("stocks", JSON.stringify(this.stocks));
     });
 
     
@@ -158,7 +158,6 @@ export class FinancialApiService
       this.newStock.daily = [];
       this.stocks.push(this.newStock as Stock);
       this.newStock = {};
-      console.log(this.stocks);
 
 
       
