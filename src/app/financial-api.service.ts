@@ -20,6 +20,9 @@ export class FinancialApiService
   stockDaily:StockData[] = [];
   ids:string[] = [];
 
+  fbStock:Stock = {id:"", low:0, high:0, symbol:"", open:0, price:0, 
+  volume:0, changePercent:"", latestDay:"", prevClose:0, change:0, daily:[], weekly:[], monthly:[]  };
+
   newStock:any = {};
 
   reqSymbol(fun:string, symbol:string)
@@ -51,8 +54,64 @@ export class FinancialApiService
   }
 
 
+  
 
   constructor(private http: HttpClient, private fbs:FirebaseService) { }
+
+  addStockToFirebase(symbol:string)
+  {
+    this.http.get(this.reqSymbol("GLOBAL_QUOTE", symbol)).subscribe(res =>{
+      this.newStock.symbol = res['Global Quote'][['01. symbol']];
+      this.newStock.open = res['Global Quote'][['02. open']] as number;
+      this.newStock.high = res['Global Quote'][['03. high']]as number;
+      this.newStock.low = res['Global Quote'][['04. low']]as number;
+      this.newStock.price = res['Global Quote'][['05. price']]as number;
+      this.newStock.volume = res['Global Quote'][['06. volume']]as number;
+      this.newStock.latestDay = res['Global Quote'][['07. latest trading day']];
+      this.newStock.prevClose = res['Global Quote'][['08. previous close']]as number;
+      this.newStock.change = res['Global Quote'][['09. change']]as number;
+      this.newStock.changePercent = res['Global Quote'][['10. change percent']];
+      this.newStock.daily = [];
+      this.fbStock = this.newStock as Stock;
+      this.newStock = {};
+
+      this.http.get(this.reqSymbol("TIME_SERIES_DAILY", symbol)).subscribe(res =>{
+
+        this.stockData = res["Time Series (Daily)"];
+  
+        Object.keys(this.stockData).forEach(element => {
+          this.ids.push(element);
+          
+        });
+        let i = 0;
+        
+        Object.values(this.stockData).forEach(element => {
+          
+          this.daily.id = this.ids[i];
+          this.daily.open = element["1. open"] as number;
+          this.daily.high = element["2. high"] as number;
+          this.daily.low = element["3. low"] as number;
+          this.daily.close = element["4. close"] as number;
+          this.daily.volume = element["5. volume"] as number;
+  
+          this.fbStock.daily.push(this.daily as StockData);
+  
+          this.daily = {};
+          i++;
+          
+        });
+
+        console.log(this.fbStock);
+        this.fbs.createStock(this.fbStock);
+        this.fbStock = {id:"", low:0, high:0, symbol:"", open:0, price:0, 
+        volume:0, changePercent:"", latestDay:"", prevClose:0, change:0, daily:[], weekly:[], monthly:[]  };
+      });
+
+
+      
+    });
+  }
+
 
   getStockDaily(symbol:string)
   {

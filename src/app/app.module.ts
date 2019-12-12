@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -10,7 +9,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TestPageComponent } from './test-page/test-page.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
@@ -25,7 +24,8 @@ import {
   MatSelectModule,
   MatSidenavModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatAutocompleteModule
 } from "@angular/material";
 
 @NgModule({
@@ -55,7 +55,10 @@ import {
     MatInputModule,
     MatSelectModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    FormsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
     
   ],
   providers: [],
