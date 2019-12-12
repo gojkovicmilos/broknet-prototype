@@ -27,6 +27,11 @@ import {
   MatTableModule,
   MatAutocompleteModule
 } from "@angular/material";
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { UserComponent } from './user/user.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,11 @@ import {
     HomePageComponent,
     MainNavComponent,
     TestPageComponent,
-    NewsComponent
+    NewsComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +67,8 @@ import {
     MatTableModule,
     FormsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireAuthModule
     
   ],
   providers: [],
