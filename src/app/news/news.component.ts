@@ -31,19 +31,7 @@ export class NewsComponent implements OnInit {
 
   fillDb()
   {
-    this.ns.getTopHeadlines();
-    let newArticles:Article[] = JSON.parse(localStorage.getItem('articles'));
-    newArticles.forEach(element =>{
-      this.articles.forEach(elementOld => {
-
-        if(elementOld.url == element.url)
-        newArticles.splice(newArticles.indexOf(elementOld));
-        
-      });
-    });
-
-    newArticles.forEach(element => {
-      
+    this.articles.forEach(element =>{
       this.fbs.createArticle(element);
     });
   }
