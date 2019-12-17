@@ -1,0 +1,36 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="padding-top: 10rem;">
+  <mat-card> 
+    <mat-card-header>
+        <!-- <mat-card-title>Prijavite se:</mat-card-title> -->
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Username" formControlName="username">
+              <mat-error *ngIf="formGroup.controls['username'].invalid">
+                {{getError('user')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password">
+              <mat-error *ngIf="!formGroup.controls['password'].valid">
+                {{getError('pass')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+              <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Prijava</button>
+          </div>
+        </div> 
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

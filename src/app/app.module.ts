@@ -27,6 +27,9 @@ import {
   MatTableModule,
   MatAutocompleteModule
 } from "@angular/material";
+import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import {
     HomePageComponent,
     MainNavComponent,
     TestPageComponent,
-    NewsComponent
+    NewsComponent,
+    LoginComponent,
+    UserComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
