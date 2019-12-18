@@ -25,6 +25,16 @@ export class FinancialApiService
 
   newStock:any = {};
 
+  reqNewApi(symbol:string)
+  {
+    return("https://api.worldtradingdata.com/api/v1/stock?symbol=" + symbol + "&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU");
+  }
+
+  reqNewApiHist(symbol:string)
+  {
+    return("https://api.worldtradingdata.com/api/v1/history?symbol=" + symbol + "&date_from=2019-01-01&sort=newest&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU&date_from=2019-01-01");
+  }
+
   reqSymbol(fun:string, symbol:string)
   {
     return("https://www.alphavantage.co/query?function=" + fun + 
@@ -54,6 +64,12 @@ export class FinancialApiService
   }
 
 
+  refresh(list:Stock[])
+  {
+    list.forEach(element => {
+      this.getStockQuote(element.symbol);
+    })
+  }
   
 
   constructor(private http: HttpClient, private fbs:FirebaseService) { }
@@ -288,6 +304,39 @@ export class FinancialApiService
   }
 
 
+  getNewApi(symbol:string)
+  {
+    this.http.get(this.reqNewApi(symbol)).subscribe(res => {
+
+      let stock:any;
+
+      stock = res["data"];
+
+
+      stock = stock[0];
+
+      this.http.get(this.reqNewApiHist(symbol)).subscribe( res =>{
+
+        
+        let historyo:any = res["history"];
+        let history:any[] = [];
+
+        let keys = Object.keys(historyo);
+
+        keys.forEach(element =>{
+
+          let obj = historyo[element];
+          obj.date = element;
+          history.push(obj);
+        })
+        stock.history = history;
+        this.fbs.createStock(stock);
+
+      });
+
+      
+    });
+  }
 
   
   

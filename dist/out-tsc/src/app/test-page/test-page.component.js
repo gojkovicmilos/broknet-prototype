@@ -1,259 +1,168 @@
-import { Component, OnInit } from '@angular/core';
-import { FinancialApiService } from '../financial-api.service';
-import { NewsApiService } from '../news-api.service';
-import { Stock } from '../stock';
-import { FirebaseService } from '../firebase.service';
-import * as CanvasJS from '../../assets/canvasjs.min.js'
-import { Listing } from '../listing';
-import {FormControl} from '@angular/forms';
-
-@Component({
-  selector: 'app-test-page',
-  templateUrl: './test-page.component.html',
-  styleUrls: ['./test-page.component.css']
-})
-export class TestPageComponent implements OnInit {
-  myControl = new FormControl();
-  links = ['All', 'Stock', 'Crypto', 'Forex'];
-  activeLink = this.links[0];
-  showStock = true;
-  showCrypto = true;
-  showForex = true;
-
-
-  listings:Listing[] = this.convertToListings();
-
-  filteredListings:Listing[] = [];
-
-  stocks:any[] = [];
-
-  onKey(event: any) { // without type info
-    this.filterListings();
-    console.log(this.typed);
-  }
-
-
-  symbols = ["msft", "aapl"];
-
-  typed:string = "";
-
-  constructor(private fs: FinancialApiService, private ns:NewsApiService, private fbs:FirebaseService) { }
-
-  ngOnInit() {
-
-    this.fbs.getStocks().subscribe(actionArray =>{
-
-      this.stocks = actionArray.map(item =>{
-        return{
-          id: item.payload.doc.id,
-          ...item.payload.doc.data()}
-          
-      });
-
-      setTimeout(()=>
-        this.stocks.forEach(element => {
-
-          this.drawChart(this.stocks.indexOf(element));
-          //console.log(this.stocks[0].history);
-          
-        
-
-      })
-      ), 2000;
-      
-
-
-    });
-
-    
-
-    
-
-
-    
-  }
-
-
-  filterListings()
-  {
-    this.filteredListings = []
-    this.listings.forEach(element => {
-
-      if(element.companyName.toLowerCase().includes(this.typed) || element.symbol.toLowerCase().includes(this.typed) )
-        this.filteredListings.push(element);
-      
-    });
-  }
-
-  getNewApi(symbol:string)
-  {
-    return this.fs.getNewApi(symbol);
-  }
-
-  getTopHeadlines()
-  {
-    return this.ns.getTopHeadlines();
-  }
-  show(link: String): void {
-    switch(link) {
-      case "Stock":
-        this.showStock = true;
-        this.showCrypto = false;
-        this.showForex = false;
-      case "Forex":
-        this.showStock = false;
-        this.showCrypto = false;
-        this.showForex = true;
-      case "Crypto":
-        this.showStock = false;
-        this.showCrypto = true;
-        this.showForex = false;
-      case "All":
+import * as tslib_1 from "tslib";
+import { Component } from '@angular/core';
+import * as CanvasJS from '../../assets/canvasjs.min.js';
+import { FormControl } from '@angular/forms';
+let TestPageComponent = class TestPageComponent {
+    constructor(fs, ns, fbs) {
+        this.fs = fs;
+        this.ns = ns;
+        this.fbs = fbs;
+        this.myControl = new FormControl();
+        this.links = ['All', 'Stock', 'Crypto', 'Forex'];
+        this.activeLink = this.links[0];
         this.showStock = true;
         this.showCrypto = true;
         this.showForex = true;
+        this.listings = this.convertToListings();
+        this.filteredListings = [];
+        this.stocks = [];
+        this.symbols = ["msft", "aapl"];
+        this.typed = "";
     }
-    console.log(link);
-      
-  }
-
-  fillDb()
-  {
-    this.stocks.forEach(element => {
-
-      this.fbs.createStock(element);
-      
-    });
-  }
-
-  addToDb(symbol:string)
-  {
-    this.fs.addStockToFirebase(symbol);
-  }
-
-  drawChart(i:number)
-  {
-    let dataPointsClose = [];
-    let dataPointsOpen = [];
-    let dataPointsHigh = [];
-    let dataPointsLow = [];
-    let dataPointsVolume = [];
-    this.stocks[i].history.forEach(element => {
-
-      dataPointsClose.push({y: Math.round(element.close)});
-      dataPointsOpen.push({y: Math.round(element.open)});
-      dataPointsHigh.push({y: Math.round(element.high)});
-      dataPointsLow.push({y: Math.round(element.low)});
-      dataPointsVolume.push({y: Math.round(element.volume)});
-      
-    });
-
-    let chart = new CanvasJS.Chart("chartContainer" + i, {
-      zoomEnabled: true,
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: "Daily Chart"
-      },
-      data: [
-      {
-        type: "line",                
-        dataPoints: dataPointsClose,
-        name: "Close",
-        showInLegend: true
-      },
-      {
-        type: "line",                
-        dataPoints: dataPointsOpen,
-        name: "Open",
-        showInLegend: true
-      },
-      {
-        type: "line",                
-        dataPoints: dataPointsHigh,
-        name: "High",
-        showInLegend: true
-      },
-      {
-        type: "line",                
-        dataPoints: dataPointsLow,
-        name: "Low",
-        showInLegend: true
-      }]
-    });
-      
-    chart.render();
-
-  }
-
-  getSector()
-  {
-    return this.fs.getSector();
-  }
-
-  getStockQuote(symbol:string)
-  {
-    console.log(this.stocks[0].daily);
-  }
-
-  searchSymbol(query:string)
-  {
-    return this.fs.searchSymbol(query);
-  }
-
-  
-  getStockDaily(symbol:string)
-  {
-    return this.fs.getStockDaily(symbol);
-  }
-
-  getStockWeekly(symbol:string)
-  {
-    return this.fs.getStockWeekly(symbol);
-  }
-
-  getStockMonthly(symbol:string)
-  {
-    return this.fs.getStockMonthly(symbol);
-  }
-
-  
-  getCryptoDaily(symbol:string, market:string)
-  {
-    return this.fs.getCryptoDaily(symbol, market);
-  }
-
-  getCryptoWeekly(symbol:string, market:string)
-  {
-    return this.fs.getCryptoWeekly(symbol, market);
-  }
-
-  getCryptoMonthly(symbol:string, market:string)
-  {
-    return this.fs.getCryptoMonthly(symbol, market);
-  }
-  
-  
-  getForexDaily(fromSymbol:string, toSymbol:string)
-  {
-    return this.fs.getForexDaily(fromSymbol, toSymbol);
-  }
-
-  getForexWeekly(fromSymbol:string, toSymbol:string)
-  {
-    return this.fs.getForexWeekly(fromSymbol, toSymbol);
-  }
-
-  getForexMonthly(fromSymbol:string, toSymbol:string)
-  {
-    return this.fs.getForexMonthly(fromSymbol, toSymbol);
-  }
- 
-
-    convertToListings():Listing[]
-    {
-
-      let csv = `ACT Symbol,Company Name
+    onKey(event) {
+        this.filterListings();
+        console.log(this.typed);
+    }
+    ngOnInit() {
+        this.fbs.getStocks().subscribe(actionArray => {
+            this.stocks = actionArray.map(item => {
+                return Object.assign({ id: item.payload.doc.id }, item.payload.doc.data());
+            });
+            setTimeout(() => this.stocks.forEach(element => {
+                this.drawChart(this.stocks.indexOf(element));
+                console.log(this.stocks[0].history);
+            })), 2000;
+        });
+    }
+    filterListings() {
+        this.filteredListings = [];
+        this.listings.forEach(element => {
+            if (element.companyName.toLowerCase().includes(this.typed) || element.symbol.toLowerCase().includes(this.typed))
+                this.filteredListings.push(element);
+        });
+    }
+    getNewApi(symbol) {
+        return this.fs.getNewApi(symbol);
+    }
+    getTopHeadlines() {
+        return this.ns.getTopHeadlines();
+    }
+    show(link) {
+        switch (link) {
+            case "Stock":
+                this.showStock = true;
+                this.showCrypto = false;
+                this.showForex = false;
+            case "Forex":
+                this.showStock = false;
+                this.showCrypto = false;
+                this.showForex = true;
+            case "Crypto":
+                this.showStock = false;
+                this.showCrypto = true;
+                this.showForex = false;
+            case "All":
+                this.showStock = true;
+                this.showCrypto = true;
+                this.showForex = true;
+        }
+        console.log(link);
+    }
+    fillDb() {
+        this.stocks.forEach(element => {
+            this.fbs.createStock(element);
+        });
+    }
+    addToDb(symbol) {
+        this.fs.addStockToFirebase(symbol);
+    }
+    drawChart(i) {
+        let dataPointsClose = [];
+        let dataPointsOpen = [];
+        let dataPointsHigh = [];
+        let dataPointsLow = [];
+        let dataPointsVolume = [];
+        this.stocks[i].history.forEach(element => {
+            dataPointsClose.push({ y: Math.round(element.close) });
+            dataPointsOpen.push({ y: Math.round(element.open) });
+            dataPointsHigh.push({ y: Math.round(element.high) });
+            dataPointsLow.push({ y: Math.round(element.low) });
+            dataPointsVolume.push({ y: Math.round(element.volume) });
+        });
+        let chart = new CanvasJS.Chart("chartContainer" + i, {
+            zoomEnabled: true,
+            animationEnabled: true,
+            exportEnabled: true,
+            title: {
+                text: "Daily Chart"
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: dataPointsClose,
+                    name: "Close",
+                    showInLegend: true
+                },
+                {
+                    type: "line",
+                    dataPoints: dataPointsOpen,
+                    name: "Open",
+                    showInLegend: true
+                },
+                {
+                    type: "line",
+                    dataPoints: dataPointsHigh,
+                    name: "High",
+                    showInLegend: true
+                },
+                {
+                    type: "line",
+                    dataPoints: dataPointsLow,
+                    name: "Low",
+                    showInLegend: true
+                }
+            ]
+        });
+        chart.render();
+    }
+    getSector() {
+        return this.fs.getSector();
+    }
+    getStockQuote(symbol) {
+        console.log(this.stocks[0].daily);
+    }
+    searchSymbol(query) {
+        return this.fs.searchSymbol(query);
+    }
+    getStockDaily(symbol) {
+        return this.fs.getStockDaily(symbol);
+    }
+    getStockWeekly(symbol) {
+        return this.fs.getStockWeekly(symbol);
+    }
+    getStockMonthly(symbol) {
+        return this.fs.getStockMonthly(symbol);
+    }
+    getCryptoDaily(symbol, market) {
+        return this.fs.getCryptoDaily(symbol, market);
+    }
+    getCryptoWeekly(symbol, market) {
+        return this.fs.getCryptoWeekly(symbol, market);
+    }
+    getCryptoMonthly(symbol, market) {
+        return this.fs.getCryptoMonthly(symbol, market);
+    }
+    getForexDaily(fromSymbol, toSymbol) {
+        return this.fs.getForexDaily(fromSymbol, toSymbol);
+    }
+    getForexWeekly(fromSymbol, toSymbol) {
+        return this.fs.getForexWeekly(fromSymbol, toSymbol);
+    }
+    getForexMonthly(fromSymbol, toSymbol) {
+        return this.fs.getForexMonthly(fromSymbol, toSymbol);
+    }
+    convertToListings() {
+        let csv = `ACT Symbol,Company Name
       A,"Agilent Technologies, Inc. Common Stock"
       AA,Alcoa Inc. Common Stock
       AA$B,Alcoa Inc. Depository Shares Representing 1/10th Preferred Convertilble Class B Series 1
@@ -3541,21 +3450,21 @@ export class TestPageComponent implements OnInit {
       ZTR,"Zweig Total Return Fund, Inc. (The) Common Stock"
       ZTS,Zoetis Inc. Class A Common Stock
       ZX,"China Zenix Auto International Limited American Depositary Shares, each representing four ordinary shares."`;
-  
-
-        let listings:Listing[] = [];
-
-        let csvArr:string[] = csv.split('\n');
-
+        let listings = [];
+        let csvArr = csv.split('\n');
         csvArr.forEach(element => {
-
-            let listingArr:string[] = element.split(",");
-            listings.push({symbol: listingArr[0].trim(), companyName: listingArr[1]});
-            
+            let listingArr = element.split(",");
+            listings.push({ symbol: listingArr[0].trim(), companyName: listingArr[1] });
         });
-
-
         return listings;
     }
-
-}
+};
+TestPageComponent = tslib_1.__decorate([
+    Component({
+        selector: 'app-test-page',
+        templateUrl: './test-page.component.html',
+        styleUrls: ['./test-page.component.css']
+    })
+], TestPageComponent);
+export { TestPageComponent };
+//# sourceMappingURL=test-page.component.js.map
