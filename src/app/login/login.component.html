@@ -1,36 +1,41 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="padding-top: 10rem;">
-  <mat-card> 
-    <mat-card-header>
-        <!-- <mat-card-title>Prijavite se:</mat-card-title> -->
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
-              <mat-error *ngIf="formGroup.controls['username'].invalid">
-                {{getError('user')}}
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <input type="password" matInput placeholder="Password" formControlName="password">
-              <mat-error *ngIf="!formGroup.controls['password'].valid">
-                {{getError('pass')}}
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-              <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Prijava</button>
-          </div>
-        </div> 
-      </form>
-    </mat-card-content>
-  </mat-card>
+<div class="displayTable">
+  <div class="displayTableCell">
+
+    <div class="authBlock">
+      <h3>Sign In</h3>
+      <div class="formGroup">
+        <input type="text" class="formControl" placeholder="Username" #userName required>
+      </div>
+
+      <div class="formGroup">
+        <input type="password" class="formControl" placeholder="Password" #userPassword required>
+      </div>
+
+      <!-- Calling SignIn Api from AuthService -->
+      <div class="formGroup">
+        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+      </div>
+
+      <div class="formGroup">
+        <span class="or"><span class="orInner">Or</span></span>
+      </div>
+
+      <!-- Calling GoogleAuth Api from AuthService -->
+      <div class="formGroup">
+        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+          <i class="fab fa-google-plus-g"></i>
+          Log in with Google
+        </button>
+      </div>
+
+      <div class="forgotPassword">
+        <span routerLink="/forgot-password">Forgot Password?</span>
+      </div>
+    </div>
+
+    <div class="redirectToLogin">
+      <span>Don't have an account?<span class="redirect" routerLink="register"> Sign Up</span></span>
+    </div>
+
+  </div>
 </div>

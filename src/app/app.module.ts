@@ -25,11 +25,15 @@ import {
   MatSidenavModule,
   MatCardModule,
   MatTableModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatSnackBarModule
 } from "@angular/material";
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { RegisterComponent } from './register/register.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyEmailAddressComponent } from './verify-email-address/verify-email-address.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { RegisterComponent } from './register/register.component';
     NewsComponent,
     LoginComponent,
     UserComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    VerifyEmailAddressComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +58,7 @@ import { RegisterComponent } from './register/register.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatSnackBarModule,
     HttpClientModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -64,7 +71,8 @@ import { RegisterComponent } from './register/register.component';
     MatTableModule,
     FormsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireAuthModule
     
   ],
   providers: [],
