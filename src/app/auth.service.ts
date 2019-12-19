@@ -29,7 +29,7 @@ export class AuthService {
 
               return{
                 id: item.payload.doc.id,
-                ... item.payload.doc.data()
+                ... item.payload.doc.data() as {}
               }
               
             });

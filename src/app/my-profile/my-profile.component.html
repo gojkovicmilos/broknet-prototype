@@ -1,1 +1,9 @@
 <h1>Welcome, {{userData.displayName}}!</h1>
+
+<hr>
+<h3>Portfolio: </h3>
+
+<div *ngFor='let p of portfolio'>
+    <p>ID: {{p.id}}</p>
+    <p>Amount: {{p.amount}}</p>
+</div>
