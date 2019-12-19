@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -8,7 +8,10 @@ import { AuthService } from '../auth.service';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
+
+  @ViewChild('drawer', {static: false}) drawer: any;
+  drawerClosed: boolean = true;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -17,5 +20,13 @@ export class MainNavComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
+
+  ngOnInit() {
+    
+  }
+
+  toggle(): void {
+    this.drawerClosed = !this.drawerClosed;
+  }
 
 }
