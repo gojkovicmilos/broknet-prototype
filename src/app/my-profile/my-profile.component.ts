@@ -6,14 +6,19 @@ import { AuthService } from '../auth.service';
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.css']
 })
+
+
+
 export class MyProfileComponent implements OnInit {
 
   constructor(private as: AuthService) { }
 
   userData = {};
+  portfolio = [];
 
   ngOnInit() {
     this.userData = JSON.parse(localStorage.getItem('user'));
+    this.portfolio = this.userData['portfolio'];
   }
 
 }
