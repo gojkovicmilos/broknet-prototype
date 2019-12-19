@@ -13,12 +13,13 @@ export class MyProfileComponent implements OnInit {
 
   constructor(private as: AuthService) { }
 
-  userData = {};
-  portfolio = [];
+  private userData = {};
+  private portfolio = [];
 
   ngOnInit() {
     this.userData = JSON.parse(localStorage.getItem('user'));
     this.portfolio = this.userData['portfolio'];
+    console.log(this.portfolio);
   }
 
 }
