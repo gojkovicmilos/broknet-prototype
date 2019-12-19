@@ -127,14 +127,18 @@ export class HomePageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:amount};
+    let obj = {id: stock.id, amount:amount, investment: +stock.price*amount};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
     if(portfolio != {})
     portfolio.forEach(element => {
       if(element.id == stock.id)
-      arr[0].amount+=element.amount;
+      {
+        arr[0].amount+=element.amount;
+        arr[0].investment+=element.investment;
+
+      }
       else arr.push(element);
     });
     //console.log(JSON.parse(localStorage.getItem('user')));
