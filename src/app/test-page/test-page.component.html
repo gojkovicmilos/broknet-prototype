@@ -67,5 +67,8 @@
           <p>Change Percent: {{stock.changePercent}}</p>
           <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
         </mat-card-content>
-      </mat-card>
+    <mat-card-actions>
+        <button (click)="addToPortfolio(stock.symbol, 100)">Add to Portfolio</button>
+    </mat-card-actions>
+    </mat-card>
 </div>

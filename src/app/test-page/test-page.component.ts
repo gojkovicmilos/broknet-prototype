@@ -117,6 +117,31 @@ export class TestPageComponent implements OnInit {
       
   }
 
+  addToPortfolio(symbol:string, amount: number)
+  {
+
+
+    let stock;
+    this.stocks.forEach(x =>{
+      if(x.symbol == symbol)
+      stock = x;
+    })
+
+    let obj = {id: stock.id, amount:amount};
+    let arr = [];
+    arr.push(obj);
+    let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
+    if(portfolio != {})
+    portfolio.forEach(element => {
+      if(element.id == stock.id)
+      arr[0].amount+=element.amount;
+      else arr.push(element);
+    });
+    //console.log(JSON.parse(localStorage.getItem('user')));
+
+    this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
+  }
+
   fillDb()
   {
     this.stocks.forEach(element => {

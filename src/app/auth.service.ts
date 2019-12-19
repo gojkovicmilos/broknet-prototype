@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 export class AuthService {
 
   userData: any;
+  users:any[];
 
   constructor(public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
@@ -19,9 +20,29 @@ export class AuthService {
     {
       this.afAuth.authState.subscribe(user => {
         if (user) {
-          this.userData = user;
-          localStorage.setItem('user', JSON.stringify(this.userData));
-          JSON.parse(localStorage.getItem('user'));
+
+          
+          this.afs.collection("users").snapshotChanges().subscribe(actionArray =>{
+            
+
+            this.users = actionArray.map(item => {
+
+              return{
+                id: item.payload.doc.id,
+                ... item.payload.doc.data()
+              }
+              
+            });
+
+            this.users.forEach(res =>{
+              if(res.uid == user.uid)
+              this.userData = res;
+            });
+
+            localStorage.setItem('user', JSON.stringify(this.userData));
+
+          });
+          
         } else {
           localStorage.setItem('user', null);
           JSON.parse(localStorage.getItem('user'));
@@ -108,7 +129,8 @@ export class AuthService {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        emailVerified: user.emailVerified
+        emailVerified: user.emailVerified,
+        portfolio: []
       }
       return userRef.set(userData, {
         merge: true

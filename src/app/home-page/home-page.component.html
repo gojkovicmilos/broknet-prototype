@@ -1,1 +1,22 @@
-<p>home-page works!</p>
+<div style="padding-right: 2rem; padding-left: 2rem;">
+    <mat-card *ngFor="let stock of stocks; let i=index">
+        <mat-card-header>
+          <mat-card-title>{{stock.symbol}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>High: {{stock.high}}</p>
+          <p>Low: {{stock.low}}</p>
+          <p>Open: {{stock.open}}</p>
+          <p>Price: {{stock.price}}</p>
+          <p>Volume: {{stock.volume}}</p>
+          <p>Previous Close: {{stock.prevClose}}</p>
+          <p>Latest Day: {{stock.latestDay}}</p>
+          <p>Change: {{stock.change}}</p>
+          <p>Change Percent: {{stock.changePercent}}</p>
+          <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+        </mat-card-content>
+    <mat-card-actions>
+        <button (click)="addToPortfolio(stock.symbol, 100)">Add to Portfolio</button>
+    </mat-card-actions>
+    </mat-card>
+</div>

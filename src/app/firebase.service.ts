@@ -28,4 +28,9 @@ export class FirebaseService {
   {
     return this.db.collection('articles').snapshotChanges();
   }
+
+  updatePortfolio(userId:string, newPortfolio:any)
+  {
+    return this.db.doc('users/' + userId).update({portfolio: newPortfolio});
+  }
 }
