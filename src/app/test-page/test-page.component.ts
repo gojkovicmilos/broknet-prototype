@@ -16,9 +16,7 @@ export class TestPageComponent implements OnInit {
   myControl = new FormControl();
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
-  showStock = true;
-  showCrypto = true;
-  showForex = true;
+ 
 
 
   listings:Listing[] = this.convertToListings();
@@ -40,37 +38,23 @@ export class TestPageComponent implements OnInit {
   constructor(private fs: FinancialApiService, private ns:NewsApiService, private fbs:FirebaseService) { }
 
   ngOnInit() {
-
+    
     this.fbs.getStocks().subscribe(actionArray =>{
 
       this.stocks = actionArray.map(item =>{
         return{
-          id: item.payload.doc.id,
-          ...item.payload.doc.data()}
+            id: item.payload.doc.id,
+            ...item.payload.doc.data() as {} };
           
       });
 
       setTimeout(()=>
         this.stocks.forEach(element => {
-
           this.drawChart(this.stocks.indexOf(element));
-          //console.log(this.stocks[0].history);
-          
-        
-
+          //console.log(this.stocks[0].history);  
       })
       ), 2000;
-      
-
-
     });
-
-    
-
-    
-
-
-    
   }
 
 
@@ -94,28 +78,7 @@ export class TestPageComponent implements OnInit {
   {
     return this.ns.getTopHeadlines();
   }
-  show(link: String): void {
-    switch(link) {
-      case "Stock":
-        this.showStock = true;
-        this.showCrypto = false;
-        this.showForex = false;
-      case "Forex":
-        this.showStock = false;
-        this.showCrypto = false;
-        this.showForex = true;
-      case "Crypto":
-        this.showStock = false;
-        this.showCrypto = true;
-        this.showForex = false;
-      case "All":
-        this.showStock = true;
-        this.showCrypto = true;
-        this.showForex = true;
-    }
-    console.log(link);
-      
-  }
+
 
   addToPortfolio(symbol:string, amount: number)
   {
