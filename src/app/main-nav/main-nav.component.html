@@ -24,7 +24,9 @@
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="!drawerClosed">toggle_off</mat-icon>
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="drawerClosed">toggle_on</mat-icon>
       </button>
-      <span style="margin-left: 1rem">BrokNet Prototype</span>
+      <span routerLink='' style="cursor: pointer; margin-left: 1rem">BrokNet Prototype</span>
+      <div class="fill-space"></div>
+      <button *ngIf='authService.isLoggedIn()' mat-icon-button routerLink='profile'><mat-icon style="font-size: 35px;">account_circle</mat-icon></button>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div style="padding: 1rem">
