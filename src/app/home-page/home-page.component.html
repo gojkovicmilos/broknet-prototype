@@ -1,9 +1,12 @@
 <div style="padding-right: 2rem; padding-left: 2rem;">
-    <mat-card *ngFor="let stock of stocks; let i=index">
+    <mat-card *ngFor="let stock of filteredStocks; let i=index">
         <mat-card-header>
           <mat-card-title>{{stock.symbol}}</mat-card-title>
+          <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}</mat-card-subtitle>
+          <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
+          <h3>Profit: {{(this.findByID(stock.id).amount*stock.price) - this.findByID(stock.id).investment}} </h3>
           <p>High: {{stock.high}}</p>
           <p>Low: {{stock.low}}</p>
           <p>Open: {{stock.open}}</p>
@@ -16,7 +19,7 @@
           <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
         </mat-card-content>
     <mat-card-actions>
-        <button (click)="addToPortfolio(stock.symbol, 100)">Add to Portfolio</button>
+        <button (click)="addToPortfolio(stock.symbol, 100)">Add 100 Stocks to Portfolio</button>
     </mat-card-actions>
     </mat-card>
 </div>

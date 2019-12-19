@@ -18,6 +18,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
 
+    this.filteredStocks = [];
 
     this.fbs.getStocks().subscribe(actionArray =>{
 
@@ -33,24 +34,17 @@ export class HomePageComponent implements OnInit {
           
       });
 
-    this.user.portfolio.forEach(element => {
-
-      this.stocks.forEach(stock =>{
-        if(stock.id == element.id)
-        console.log(stock);
-        this.filteredStocks.push(stock);
-      });
-      
-    });
-
-    //this.stocks = this.filteredStocks;
-
-    console.log(this.filteredStocks);
+    let ids = this.user.portfolio.map(item => item.id);
+    
+    this.filteredStocks = this.stocks.filter(item => ids.includes(item.id))
+    
+    //console.log(this.filteredStocks);
+    
 
       setTimeout(()=>
-        this.stocks.forEach(element => {
+        this.filteredStocks.forEach(element => {
 
-          this.drawChart(this.stocks.indexOf(element));
+          this.drawChart(this.filteredStocks.indexOf(element));
           
         
 
@@ -61,6 +55,11 @@ export class HomePageComponent implements OnInit {
 
     });
 
+  }
+
+  findByID(id)
+  {
+    return this.user.portfolio.filter(item => item.id == id)[0];
   }
 
   drawChart(i:number)
