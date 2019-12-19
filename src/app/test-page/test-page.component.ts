@@ -6,6 +6,7 @@ import { FirebaseService } from '../firebase.service';
 import * as CanvasJS from '../../assets/canvasjs.min.js'
 import { Listing } from '../listing';
 import {FormControl} from '@angular/forms';
+//import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-test-page',
@@ -54,8 +55,14 @@ export class TestPageComponent implements OnInit {
           //console.log(this.stocks[0].history);  
       })
       ), 2000;
+
+      setInterval(() => this.stocks.forEach(item => {this.fs.getNewApi(item.symbol); console.log(item.symbol)}), 60000);
     });
+
+    
+
   }
+
 
 
   filterListings()
@@ -67,6 +74,8 @@ export class TestPageComponent implements OnInit {
         this.filteredListings.push(element);
       
     });
+
+    
   }
 
   getNewApi(symbol:string)
@@ -118,11 +127,7 @@ export class TestPageComponent implements OnInit {
     });
   }
 
-  addToDb(symbol:string)
-  {
-    this.fs.addStockToFirebase(symbol);
-  }
-
+ 
   drawChart(i:number)
   {
     let dataPointsClose = [];
@@ -132,10 +137,10 @@ export class TestPageComponent implements OnInit {
     let dataPointsVolume = [];
     this.stocks[i].history.forEach(element => {
 
-      dataPointsClose.push({y: Math.round(element.close)});
-      dataPointsOpen.push({y: Math.round(element.open)});
-      dataPointsHigh.push({y: Math.round(element.high)});
-      dataPointsLow.push({y: Math.round(element.low)});
+      dataPointsClose.push({x: new Date(element.date),y: Math.round(element.close)});
+      dataPointsOpen.push({x: new Date(element.date),y: Math.round(element.open)});
+      dataPointsHigh.push({x: new Date(element.date),y: Math.round(element.high)});
+      dataPointsLow.push({x: new Date(element.date),y: Math.round(element.low)});
       dataPointsVolume.push({y: Math.round(element.volume)});
       
     });
@@ -146,6 +151,10 @@ export class TestPageComponent implements OnInit {
       exportEnabled: true,
       title: {
         text: "Daily Chart"
+      },
+      axisX:{      
+        valueFormatString: "DD-MM-YYYY" ,
+        labelAngle: -50
       },
       data: [
       {
@@ -178,68 +187,7 @@ export class TestPageComponent implements OnInit {
 
   }
 
-  getSector()
-  {
-    return this.fs.getSector();
-  }
-
-  getStockQuote(symbol:string)
-  {
-    console.log(this.stocks[0].daily);
-  }
-
-  searchSymbol(query:string)
-  {
-    return this.fs.searchSymbol(query);
-  }
-
   
-  getStockDaily(symbol:string)
-  {
-    return this.fs.getStockDaily(symbol);
-  }
-
-  getStockWeekly(symbol:string)
-  {
-    return this.fs.getStockWeekly(symbol);
-  }
-
-  getStockMonthly(symbol:string)
-  {
-    return this.fs.getStockMonthly(symbol);
-  }
-
-  
-  getCryptoDaily(symbol:string, market:string)
-  {
-    return this.fs.getCryptoDaily(symbol, market);
-  }
-
-  getCryptoWeekly(symbol:string, market:string)
-  {
-    return this.fs.getCryptoWeekly(symbol, market);
-  }
-
-  getCryptoMonthly(symbol:string, market:string)
-  {
-    return this.fs.getCryptoMonthly(symbol, market);
-  }
-  
-  
-  getForexDaily(fromSymbol:string, toSymbol:string)
-  {
-    return this.fs.getForexDaily(fromSymbol, toSymbol);
-  }
-
-  getForexWeekly(fromSymbol:string, toSymbol:string)
-  {
-    return this.fs.getForexWeekly(fromSymbol, toSymbol);
-  }
-
-  getForexMonthly(fromSymbol:string, toSymbol:string)
-  {
-    return this.fs.getForexMonthly(fromSymbol, toSymbol);
-  }
  
 
     convertToListings():Listing[]

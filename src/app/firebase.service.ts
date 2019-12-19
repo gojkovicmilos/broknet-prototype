@@ -29,6 +29,16 @@ export class FirebaseService {
     return this.db.collection('articles').snapshotChanges();
   }
 
+  updateStock(id, stock)
+  {
+    return this.db.doc('stocks/' + id).update(stock);
+  }
+
+  getUser(id)
+  {
+    return this.db.doc('users/'+ id).snapshotChanges();
+  }
+
   updatePortfolio(userId:string, newPortfolio:any)
   {
     return this.db.doc('users/' + userId).update({portfolio: newPortfolio});

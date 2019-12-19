@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../firebase.service';
 import * as CanvasJS from '../../assets/canvasjs.min.js'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -13,8 +14,11 @@ export class HomePageComponent implements OnInit {
   stocks:any[] = [];
   filteredStocks:any[] = [];
   user = JSON.parse(localStorage.getItem('user'));
+  totalUserInvestment:number = 0;
+  totalShareValue:number = 0;
+  profit:number = 0;
 
-  constructor(private fbs: FirebaseService) { }
+  constructor(private fbs: FirebaseService, private router:Router) { }
 
   ngOnInit() {
 
@@ -34,10 +38,17 @@ export class HomePageComponent implements OnInit {
           
       });
 
+    this.fbs.getUser(this.user.id).subscribe(res => {
+
+      this.user = res.payload.data();
+    });
+
     let ids = this.user.portfolio.map(item => item.id);
     
-    this.filteredStocks = this.stocks.filter(item => ids.includes(item.id))
-    
+    this.filteredStocks = this.stocks.filter(item => ids.includes(item.id));
+    this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
+    this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).price));
+    this.profit = this.totalShareValue-this.totalUserInvestment;
     //console.log(this.filteredStocks);
     
 
@@ -62,6 +73,13 @@ export class HomePageComponent implements OnInit {
     return this.user.portfolio.filter(item => item.id == id)[0];
   }
 
+  findStockByID(id)
+  {
+    return this.stocks.filter(item => item.id == id)[0];
+  }
+
+  
+
   drawChart(i:number)
   {
     let dataPointsClose = [];
@@ -69,13 +87,13 @@ export class HomePageComponent implements OnInit {
     let dataPointsHigh = [];
     let dataPointsLow = [];
     let dataPointsVolume = [];
-    this.stocks[i].history.forEach(element => {
+    this.filteredStocks[i].history.forEach(element => {
 
-      dataPointsClose.push({y: Math.round(element.close)});
-      dataPointsOpen.push({y: Math.round(element.open)});
-      dataPointsHigh.push({y: Math.round(element.high)});
-      dataPointsLow.push({y: Math.round(element.low)});
-      dataPointsVolume.push({y: Math.round(element.volume)});
+      dataPointsClose.push({x: new Date(element.date), y: Math.round(element.close)});
+      dataPointsOpen.push({x: new Date(element.date), y: Math.round(element.open)});
+      dataPointsHigh.push({x: new Date(element.date), y: Math.round(element.high)});
+      dataPointsLow.push({x: new Date(element.date), y: Math.round(element.low)});
+      dataPointsVolume.push({x: new Date(element.date), y: Math.round(element.volume)});
       
     });
 
@@ -85,6 +103,10 @@ export class HomePageComponent implements OnInit {
       exportEnabled: true,
       title: {
         text: "Daily Chart"
+      },
+      axisX:{      
+        valueFormatString: "DD-MM-YYYY" ,
+        labelAngle: -50
       },
       data: [
       {
@@ -144,6 +166,8 @@ export class HomePageComponent implements OnInit {
     //console.log(JSON.parse(localStorage.getItem('user')));
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
+    this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
+    this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).price));
   }
 
 }

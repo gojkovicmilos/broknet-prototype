@@ -19,7 +19,7 @@ export class MainNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {}
 
   ngOnInit() {
     

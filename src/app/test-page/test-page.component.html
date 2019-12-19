@@ -1,11 +1,7 @@
-<nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let link of links"
-        (click)="activeLink = link; show(link);"
-        [active]="activeLink == link"> {{link}} </a>
-</nav>
 
-<div style="margin-top: 1.5rem">
-    <button mat-button (click)="getNewApi(typed)">Get New API</button>
+
+<div style="margin-top: 2rem">
+    
 
     
 
@@ -19,56 +15,28 @@
         </mat-autocomplete>
     </mat-form-field>
 
-<!-- <button mat-button (click)="getTopHeadlines()">Get Headlines</button> -->
-<button mat-button (click)="addToDb(typed)">Add to DB</button>
+    <button mat-button (click)="getNewApi(typed)">Add to Watchlist</button>
 
-<!-- <button mat-button (click)="fillDb()">Fill Firebase</button> -->
-    <mat-divider></mat-divider>
 </div>
 
 
-<div *ngIf="activeLink==='Stock' || activeLink==='All'">
 
-    <button mat-button (click)="getStockDaily(typed)">Get Stock Daily</button>
-    <button mat-button (click)="getStockWeekly(typed)">Get Stock Weekly</button>
-    <button mat-button (click)="getStockMonthly(typed)">Get Stock Monthly</button>
 
-    <mat-divider></mat-divider>
-</div>
-<div *ngIf="activeLink==='Crypto' || activeLink==='All'">
-    <button mat-button (click)="getCryptoDaily(typed, 'CNY')">Get Crypto Daily</button>
-    <button mat-button (click)="getCryptoWeekly(typed, 'CNY')">Get Crypto Weekly</button>
-    <button mat-button (click)="getCryptoMonthly(typed, 'CNY')">Get Crypto Monthly</button>
-
-    <mat-divider></mat-divider>
-</div>
-<div *ngIf="activeLink==='Forex' || activeLink==='All'">
-    <button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Daily</button>
-    <button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Weekly</button>
-    <button mat-button (click)="getForexDaily(typed, 'usd')">Get Forex Monthly</button>
-
-    <mat-divider></mat-divider>
-</div>
-
-<div style="padding-right: 2rem; padding-left: 2rem;" *ngIf="activeLink==='Stock' || activeLink==='All'">
-    <mat-card *ngFor="let stock of stocks; let i=index">
-        <mat-card-header>
-          <mat-card-title>{{stock.symbol}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>High: {{stock.high}}</p>
-          <p>Low: {{stock.low}}</p>
-          <p>Open: {{stock.open}}</p>
-          <p>Price: {{stock.price}}</p>
-          <p>Volume: {{stock.volume}}</p>
-          <p>Previous Close: {{stock.prevClose}}</p>
-          <p>Latest Day: {{stock.latestDay}}</p>
-          <p>Change: {{stock.change}}</p>
-          <p>Change Percent: {{stock.changePercent}}</p>
-          <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
-        </mat-card-content>
-    <mat-card-actions>
-        <button (click)="addToPortfolio(stock.symbol, 100)">Add to Portfolio</button>
-    </mat-card-actions>
-    </mat-card>
-</div>
+<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem;">
+        <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:2rem;">
+            <mat-card-header>
+              <mat-card-title>{{stock.name}}</mat-card-title>
+              <mat-card-title>{{stock.symbol}}</mat-card-title>
+              <mat-card-subtitle>Trading at the {{stock.stock_exchange_long}}</mat-card-subtitle>
+              
+            </mat-card-header>
+            <mat-card-content>
+              <p>Previous Close: {{stock.close_yesterday}}</p>
+              <p>Open: {{stock.price_open}}</p>
+              <p>Price: {{stock.price}}</p>
+              <p>Volume: {{stock.volume}}</p>
+              <p>Change Percent: {{stock.change_pct}}%</p>
+              <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+            </mat-card-content>
+        </mat-card>
+    </div>

@@ -74,7 +74,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     FormsModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    
     
   ],
   providers: [],

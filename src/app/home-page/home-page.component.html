@@ -1,25 +1,40 @@
-<div style="padding-right: 2rem; padding-left: 2rem;">
-    <mat-card *ngFor="let stock of filteredStocks; let i=index">
+<mat-card style="margin: 2rem;">
+    <mat-card-header>
+        <mat-card-title>{{user.displayName}}</mat-card-title>
+        <mat-card-subtitle>Investor</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src={{user.photoURL}}>
+      <mat-card-content>
+        <h1>Total Investment: {{totalUserInvestment}}$</h1>
+        <h1>Total Share Value: {{totalShareValue}}$</h1>
+        <h1>Total Profit: {{profit}}$</h1>
+      </mat-card-content>
+</mat-card>
+
+
+
+
+
+<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem;">
+    <mat-card *ngFor="let stock of filteredStocks; let i=index" style="margin-bottom:2rem;">
         <mat-card-header>
+          <mat-card-title>{{stock.name}}</mat-card-title>
           <mat-card-title>{{stock.symbol}}</mat-card-title>
-          <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}</mat-card-subtitle>
+          <mat-card-subtitle>Trading at the {{stock.stock_exchange_long}}</mat-card-subtitle>
+          <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}$</mat-card-subtitle>
           <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <h3>Profit: {{(this.findByID(stock.id).amount*stock.price) - this.findByID(stock.id).investment}} </h3>
-          <p>High: {{stock.high}}</p>
-          <p>Low: {{stock.low}}</p>
-          <p>Open: {{stock.open}}</p>
+          <h3>Profit: {{(this.findByID(stock.id).amount*stock.price) - this.findByID(stock.id).investment}}$ </h3>
+          <p>Previous Close: {{stock.close_yesterday}}</p>
+          <p>Open: {{stock.price_open}}</p>
           <p>Price: {{stock.price}}</p>
           <p>Volume: {{stock.volume}}</p>
-          <p>Previous Close: {{stock.prevClose}}</p>
-          <p>Latest Day: {{stock.latestDay}}</p>
-          <p>Change: {{stock.change}}</p>
-          <p>Change Percent: {{stock.changePercent}}</p>
+          <p>Change Percent: {{stock.change_pct}}%</p>
           <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
         </mat-card-content>
     <mat-card-actions>
-        <button (click)="addToPortfolio(stock.symbol, 100)">Add 100 Stocks to Portfolio</button>
+        <button mat-button (click)="addToPortfolio(stock.symbol, 100)" mat-button>Add 100 Stocks to Portfolio</button>
     </mat-card-actions>
     </mat-card>
 </div>
