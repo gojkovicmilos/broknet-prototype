@@ -17,6 +17,7 @@ export class TestPageComponent implements OnInit {
   myControl = new FormControl();
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
+  stockAmount:number = 0;
  
 
 
@@ -56,7 +57,7 @@ export class TestPageComponent implements OnInit {
       })
       ), 2000;
 
-      setInterval(() => this.stocks.forEach(item => {this.fs.getNewApi(item.symbol); console.log(item.symbol)}), 60000);
+      setInterval(() => this.stocks.forEach(item => {this.fs.getNewApi(item.symbol); console.log(item.symbol)}), 600000);
     });
 
     
@@ -99,7 +100,36 @@ export class TestPageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:amount, investment: +stock.price*amount};
+    let obj = {id: stock.id, amount:+amount, investment: +stock.price*amount};
+    let arr = [];
+    arr.push(obj);
+    let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
+    if(portfolio!= undefined && portfolio!={})
+    portfolio.forEach(element => {
+      if(element.id == stock.id)
+      {
+        arr[0].amount+=+element.amount;
+        arr[0].investment+=+element.investment;
+
+      }
+      else arr.push(element);
+    });
+    //console.log(JSON.parse(localStorage.getItem('user')));
+
+    this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
+  }
+
+  sellStocks(symbol:string, amount: number)
+  {
+
+
+    let stock;
+    this.stocks.forEach(x =>{
+      if(x.symbol == symbol)
+      stock = x;
+    })
+
+    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.price*amount*-1};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
@@ -107,13 +137,12 @@ export class TestPageComponent implements OnInit {
     portfolio.forEach(element => {
       if(element.id == stock.id)
       {
-        arr[0].amount+=element.amount;
-        arr[0].investment+=element.investment;
+        arr[0].amount+=+element.amount;
+        arr[0].investment+=+element.investment;
 
       }
       else arr.push(element);
     });
-    //console.log(JSON.parse(localStorage.getItem('user')));
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
   }
@@ -149,6 +178,7 @@ export class TestPageComponent implements OnInit {
       zoomEnabled: true,
       animationEnabled: true,
       exportEnabled: true,
+      theme: "dark1",
       title: {
         text: "Daily Chart"
       },
@@ -185,6 +215,12 @@ export class TestPageComponent implements OnInit {
       
     chart.render();
 
+  }
+
+  isLoggedIn()
+  {
+    return(!(localStorage.getItem('user') == "null"))
+    
   }
 
   

@@ -22,8 +22,8 @@
 
 
 
-<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem;">
-        <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:2rem;">
+<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem">
+        <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:2rem; max-width: 1000px;">
             <mat-card-header>
               <mat-card-title>{{stock.name}}</mat-card-title>
               <mat-card-title>{{stock.symbol}}</mat-card-title>
@@ -38,5 +38,14 @@
               <p>Change Percent: {{stock.change_pct}}%</p>
               <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
             </mat-card-content>
+            <div *ngIf="isLoggedIn()">
+            <mat-card-actions >
+              <button mat-button (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
+              <mat-form-field>
+                <input matInput type="number" placeholder="Amount" value="value" name="amountInput" [(ngModel)]="stockAmount">
+              </mat-form-field>
+
+            </mat-card-actions>
+          </div>
         </mat-card>
     </div>

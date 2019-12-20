@@ -25,6 +25,7 @@ export class MainNavComponent implements OnInit {
     
   }
 
+
   toggle(): void {
     this.drawerClosed = !this.drawerClosed;
   }

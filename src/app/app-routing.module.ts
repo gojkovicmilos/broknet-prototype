@@ -11,8 +11,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
 const routes: Routes = [
-  {path: "", component: HomePageComponent},
-  {path: "test", component: TestPageComponent},
+  {path: "", component: TestPageComponent},
+  {path: "user", component: HomePageComponent},
   {path: "news", component: NewsComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},

@@ -1,37 +1,35 @@
-<div class="displayTable">
-    <div class="displayTableCell">
+<mat-card style="padding-top: 1rem; padding-bottom: 1rem; max-width: 500px">
+  <mat-card-header>
+    <mat-card-title>Welcome!</mat-card-title>
+    <mat-card-subtitle>Enter email and password to sign up, or sign up with Google</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
   
-      <div class="authBlock">
-        <h3>Sign Up</h3>
-  
-        <div class="formGroup">
-          <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
+      <div class="formGroup"style="padding-top: 1rem; padding-bottom: 1rem">
+          <input mat-input type="email" class="formControl" placeholder="Email Address" #userEmail required>
         </div>
   
         <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPwd required>
+          <input mat-input type="password" class="formControl" placeholder="Password" #userPwd required>
         </div>
   
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
+        <div class="formGroup"style="padding-top: 1rem; padding-bottom: 1rem">
+          <input mat-input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
         </div>
   
-        <div class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </div>
-  
-        <!-- Continue with Google -->
-        <div class="formGroup">
-          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-            <i class="fab fa-google-plus-g"></i>
+
+  </mat-card-content>
+  <mat-card-actions>
+      <div class="formGroup"style="padding-bottom: 1rem">
+          <button mat-raised-button color="primary" (click)="authService.GoogleAuth()">
             Continue with Google
           </button>
         </div>
+        <div class="formGroup"style="padding-top: 1rem; padding-bottom: 1rem">
+            <button mat-raised-button color ="accent" routerLink="/login">Have an Account? Log In</button>
+          </div>
+  </mat-card-actions>
+</mat-card>
+        
 
   
-      <div class="redirectToLogin">
-        <span>Already have an account? <span class="redirect" routerLink="login">Log In</span></span>
-      </div>
-    </div>
-  
-  </div>

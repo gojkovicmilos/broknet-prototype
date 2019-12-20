@@ -26,7 +26,8 @@ import {
   MatCardModule,
   MatTableModule,
   MatAutocompleteModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatGridListModule
 } from "@angular/material";
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -61,6 +62,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     MatIconModule,
     MatListModule,
     MatSnackBarModule,
+    MatGridListModule,
     HttpClientModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),

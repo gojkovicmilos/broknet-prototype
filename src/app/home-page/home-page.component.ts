@@ -17,6 +17,7 @@ export class HomePageComponent implements OnInit {
   totalUserInvestment:number = 0;
   totalShareValue:number = 0;
   profit:number = 0;
+  stockAmount:number = 0;
 
   constructor(private fbs: FirebaseService, private router:Router) { }
 
@@ -43,13 +44,20 @@ export class HomePageComponent implements OnInit {
       this.user = res.payload.data();
     });
 
-    let ids = this.user.portfolio.map(item => item.id);
-    
-    this.filteredStocks = this.stocks.filter(item => ids.includes(item.id));
+
     this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
     this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).price));
     this.profit = this.totalShareValue-this.totalUserInvestment;
-    //console.log(this.filteredStocks);
+    
+    this.user.portfolio.forEach(item => {if(item.amount == 0) this.user.portfolio.splice(this.user.portfolio.indexOf(item))});
+    
+    
+    let ids = this.user.portfolio.map(item => item.id);
+    
+    this.filteredStocks = this.stocks.filter(item => ids.includes(item.id));
+    
+    
+    
     
 
       setTimeout(()=>
@@ -101,6 +109,7 @@ export class HomePageComponent implements OnInit {
       zoomEnabled: true,
       animationEnabled: true,
       exportEnabled: true,
+      theme: "dark2",
       title: {
         text: "Daily Chart"
       },
@@ -139,6 +148,11 @@ export class HomePageComponent implements OnInit {
 
   }
 
+  isLoggedIn()
+  {
+    return(!(localStorage.getItem('user') == "null"))
+    
+  }
   addToPortfolio(symbol:string, amount: number)
   {
 
@@ -149,16 +163,16 @@ export class HomePageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:amount, investment: +stock.price*amount};
+    let obj = {id: stock.id, amount:+amount, investment: +stock.price*amount};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
-    if(portfolio != {})
+    if(portfolio!= undefined && portfolio!={})
     portfolio.forEach(element => {
       if(element.id == stock.id)
       {
-        arr[0].amount+=element.amount;
-        arr[0].investment+=element.investment;
+        arr[0].amount+=+element.amount;
+        arr[0].investment+=+element.investment;
 
       }
       else arr.push(element);
@@ -166,8 +180,44 @@ export class HomePageComponent implements OnInit {
     //console.log(JSON.parse(localStorage.getItem('user')));
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
+    this.totalUserInvestment += obj.investment;
+    this.totalShareValue +=obj.investment;
     this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
     this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).price));
+    this.profit = this.totalShareValue-this.totalUserInvestment;
+  }
+
+  sellStocks(symbol:string, amount: number)
+  {
+
+
+    let stock;
+    this.stocks.forEach(x =>{
+      if(x.symbol == symbol)
+      stock = x;
+    })
+
+    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.price*amount*-1};
+    let arr = [];
+    arr.push(obj);
+    let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
+    if(portfolio != {})
+    portfolio.forEach(element => {
+      if(element.id == stock.id)
+      {
+        arr[0].amount+=+element.amount;
+        arr[0].investment+=+element.investment;
+
+      }
+      else arr.push(element);
+    });
+
+    this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
+    this.totalUserInvestment = 0;
+    this.totalShareValue = 0;
+    this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
+    this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).price));
+    this.profit = this.totalShareValue-this.totalUserInvestment;
   }
 
 }
