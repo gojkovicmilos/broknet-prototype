@@ -27,7 +27,9 @@ import {
   MatTableModule,
   MatAutocompleteModule,
   MatSnackBarModule,
-  MatGridListModule
+  MatGridListModule,
+  MatExpansionModule,
+  MatMenuModule
 } from "@angular/material";
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -77,6 +79,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     MatAutocompleteModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
+    MatExpansionModule,
+    MatMenuModule
     
     
   ],

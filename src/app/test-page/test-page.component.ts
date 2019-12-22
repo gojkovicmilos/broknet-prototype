@@ -25,6 +25,9 @@ export class TestPageComponent implements OnInit {
 
   filteredListings:Listing[] = [];
 
+  parameter:string = 'change_pct';
+  ort:string = 'desc';
+
   stocks:any[] = [];
 
   onKey(event: any) { // without type info
@@ -57,14 +60,39 @@ export class TestPageComponent implements OnInit {
       })
       ), 2000;
 
-      setInterval(() => this.stocks.forEach(item => {this.fs.getNewApi(item.symbol); console.log(item.symbol)}), 600000);
+      this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
+
+      this.stocks.sort((a, b) => b.change_pct - a.change_pct);
     });
 
     
 
   }
 
+ 
 
+  sortStocks(parameter:string, ort:string)
+  {
+    if(parameter == "change_pct" && ort == "desc")
+    this.stocks.sort((a, b) => b.change_pct - a.change_pct);
+    else 
+    if(parameter == "change_pct" && ort == "asc")
+    this.stocks.sort((a, b) => a.change_pct - b.change_pct);
+    else 
+    if(parameter == "price" && ort == "asc")
+    this.stocks.sort((a, b) => a.price - b.price);
+    else 
+    if(parameter == "price" && ort == "desc")
+    this.stocks.sort((a, b) => b.price - a.price);
+    else 
+    if(parameter == "name" && ort == "desc")
+    this.stocks.sort((a, b) => b.name - a.name);
+    else 
+    if(parameter == "name" && ort == "asc")
+    this.stocks.sort((a, b) => a.name - b.name);
+    
+
+  }
 
   filterListings()
   {
