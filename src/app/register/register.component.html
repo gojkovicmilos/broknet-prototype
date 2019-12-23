@@ -1,35 +1,54 @@
-<mat-card style="padding-top: 1rem; padding-bottom: 1rem; max-width: 500px">
-  <mat-card-header>
-    <mat-card-title>Welcome!</mat-card-title>
-    <mat-card-subtitle>Enter email and password to sign up, or sign up with Google</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-  
-      <div class="formGroup"style="padding-top: 1rem; padding-bottom: 1rem">
-          <input mat-input type="email" class="formControl" placeholder="Email Address" #userEmail required>
-        </div>
-  
-        <div class="formGroup">
-          <input mat-input type="password" class="formControl" placeholder="Password" #userPwd required>
-        </div>
-  
-        <div class="formGroup"style="padding-top: 1rem; padding-bottom: 1rem">
-          <input mat-input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
-        </div>
-  
+<div class="field">
+  <mat-card style="padding-top: 1rem; padding-bottom: 1rem; max-width: 500px">
+    <mat-card-header>
+      <mat-card-title>Welcome!</mat-card-title>
+      <mat-card-subtitle>Enter email and password to sign up, or sign up with Google</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="authBlock" style="padding-top: 1rem; padding-bottom: 1rem">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" type="email" #userEmail required>
+          </mat-form-field>
 
-  </mat-card-content>
-  <mat-card-actions>
-      <div class="formGroup"style="padding-bottom: 1rem">
-          <button mat-raised-button color="primary" (click)="authService.GoogleAuth()">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" type="password" #userPwd required>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div class="box-1">
+        <div class="btn btn-one">
+          <span value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign up</span>
+        </div>
+      </div>
+
+
+
+    </mat-card-content>
+    <mat-card-actions>
+
+      <mat-grid-list cols="2" rowHeight="2:1" style="margin:10px;">
+        <mat-grid-tile><button mat-raised-button color="primary" (click)="authService.GoogleAuth()">
             Continue with Google
-          </button>
-        </div>
-        <div class="formGroup"style="padding-top: 1rem; padding-bottom: 1rem">
-            <button mat-raised-button color ="accent" routerLink="/login">Have an Account? Log In</button>
-          </div>
-  </mat-card-actions>
-</mat-card>
-        
+          </button></mat-grid-tile>
+        <mat-grid-tile> <button mat-raised-button color="accent" routerLink="/login">Have an Account? Log In</button>
+        </mat-grid-tile>
+     </mat-grid-list>
+    </mat-card-actions>
+  </mat-card>
+</div>
 
-  
+<!-- </mat-card-content>
+    <mat-card-actions>
+      <div class="formGroup" style="padding-bottom: 1rem">
+        <button mat-raised-button color="primary" (click)="authService.GoogleAuth()">
+          Continue with Google
+        </button>
+      </div>
+      <div class="formGroup" style="padding-top: 1rem; padding-bottom: 1rem">
+        <button mat-raised-button color="accent" routerLink="/login">Have an Account? Log In</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div> -->

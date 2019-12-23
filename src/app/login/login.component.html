@@ -1,12 +1,33 @@
-<mat-card style="max-width: 500px">
-  <mat-card-header>
-    <mat-card-title>Sign in</mat-card-title>
-    <mat-card-subtitle>You can sign in with your email and password, or use Google</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-  
+<div class="field">
+
+  <mat-card style="max-width: 500px; ">
+    <mat-card-header>
+      <mat-card-title>Sign in</mat-card-title>
+      <mat-card-subtitle>You can sign in with your email and password, or use Google</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+
       <div class="authBlock" style="padding-top: 1rem; padding-bottom: 1rem">
-          <div class="formGroup">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Username" type="text" #userName required>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" type="password" #userPassword required>
+          </mat-form-field>
+        </form>
+
+      </div>
+      <div class="box-1">
+        <div class="btn btn-one">
+          <span value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">Login</span>
+        </div>
+      </div>
+
+      <!-- <div class="authBlock" style="padding-top: 1rem; padding-bottom: 1rem">
+          <div class="form-group">
             <input type="text" class="formControl" placeholder="Username" #userName required>
           </div>
           
@@ -14,25 +35,46 @@
             <input type="password" class="formControl" placeholder="Password" #userPassword required>
           </div>
           <div class="formGroup">
-            <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+            <button mat-raised-button color ="accent" type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">Login</button>
           </div>
-          </div>
-          <div>
-              <button mat-raised-button color ="accent" routerLink="/forgot-password" >Forgot Your Password?</button>
-              <button mat-raised-button color ="accent" routerLink="/register" >Sign Up</button>
-          </div>
+          </div> -->
 
-  </mat-card-content>
-  <mat-card-actions>
-      <div class="formGroup">
-          <button mat-raised-button color ="primary" type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-            <i class="fab fa-google-plus-g"></i>
-            Log in with Google
-          </button>
-        </div>
-        
-  </mat-card-actions>
-</mat-card>
+      <mat-grid-list cols="3" rowHeight="2:1">
+        <mat-grid-tile>
+          <button mat-raised-button color="accent"  routerLink="/forgot-password">Forgot Your
+            Password? </button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-raised-button color="accent"  routerLink="/register">Sign Up</button>
 
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-raised-button color="primary"  type="button" class="btn googleBtn"
+          (click)="authService.GoogleAuth()">
+          <i class="fab fa-google-plus-g"></i>
+          Log in with Google
+        </button>
 
+        </mat-grid-tile>
 
+      </mat-grid-list>
+
+      <!-- <div class="pad">
+        <button mat-raised-button color="accent" style="margin-right: 10px;" routerLink="/forgot-password">Forgot Your
+          Password? </button>
+        <button mat-raised-button color="accent" style="margin-right: 10px;" routerLink="/register">Sign Up</button>
+      </div> -->
+
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- <div class="formGroup">
+        <button mat-raised-button color="primary" style="margin-right: 10px;" type="button" class="btn googleBtn"
+          (click)="authService.GoogleAuth()">
+          <i class="fab fa-google-plus-g"></i>
+          Log in with Google
+        </button>
+      </div> -->
+
+    </mat-card-actions>
+  </mat-card>
+</div>
