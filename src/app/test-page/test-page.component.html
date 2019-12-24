@@ -18,9 +18,19 @@
     <button mat-button (click)="getNewApi(typed)">Add to Watchlist</button>
 
 
+<mat-grid-list cols='2' rowHeight="6:1">
+  <mat-grid-tile>
+    <button mat-icon-button [matMenuTriggerFor]="basic">Sort By:{{parameter}}
+  </button>
 
-        <button mat-icon-button [matMenuTriggerFor]="basic">Sort By:
-        </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-icon-button [matMenuTriggerFor]="basic1">Orientation: {{ort}}
+    </button>
+
+  </mat-grid-tile>
+</mat-grid-list>
+        
 
 
     <mat-menu #basic="matMenu">
@@ -29,8 +39,7 @@
       <button mat-menu-item (click)="parameter = 'name';sortStocks(parameter, ort)">Name</button>
     </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="basic1">Orientation:
-      </button>
+    
 
 
   <mat-menu #basic1="matMenu">
@@ -73,10 +82,10 @@
             </mat-expansion-panel>
             </mat-card-content>
             <div *ngIf="isLoggedIn()">
-            <mat-card-actions >
-              <button mat-button (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
-              <mat-form-field>
-                <input matInput type="number" placeholder="Amount" value="value" name="amountInput" [(ngModel)]="stockAmount">
+            <mat-card-actions style="margin-right: 15px;">
+              <button mat-button class="buyBtn" (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
+              <mat-form-field style="margin-left: 15px;">
+                <input matInput type="number" style="margin-left: 15px;" placeholder="Amount" value="value" name="amountInput" [(ngModel)]="stockAmount">
               </mat-form-field>
 
             </mat-card-actions>
