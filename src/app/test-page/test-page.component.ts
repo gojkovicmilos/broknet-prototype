@@ -18,7 +18,7 @@ export class TestPageComponent implements OnInit {
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
   stockAmount:number = 0;
- 
+
 
 
   listings:Listing[] = this.convertToListings();
@@ -28,6 +28,7 @@ export class TestPageComponent implements OnInit {
   parameter:string = 'change_pct';
   ort:string = 'desc';
 
+  user = JSON.parse(localStorage.getItem('user'));
   stocks:any[] = [];
 
   onKey(event: any) { // without type info
@@ -52,6 +53,8 @@ export class TestPageComponent implements OnInit {
             ...item.payload.doc.data() as {} };
           
       });
+
+      
 
       setTimeout(()=>
         this.stocks.forEach(element => {
@@ -245,12 +248,15 @@ export class TestPageComponent implements OnInit {
 
   }
 
+
+
   isLoggedIn()
   {
     return(!(localStorage.getItem('user') == "null"))
     
   }
 
+  
   
  
 

@@ -1,3 +1,4 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
 .example-form {
     min-width: 150px;
     max-width: 500px;
@@ -24,7 +25,7 @@
   }
 
 
-  @import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
+
 
   html,
   body {

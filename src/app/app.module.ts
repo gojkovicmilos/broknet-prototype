@@ -80,7 +80,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     ReactiveFormsModule,
     AngularFireAuthModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
     
     
   ],

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../firebase.service';
 import * as CanvasJS from '../../assets/canvasjs.min.js'
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home-page',
@@ -19,7 +20,13 @@ export class HomePageComponent implements OnInit {
   profit:number = 0;
   stockAmount:number = 0;
 
-  constructor(private fbs: FirebaseService, private router:Router) { }
+
+  amountMin:number = 0;
+  amountMax:number = 0;
+  maxInvestment:number = 0;
+
+  intervalId =  null;
+  constructor(private fbs: FirebaseService, private router:Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -86,6 +93,39 @@ export class HomePageComponent implements OnInit {
     return this.stocks.filter(item => item.id == id)[0];
   }
 
+
+  autoTrade(stock, min: number, max: number, maxInvestment: number, amount: number)
+  {
+    this.intervalId = setInterval(() => {
+
+      if(stock.price<min && ((this.findInvestment(stock)) < maxInvestment))
+      {
+      this.addToPortfolio(stock.symbol, amount);
+      console.log("Bought " + amount + " shares of" + stock.symbol );
+      }
+      else if(stock.price>max && ((this.findInvestment(stock))> 0))
+      {
+      this.sellStocks(stock.symbol, amount);
+      console.log("Sold " + amount + " shares of" + stock.symbol );
+      }
+
+    }, 1000);
+  }
+
+  stopAutoTrade()
+  {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+  }
+
+  findInvestment(stock):number
+  {
+    let investment:number = 0;
+    this.user.portfolio.forEach(item => {if(item.id == stock.id) investment = item.investment});
+
+    return investment;
+  }
+  
   
 
   drawChart(i:number)
@@ -173,9 +213,18 @@ export class HomePageComponent implements OnInit {
       {
         arr[0].amount+=+element.amount;
         arr[0].investment+=+element.investment;
+        this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
+          duration: 2000,
+        });
 
       }
-      else arr.push(element);
+      else
+      { 
+        arr.push(element);
+        this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
+          duration: 2000,
+        });
+      }
     });
     //console.log(JSON.parse(localStorage.getItem('user')));
 
@@ -207,9 +256,18 @@ export class HomePageComponent implements OnInit {
       {
         arr[0].amount+=+element.amount;
         arr[0].investment+=+element.investment;
+        this._snackBar.open("You just sold " + amount + " shares of " + symbol, "Got It", {
+          duration: 2000,
+        });
 
       }
-      else arr.push(element);
+      else
+      { 
+        arr.push(element);
+        this._snackBar.open("You just sold " + amount + " shares of " + symbol, "Got It", {
+          duration: 2000,
+        });
+      } 
     });
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);

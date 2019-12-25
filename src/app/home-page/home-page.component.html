@@ -51,6 +51,19 @@
                 <input matInput type="number" min="1" placeholder="Amount" value="value" name="amountInput" [(ngModel)]="stockAmount">
               </mat-form-field>
               <button mat-button *ngIf="(this.stockAmount <= this.findByID(stock.id).amount)" (click)="sellStocks(stock.symbol, this.stockAmount)">Sell</button>
+              <mat-form-field>
+                <input matInput type="number" placeholder="Minimum Stock Price" value="value" name="amountMin" [(ngModel)]="amountMin">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" placeholder="Maximum Stock Price" value="value" name="amountMax" [(ngModel)]="amountMax">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" placeholder="Maximum Investment Amount" value="value" name="maxInvestment" [(ngModel)]="maxInvestment">
+              </mat-form-field>
+
+              <button mat-button *ngIf="this.intervalId == null" (click)="autoTrade(stock, this.amountMin, this.amountMax, this.maxInvestment, this.stockAmount)">AutoTrade</button>
+              <button mat-button *ngIf="this.intervalId!=null" (click)="stopAutoTrade()">Stop Autotrade</button>
+            
             </mat-card-actions>
           </div>
     </mat-card>
