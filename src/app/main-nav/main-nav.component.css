@@ -6,9 +6,9 @@
   width: 200px;
 }
 a:hover{
-  box-shadow: 0 0px 24px 0 #48a999;
-    -moz-box-shadow: 0 0px 24px 0 #48a999;
-    -webkit-box-shadow: 0 0px 24px 0 #48a999;   
+  box-shadow: 0 0px 12px 0 #48a999;
+    -moz-box-shadow: 0 0px 12px 0 #48a999;
+    -webkit-box-shadow: 0 0px 12px 0 #48a999;   
     
 
 }

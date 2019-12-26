@@ -98,12 +98,12 @@ export class HomePageComponent implements OnInit {
   {
     this.intervalId = setInterval(() => {
 
-      if(stock.price<min && ((this.findInvestment(stock)) < maxInvestment))
+      if(stock.price<min && ((this.findInvestment(stock)+ amount*stock.price) < maxInvestment))
       {
       this.addToPortfolio(stock.symbol, amount);
       console.log("Bought " + amount + " shares of" + stock.symbol );
       }
-      else if(stock.price>max && ((this.findInvestment(stock))> 0))
+      else if(stock.price>max && ((this.findInvestment(stock) - amount*stock.price)> 0))
       {
       this.sellStocks(stock.symbol, amount);
       console.log("Sold " + amount + " shares of" + stock.symbol );

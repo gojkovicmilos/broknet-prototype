@@ -52,10 +52,10 @@
               </mat-form-field>
               <button mat-button *ngIf="(this.stockAmount <= this.findByID(stock.id).amount)" (click)="sellStocks(stock.symbol, this.stockAmount)">Sell</button>
               <mat-form-field>
-                <input matInput type="number" placeholder="Minimum Stock Price" value="value" name="amountMin" [(ngModel)]="amountMin">
+                <input matInput type="number" placeholder="Buy If Price Below" value="value" name="amountMin" [(ngModel)]="amountMin">
               </mat-form-field>
               <mat-form-field>
-                <input matInput type="number" placeholder="Maximum Stock Price" value="value" name="amountMax" [(ngModel)]="amountMax">
+                <input matInput type="number" placeholder="Sell If Price Above" value="value" name="amountMax" [(ngModel)]="amountMax">
               </mat-form-field>
               <mat-form-field>
                 <input matInput type="number" placeholder="Maximum Investment Amount" value="value" name="maxInvestment" [(ngModel)]="maxInvestment">
