@@ -34,9 +34,9 @@
 
 
     <mat-menu #basic="matMenu">
-      <button mat-menu-item (click)="parameter = 'change_pct';sortStocks(parameter, ort)">Change Percentage</button>
-      <button mat-menu-item (click)="parameter = 'price';sortStocks(parameter, ort)">Price</button>
-      <button mat-menu-item (click)="parameter = 'name';sortStocks(parameter, ort)">Name</button>
+      <button mat-menu-item (click)="parameter = 'change_percentage';sortStocks(parameter, ort)">Change Percentage</button>
+      <button mat-menu-item (click)="parameter = 'last';sortStocks(parameter, ort)">Price</button>
+      <button mat-menu-item (click)="parameter = 'description';sortStocks(parameter, ort)">Name</button>
     </mat-menu>
 
     
@@ -56,11 +56,11 @@
         <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:2rem; max-width: 1000px;">
             <mat-card-header>
               
-              <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">arrow_drop_up</mat-icon>
-              <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">arrow_drop_down</mat-icon>
-              <p mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">+{{stock.change_pct}}%</p>
-              <p mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">{{stock.change_pct}}%</p>
-              <!-- <mat-card-title>{{stock.name}}</mat-card-title> -->
+              <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">arrow_drop_up</mat-icon>
+              <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">arrow_drop_down</mat-icon>
+              <p mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">+{{stock.change_percentage}}%</p>
+              <p mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">{{stock.change_percentage}}%</p>
+              <!-- <mat-card-title>{{stock.description}}</mat-card-title> -->
               <mat-card-title>{{stock.symbol}}</mat-card-title>
               
             </mat-card-header>
@@ -68,16 +68,15 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{stock.name}}
+                      {{stock.description}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-              <p>Trading at the {{stock.stock_exchange_long}}</p>
 
-              <p>Previous Close: ${{stock.close_yesterday}}</p>
-              <p>Open: ${{stock.price_open}}</p>
-              <p>Price: ${{stock.price}}</p>
+              <p>Previous Close: ${{stock.prevclose}}</p>
+              <p>Open: ${{stock.open}}</p>
+              <p>Price: ${{stock.last}}</p>
               <p>Volume: {{stock.volume}}</p>
-              <p>Change Percent: {{stock.change_pct}}%</p>
+              <p>Change Percent: {{stock.change_percentage}}%</p>
               <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
             </mat-expansion-panel>
             </mat-card-content>

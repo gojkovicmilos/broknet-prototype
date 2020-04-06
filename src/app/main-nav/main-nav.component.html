@@ -11,7 +11,7 @@
       <a mat-list-item *ngIf="!authService.isLoggedIn()" href="login">Log In</a>
       <a mat-list-item *ngIf="!authService.isLoggedIn()" href="register">Register</a>
       <a mat-list-item *ngIf="authService.isLoggedIn()" (click)="authService.SignOut()">Sign Out</a>
-      <a target='_blank' href="https://broknet-684ba.web.app/" mat-list-item>BrokNet Chat</a>
+      <a target='_blank' href="https://broknet-684ba.firebaseapp.com/" mat-list-item>BrokNet Chat</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -22,9 +22,8 @@
             <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">arrow_drop_down</mat-icon>
             <p mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">+{{stock.change_pct}}%</p>
             <p mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">{{stock.change_pct}}%</p>
-          <mat-card-title>{{stock.name}}</mat-card-title>
+          <mat-card-title>{{stock.description}}</mat-card-title>
           <mat-card-title>{{stock.symbol}}</mat-card-title>
-          <mat-card-subtitle>Trading at the {{stock.stock_exchange_long}}</mat-card-subtitle>
           <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}$</mat-card-subtitle>
           <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
         </mat-card-header>
@@ -35,12 +34,12 @@
                     Details
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-          <h3>Profit: {{(this.findByID(stock.id).amount*stock.price) - this.findByID(stock.id).investment}}$ </h3>
-          <p>Previous Close: {{stock.close_yesterday}}</p>
-          <p>Open: {{stock.price_open}}</p>
-          <p>Price: {{stock.price}}</p>
+          <h3>Profit: {{(this.findByID(stock.id).amount*stock.last) - this.findByID(stock.id).investment}}$ </h3>
+          <p>Previous Close: {{stock.prevclose}}</p>
+          <p>Open: {{stock.open}}</p>
+          <p>Price: {{stock.last}}</p>
           <p>Volume: {{stock.volume}}</p>
-          <p>Change Percent: {{stock.change_pct}}%</p>
+          <p>Change Percent: {{stock.change_percentage}}%</p>
           <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
         </mat-expansion-panel>
         </mat-card-content>
