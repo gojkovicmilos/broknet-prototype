@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "broknet-investment-manager"
+    "default": "broknet-684ba"
+  },
+  "targets": {
+    "broknet-684ba": {
+      "hosting": {
+        "main": [
+          "broknet-main"
+        ]
+      }
+    }
   }
 }

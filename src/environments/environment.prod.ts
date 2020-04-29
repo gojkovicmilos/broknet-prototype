@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "AIzaSyBgLLuyLuQrjsboYkpyN3PCw9GVxfuWv8A",
-    authDomain: "broknet-investment-manager.firebaseapp.com",
-    databaseURL: "https://broknet-investment-manager.firebaseio.com",
-    projectId: "broknet-investment-manager",
-    storageBucket: "broknet-investment-manager.appspot.com",
-    messagingSenderId: "10848707689",
-    appId: "1:10848707689:web:22db871dc3262339b9aef8",
-    measurementId: "G-7KHN6G4PVC"
+    apiKey: "AIzaSyDUwCTNwbK65aouZCO0sAzU50dE9X5b578",
+    authDomain: "broknet-684ba.firebaseapp.com",
+    databaseURL: "https://broknet-684ba.firebaseio.com",
+    projectId: "broknet-684ba",
+    storageBucket: "broknet-684ba.appspot.com",
+    messagingSenderId: "45171908800",
+    appId: "1:45171908800:web:eaccd95033d45d85cd8d25",
+    measurementId: "G-73RQDWR7KT"  
   }
 };
