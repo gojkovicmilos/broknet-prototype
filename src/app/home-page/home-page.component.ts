@@ -53,7 +53,7 @@ export class HomePageComponent implements OnInit {
 
 
     this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
-    this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).last));
+    this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).price));
     this.profit = this.totalShareValue-this.totalUserInvestment;
     
     this.user.portfolio.forEach(item => {if(item.amount == 0) this.user.portfolio.splice(this.user.portfolio.indexOf(item))});
@@ -98,12 +98,12 @@ export class HomePageComponent implements OnInit {
   {
     this.intervalId = setInterval(() => {
 
-      if(stock.last<min && ((this.findInvestment(stock)+ amount*stock.last) < maxInvestment))
+      if(stock.price<min && ((this.findInvestment(stock)+ amount*stock.price) < maxInvestment))
       {
       this.addToPortfolio(stock.symbol, amount);
       console.log("Bought " + amount + " shares of" + stock.symbol );
       }
-      else if(stock.last>max && ((this.findInvestment(stock) - amount*stock.last)> 0))
+      else if(stock.price>max && ((this.findInvestment(stock) - amount*stock.price)> 0))
       {
       this.sellStocks(stock.symbol, amount);
       console.log("Sold " + amount + " shares of" + stock.symbol );
@@ -203,7 +203,7 @@ export class HomePageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:+amount, investment: +stock.last*amount};
+    let obj = {id: stock.id, amount:+amount, investment: +stock.price*amount};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
@@ -246,7 +246,7 @@ export class HomePageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.last*amount*-1};
+    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.price*amount*-1};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;

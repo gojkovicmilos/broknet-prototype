@@ -25,7 +25,7 @@ export class TestPageComponent implements OnInit {
 
   filteredListings:Listing[] = [];
 
-  parameter:string = 'change_percentage';
+  parameter:string = 'change_pct';
   ort:string = 'desc';
 
   user = JSON.parse(localStorage.getItem('user'));
@@ -65,7 +65,7 @@ export class TestPageComponent implements OnInit {
 
       this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
 
-      this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
+      this.stocks.sort((a, b) => b.change_pct - a.change_pct);
     });
 
     
@@ -76,23 +76,23 @@ export class TestPageComponent implements OnInit {
 
   sortStocks(parameter:string, ort:string)
   {
-    if(parameter == "change_percentage" && ort == "desc")
-    this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
+    if(parameter == "change_pct" && ort == "desc")
+    this.stocks.sort((a, b) => b.change_pct - a.change_pct);
     else 
-    if(parameter == "change_percentage" && ort == "asc")
-    this.stocks.sort((a, b) => a.change_percentage - b.change_percentage);
+    if(parameter == "change_pct" && ort == "asc")
+    this.stocks.sort((a, b) => a.change_pct - b.change_pct);
     else 
-    if(parameter == "last" && ort == "asc")
-    this.stocks.sort((a, b) => a.last - b.last);
+    if(parameter == "price" && ort == "asc")
+    this.stocks.sort((a, b) => a.price - b.price);
     else 
-    if(parameter == "last" && ort == "desc")
-    this.stocks.sort((a, b) => b.last - a.last);
+    if(parameter == "price" && ort == "desc")
+    this.stocks.sort((a, b) => b.price - a.price);
     else 
-    if(parameter == "description" && ort == "desc")
-    this.stocks.sort((a, b) => b.description - a.description);
+    if(parameter == "name" && ort == "desc")
+    this.stocks.sort((a, b) => b.name - a.name);
     else 
-    if(parameter == "description" && ort == "asc")
-    this.stocks.sort((a, b) => a.description - b.description);
+    if(parameter == "name" && ort == "asc")
+    this.stocks.sort((a, b) => a.name - b.name);
     
 
   }
@@ -131,7 +131,7 @@ export class TestPageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:+amount, investment: +stock.last*amount};
+    let obj = {id: stock.id, amount:+amount, investment: +stock.price*amount};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
@@ -160,7 +160,7 @@ export class TestPageComponent implements OnInit {
       stock = x;
     })
 
-    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.last*amount*-1};
+    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.price*amount*-1};
     let arr = [];
     arr.push(obj);
     let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;

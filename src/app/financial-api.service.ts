@@ -1,12 +1,10 @@
 import { Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FirebaseService } from './firebase.service';
 import { Stock } from './stock';
 import { StockData } from './stock-data';
 import { element } from 'protractor';
 import { elementAt } from 'rxjs/operators';
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,13 +13,7 @@ export class FinancialApiService
 
   stocks:any = [];
 
-  headerDict = {
-    'Authorization': 'Bearer iFX1eNAyOxWMW9DKhNwguHF3wPnX'
-  }
   
-  requestOptions = {                                                                                                                                                                                 
-    headers: new HttpHeaders(this.headerDict), 
-  };
 
   daily:any = {};
   stockData:any = {};
@@ -37,14 +29,12 @@ export class FinancialApiService
 
   reqNewApi(symbol:string)
   {
-    //return("https://api.worldtradingdata.com/api/v1/stock?symbol=" + symbol + "&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU");
-    return("https://sandbox.tradier.com/v1/markets/quotes?symbols=" + symbol);
+    return("https://api.worldtradingdata.com/api/v1/stock?symbol=" + symbol + "&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU");
   }
 
   reqNewApiHist(symbol:string)
   {
-    // return("https://api.worldtradingdata.com/api/v1/history?symbol=" + symbol + "&date_from=2019-01-01&sort=newest&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU&date_from=2019-01-01");
-    return("https://sandbox.tradier.com/v1/markets/history?symbol=" + symbol)
+    return("https://api.worldtradingdata.com/api/v1/history?symbol=" + symbol + "&date_from=2019-01-01&sort=newest&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU&date_from=2019-01-01");
   }
 
   
@@ -73,35 +63,35 @@ export class FinancialApiService
 
   getNewApi(symbol:string)
   {
-    this.http.get(this.reqNewApi(symbol), this.requestOptions).subscribe(res => {
+    this.http.get(this.reqNewApi(symbol)).subscribe(res => {
 
       let stock:any;
 
-      stock = res["quotes"]["quote"];
+      stock = res["data"];
 
-      this.http.get(this.reqNewApiHist(symbol), this.requestOptions).subscribe( res =>{
+
+      stock = stock[0];
+
+      this.http.get(this.reqNewApiHist(symbol)).subscribe( res =>{
 
         
-        let historyo:any = res["history"]["day"];
-        // let history:any[] = [];
+        let historyo:any = res["history"];
+        let history:any[] = [];
 
-        // let keys = Object.keys(historyo);
+        let keys = Object.keys(historyo);
 
-        // keys.forEach(element =>{
+        keys.forEach(element =>{
 
-        //   let obj = historyo[element];
-        //   obj.date = element;
-        //   history.push(obj);
-        // })
-        stock.history = historyo;
+          let obj = historyo[element];
+          obj.date = element;
+          history.push(obj);
+        })
+        stock.history = history;
 
         let matching = this.stocks.filter(item => item.symbol == stock.symbol);
 
         if(matching.length == 0)
-        {
-        console.log(stock);
         this.fbs.createStock(stock);
-        }
         else
         {
           this.fbs.updateStock(matching[0].id, stock);
