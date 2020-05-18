@@ -56,17 +56,19 @@ export class TestPageComponent implements OnInit {
 
       
 
-      setTimeout(()=>
+      
+    });
+
+    setTimeout(()=>
         this.stocks.forEach(element => {
           this.drawChart(this.stocks.indexOf(element));
-          //console.log(this.stocks[0].history);  
+          console.table(this.stocks[0].history);  
       })
-      ), 2000;
+      , 2000);
 
       this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
 
       this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
-    });
 
     
 

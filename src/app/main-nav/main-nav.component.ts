@@ -25,8 +25,15 @@ export class MainNavComponent implements OnInit {
 
   ngOnInit() {
 
-    this.currentUserId = JSON.parse(localStorage.getItem('user'))['id'];
-    console.log(this.currentUserId);
+
+    try {
+      
+      this.currentUserId = JSON.parse(localStorage.getItem('user'))['id'];
+      console.log(this.currentUserId);
+    } catch (error) {
+      
+    }
+    
 
     
   }
