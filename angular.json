@@ -17,7 +17,6 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
@@ -125,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "broknet-prototype"
+  "defaultProject": "broknet-prototype",
+  "cli": {
+    "analytics": false
+  }
 }

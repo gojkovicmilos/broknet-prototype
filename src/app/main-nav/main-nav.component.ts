@@ -13,6 +13,8 @@ export class MainNavComponent implements OnInit {
   @ViewChild('drawer', {static: false}) drawer: any;
   drawerClosed: boolean = true;
 
+  currentUserId:string = "";
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -22,6 +24,10 @@ export class MainNavComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {}
 
   ngOnInit() {
+
+    this.currentUserId = JSON.parse(localStorage.getItem('user'))['id'];
+    console.log(this.currentUserId);
+
     
   }
 
