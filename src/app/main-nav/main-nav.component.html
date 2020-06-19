@@ -8,6 +8,7 @@
       <a mat-list-item href="">Home</a>
       <a mat-list-item href="news">News</a>
       <a mat-list-item *ngIf="authService.isLoggedIn()" href="user">Your Portfolio</a>
+      <a mat-list-item *ngIf="authService.isLoggedIn()" href="users">List of Users</a>
       <a mat-list-item *ngIf="!authService.isLoggedIn()" href="login">Log In</a>
       <a mat-list-item *ngIf="!authService.isLoggedIn()" href="register">Register</a>
       <a mat-list-item *ngIf="authService.isLoggedIn()" (click)="authService.SignOut()">Sign Out</a>

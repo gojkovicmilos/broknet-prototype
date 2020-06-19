@@ -1,0 +1,20 @@
+#example {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #example td, #example th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #example tr:hover {background-color: #019281;}
+  
+  #example th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #019281;
+    color: white;
+  }

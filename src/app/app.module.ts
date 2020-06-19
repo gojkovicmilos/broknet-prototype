@@ -38,6 +38,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailAddressComponent } from './verify-email-address/verify-email-address.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     RegisterComponent,
     ForgotPasswordComponent,
     VerifyEmailAddressComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,

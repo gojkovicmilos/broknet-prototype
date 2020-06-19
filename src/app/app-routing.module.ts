@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { VerifyEmailAddressComponent } from './verify-email-address/verify-email-address.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "verify-email-address", component: VerifyEmailAddressComponent},
   {path: "forgot-password", component: ForgotPasswordComponent},
-  {path: 'profile', component: MyProfileComponent}
+  {path: 'profile', component: MyProfileComponent},
+  {path: 'users', component: UsersListComponent}
 ];
 
 @NgModule({

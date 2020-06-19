@@ -1,0 +1,33 @@
+<body>
+  <div class="container">
+      <table id="example" class="table table-responsive w-100 d-block d-md-table" style="width:100%">
+          <thead> 
+              <tr style="text-align: center;">
+                  <th>Display Name</th>
+                  <th>Email</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <tr *ngFor="let user of users">
+                  <td style="text-align: center;">{{ user?.displayName }}</td>
+                  <td style="text-align: center;"> {{ user?.email }}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
