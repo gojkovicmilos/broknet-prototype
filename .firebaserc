@@ -5,7 +5,7 @@
   "targets": {
     "broknet-684ba": {
       "hosting": {
-        "main": [
+        "broknet-main": [
           "broknet-main"
         ]
       }

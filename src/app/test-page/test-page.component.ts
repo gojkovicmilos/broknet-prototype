@@ -5,6 +5,7 @@ import * as CanvasJS from '../../assets/canvasjs.min.js'
 import { Listing } from '../listing';
 import {FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { FinancialApiService } from '../financial-api.service';
 
 //import { setInterval } from 'timers';
 
@@ -41,7 +42,7 @@ export class TestPageComponent implements OnInit {
 
   typed:string = "";
 
-  constructor(private ns:NewsApiService, private fbs:FirebaseService, private _snackBar: MatSnackBar) { }
+  constructor(private ns:NewsApiService, private fs: FinancialApiService, private fbs:FirebaseService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     
@@ -58,11 +59,9 @@ export class TestPageComponent implements OnInit {
     setTimeout(()=>
         this.stocks.forEach(element => {
           this.drawChart(this.stocks.indexOf(element));
-          // console.table(this.stocks[0].history);  
       })
       , 2000);
 
-      // this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
 
       this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
 
@@ -93,6 +92,10 @@ export class TestPageComponent implements OnInit {
     this.stocks.sort((a, b) => a.description - b.description);
     
 
+  }
+
+  getNewApi(symbol:string){
+    this.fs.getNewApi(symbol);
   }
 
   filterListings()
