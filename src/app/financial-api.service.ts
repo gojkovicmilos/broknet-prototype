@@ -83,16 +83,6 @@ export class FinancialApiService
 
         
         let historyo:any = res["history"]["day"];
-        // let history:any[] = [];
-
-        // let keys = Object.keys(historyo);
-
-        // keys.forEach(element =>{
-
-        //   let obj = historyo[element];
-        //   obj.date = element;
-        //   history.push(obj);
-        // })
         stock.history = historyo;
 
         let matching = this.stocks.filter(item => item.symbol == stock.symbol);

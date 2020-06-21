@@ -39,17 +39,14 @@
           </div>
           </div> -->
 
-      <mat-grid-list cols="3" rowHeight="2:1">
-        <mat-grid-tile>
-          <button mat-raised-button color="accent"  routerLink="/forgot-password">Forgot Your
-            Password?</button>
-        </mat-grid-tile>
+          
+      <mat-grid-list cols="2" rowHeight="2:1">
+        
         <mat-grid-tile>
           <button mat-raised-button color="accent"  routerLink="/register">Sign Up</button>
-
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-raised-button color="primary"  type="button" class="btn googleBtn"
+          <button mat-raised-button color="primary"
           (click)="authService.GoogleAuth()">
           <i class="fab fa-google-plus-g"></i>
           Log In with Google
@@ -57,6 +54,13 @@
 
         </mat-grid-tile>
 
+      </mat-grid-list>
+
+      <mat-grid-list cols="1" rowHeight = "9:1">
+        <mat-grid-tile>
+          <button mat-raised-button color="accent"  routerLink="/forgot-password">Forgot Your
+            Password?</button>
+        </mat-grid-tile>
       </mat-grid-list>
 
       <!-- <div class="pad">

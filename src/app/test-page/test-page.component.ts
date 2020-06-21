@@ -25,7 +25,7 @@ export class TestPageComponent implements OnInit {
 
   filteredListings:Listing[] = [];
 
-  parameter:string = 'change_percentage';
+  parameter:string = 'Change Percentage';
   ort:string = 'desc';
 
   user = JSON.parse(localStorage.getItem('user'));
@@ -53,20 +53,16 @@ export class TestPageComponent implements OnInit {
             ...item.payload.doc.data() as {} };
           
       });
-
-      
-
-      
     });
 
     setTimeout(()=>
         this.stocks.forEach(element => {
           this.drawChart(this.stocks.indexOf(element));
-          console.table(this.stocks[0].history);  
+          // console.table(this.stocks[0].history);  
       })
       , 2000);
 
-      this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
+      // this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
 
       this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
 
@@ -78,22 +74,22 @@ export class TestPageComponent implements OnInit {
 
   sortStocks(parameter:string, ort:string)
   {
-    if(parameter == "change_percentage" && ort == "desc")
+    if(parameter == "Change Percentage" && ort == "Descending")
     this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
     else 
-    if(parameter == "change_percentage" && ort == "asc")
+    if(parameter == "Change Percentage" && ort == "Ascending")
     this.stocks.sort((a, b) => a.change_percentage - b.change_percentage);
     else 
-    if(parameter == "last" && ort == "asc")
+    if(parameter == "Price" && ort == "Ascending")
     this.stocks.sort((a, b) => a.last - b.last);
     else 
-    if(parameter == "last" && ort == "desc")
+    if(parameter == "Price" && ort == "Descending")
     this.stocks.sort((a, b) => b.last - a.last);
     else 
-    if(parameter == "description" && ort == "desc")
+    if(parameter == "Name" && ort == "Descending")
     this.stocks.sort((a, b) => b.description - a.description);
     else 
-    if(parameter == "description" && ort == "asc")
+    if(parameter == "Name" && ort == "Ascending")
     this.stocks.sort((a, b) => a.description - b.description);
     
 

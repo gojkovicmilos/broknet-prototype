@@ -34,17 +34,17 @@
 
 
     <mat-menu #basic="matMenu">
-      <button mat-menu-item (click)="parameter = 'change_percentage';sortStocks(parameter, ort)">Change Percentage</button>
-      <button mat-menu-item (click)="parameter = 'last';sortStocks(parameter, ort)">Price</button>
-      <button mat-menu-item (click)="parameter = 'description';sortStocks(parameter, ort)">Name</button>
+      <button mat-menu-item (click)="parameter = 'Change Percentage';sortStocks(parameter, ort)">Change Percentage</button>
+      <button mat-menu-item (click)="parameter = 'Price';sortStocks(parameter, ort)">Price</button>
+      <button mat-menu-item (click)="parameter = 'Name';sortStocks(parameter, ort)">Name</button>
     </mat-menu>
 
     
 
 
   <mat-menu #basic1="matMenu">
-    <button mat-menu-item (click)="ort = 'asc';sortStocks(parameter, ort)">Ascending</button>
-    <button mat-menu-item (click)="ort = 'desc';sortStocks(parameter, ort)">Descending</button>
+    <button mat-menu-item (click)="ort = 'Ascending';sortStocks(parameter, ort)">Ascending</button>
+    <button mat-menu-item (click)="ort = 'Descending';sortStocks(parameter, ort)">Descending</button>
   </mat-menu>
 
 </div>
