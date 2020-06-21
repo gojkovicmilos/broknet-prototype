@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FinancialApiService } from '../financial-api.service';
 import { NewsApiService } from '../news-api.service';
-import { Stock } from '../stock';
 import { FirebaseService } from '../firebase.service';
 import * as CanvasJS from '../../assets/canvasjs.min.js'
 import { Listing } from '../listing';
 import {FormControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 //import { setInterval } from 'timers';
 
 @Component({
@@ -41,7 +41,7 @@ export class TestPageComponent implements OnInit {
 
   typed:string = "";
 
-  constructor(private fs: FinancialApiService, private ns:NewsApiService, private fbs:FirebaseService) { }
+  constructor(private ns:NewsApiService, private fbs:FirebaseService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     
@@ -108,11 +108,6 @@ export class TestPageComponent implements OnInit {
     
   }
 
-  getNewApi(symbol:string)
-  {
-    return this.fs.getNewApi(symbol);
-  }
-
   getTopHeadlines()
   {
     return this.ns.getTopHeadlines();
@@ -139,11 +134,16 @@ export class TestPageComponent implements OnInit {
       {
         arr[0].amount+=+element.amount;
         arr[0].investment+=+element.investment;
+        this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
+          duration: 2000,
+        });
 
       }
       else arr.push(element);
+      this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
+        duration: 2000,
+      });
     });
-    //console.log(JSON.parse(localStorage.getItem('user')));
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
   }

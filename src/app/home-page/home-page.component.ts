@@ -45,44 +45,45 @@ export class HomePageComponent implements OnInit {
           
           
       });
-
-    this.fbs.getUser(this.user.id).subscribe(res => {
-
-      this.user = res.payload.data();
-    });
-
-
-    this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
-    this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).last));
-    this.profit = this.totalShareValue-this.totalUserInvestment;
-    
-    this.user.portfolio.forEach(item => {if(item.amount == 0) this.user.portfolio.splice(this.user.portfolio.indexOf(item))});
-    
-    
-    let ids = this.user.portfolio.map(item => item.id);
-    
-    this.filteredStocks = this.stocks.filter(item => ids.includes(item.id));
-    
-    
-    
-    
-
-      setTimeout(()=>
-        this.filteredStocks.forEach(element => {
-
-          this.drawChart(this.filteredStocks.indexOf(element));
-          
+      
+      this.fbs.getUser(this.user.id).subscribe(res => {
         
-
+        this.user = res.payload.data();
+      });
+      
+      
+      this.user.portfolio.forEach(item => this.totalUserInvestment+=item.investment);
+      this.user.portfolio.forEach(item => this.totalShareValue+=item.amount*((this.findStockByID(item.id)).last));
+      this.profit = this.totalShareValue-this.totalUserInvestment;
+      
+      
+      this.user.portfolio.forEach(item => {if(item.amount == 0) this.user.portfolio.splice(this.user.portfolio.indexOf(item))});
+      
+      
+      let ids = this.user.portfolio.map(item => item.id);
+      
+      this.filteredStocks = this.stocks.filter(item => ids.includes(item.id));
+      
+      
+      
+      
+      
+      setTimeout(()=>
+      this.filteredStocks.forEach(element => {
+        
+        this.drawChart(this.filteredStocks.indexOf(element));
+        
+        
+        
       })
       ), 2000;
       
-
-
+      
+      
     });
-
+    
   }
-
+  
   findByID(id)
   {
     return this.user.portfolio.filter(item => item.id == id)[0];
@@ -92,8 +93,7 @@ export class HomePageComponent implements OnInit {
   {
     return this.stocks.filter(item => item.id == id)[0];
   }
-
-
+  
   autoTrade(stock, min: number, max: number, maxInvestment: number, amount: number)
   {
     this.intervalId = setInterval(() => {
