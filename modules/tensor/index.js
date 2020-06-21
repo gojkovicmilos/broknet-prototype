@@ -190,7 +190,7 @@ const getIndicators = nns => {
 };
 
 const run = async () =>
-    cron.schedule('*/5 * * * *', async () => {
+    cron.schedule('30 17 * * *', async () => {
     let stocks = await getStocks();
 
     let nns = prepData(stocks);

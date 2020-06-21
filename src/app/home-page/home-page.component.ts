@@ -216,7 +216,7 @@ export class HomePageComponent implements OnInit {
         this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
           duration: 2000,
         });
-
+        this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just bought ${amount} shares of ${symbol}!`);
       }
       else
       { 
@@ -224,6 +224,8 @@ export class HomePageComponent implements OnInit {
         this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
           duration: 2000,
         });
+        this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just bought ${amount} shares of ${symbol}!`);
+
       }
     });
     //console.log(JSON.parse(localStorage.getItem('user')));
@@ -259,6 +261,7 @@ export class HomePageComponent implements OnInit {
         this._snackBar.open("You just sold " + amount + " shares of " + symbol, "Got It", {
           duration: 2000,
         });
+        this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just sold ${amount} shares of ${symbol}!`);
 
       }
       else
@@ -267,6 +270,7 @@ export class HomePageComponent implements OnInit {
         this._snackBar.open("You just sold " + amount + " shares of " + symbol, "Got It", {
           duration: 2000,
         });
+        this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just sold ${amount} shares of ${symbol}!`);
       } 
     });
 

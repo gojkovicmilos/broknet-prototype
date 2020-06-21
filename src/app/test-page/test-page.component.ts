@@ -140,12 +140,16 @@ export class TestPageComponent implements OnInit {
         this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
           duration: 2000,
         });
+        this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just bought ${amount} shares of ${symbol}!`);
+
 
       }
-      else arr.push(element);
+      else {arr.push(element);
       this._snackBar.open("You just bought " + amount + " shares of " + symbol, "Got It", {
         duration: 2000,
       });
+      this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just bought ${amount} shares of ${symbol}!`);
+    };
     });
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
@@ -171,9 +175,20 @@ export class TestPageComponent implements OnInit {
       {
         arr[0].amount+=+element.amount;
         arr[0].investment+=+element.investment;
+        this._snackBar.open("You just sold " + amount + " shares of " + symbol, "Got It", {
+          duration: 2000,
+        });
+        this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just sold ${amount} shares of ${symbol}!`);
 
       }
-      else arr.push(element);
+      else{
+      arr.push(element);
+      this._snackBar.open("You just sold " + amount + " shares of " + symbol, "Got It", {
+        duration: 2000,
+      });
+      this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just sold ${amount} shares of ${symbol}!`);
+    };
+        
     });
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);

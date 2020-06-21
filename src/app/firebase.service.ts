@@ -47,4 +47,16 @@ export class FirebaseService {
   {
     return this.db.doc('users/' + userId).update({portfolio: newPortfolio});
   }
+
+  addStockNotification(notification: string){
+
+
+    let messages = [];
+    this.db.collection('chats').doc('globalChat').get().subscribe(doc => {
+      messages = doc.data().messages;
+      messages.push({message: notification, timestamp: Date.now()});
+      return this.db.doc('chats/globalChat').update({messages: messages});
+    });
+  }
+
 }

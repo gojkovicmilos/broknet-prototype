@@ -66,7 +66,7 @@ const getStockHistory = async symbol => {
 
 
 const stocks = () => {
-    cron.schedule('*/5 * * * *', async () => {
+    cron.schedule('*/20 * * * *', async () => {
         const stocks = await getStocks();
         for (const stock of stocks) {
             const sd = await getStockApi(stock.symbol);
@@ -80,7 +80,7 @@ const stocks = () => {
     });
 };
 const history = () => {
-    cron.schedule('0 17 * * *', async () => {
+    cron.schedule('25 17 * * *', async () => {
         const stocks = await getStocks();
         for (const stock of stocks) {
             const sd = await getStockHistory(stock.symbol);
