@@ -62,10 +62,12 @@
               <p mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">{{stock.change_percentage}}%</p>
               <!-- <mat-card-title>{{stock.description}}</mat-card-title> -->
               <mat-card-title>{{stock.symbol}}</mat-card-title>
-              <mat-card-subtitle style="color: green;" *ngIf="stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-              <mat-card-subtitle style="color: red;" *ngIf="stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-              <mat-card-subtitle>Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
-              
+              <div *ngIf="stock.prediction">
+                <mat-card-subtitle style="color: green;" *ngIf="stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
+                <mat-card-subtitle style="color: red;" *ngIf="stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
+                <mat-card-subtitle>Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
+              </div>
+
               
             </mat-card-header>
             <mat-card-content>
