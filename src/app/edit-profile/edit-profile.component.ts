@@ -10,18 +10,6 @@ import { FirebaseService } from '../firebase.service';
 })
 export class EditProfileComponent implements OnInit {
 
-
-
-
-
-
-  // import { Component, OnInit } from '@angular/core';
-  // import { ActivatedRoute, Router } from '@angular/router';
-  // import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
-  // import { ProfileService } from '../student.service';
-
-
-
   user: any = {};
   angForm: FormGroup;
 
