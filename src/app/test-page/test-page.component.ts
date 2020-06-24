@@ -29,6 +29,7 @@ export class TestPageComponent implements OnInit {
   parameter:string = 'Change Percentage';
   ort:string = 'desc';
 
+  users = [];
   user = JSON.parse(localStorage.getItem('user'));
   stocks:any[] = [];
 
@@ -54,18 +55,29 @@ export class TestPageComponent implements OnInit {
             ...item.payload.doc.data() as {} };
           
       });
+      this.fbs.getUsers().subscribe(actionArray => {
+        this.users = actionArray.map(item => {
+          return{
+            id: item.payload.doc.id,
+            ...item.payload.doc.data() as {}
+          };
+        });
+        localStorage.setItem('users', JSON.stringify(this.users));
+      });
     });
+
+    
+
+    
+
+    
 
     setTimeout(()=>
         this.stocks.forEach(element => {
           this.drawChart(this.stocks.indexOf(element));
       })
       , 2000);
-
-
       this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
-
-    
 
   }
 

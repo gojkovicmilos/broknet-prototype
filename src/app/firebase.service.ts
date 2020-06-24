@@ -54,8 +54,15 @@ export class FirebaseService {
     let messages = [];
     this.db.collection('chats').doc('globalChat').get().subscribe(doc => {
       messages = doc.data().messages;
-      messages.push({message: notification, timestamp: Date.now()});
-      return this.db.doc('chats/globalChat').update({messages: messages});
+      messages.push(
+        {
+          message: notification, 
+          timestamp: Date.now(),
+        });
+        return this.db.doc('chats/globalChat').update({
+          messages: messages,
+          users: JSON.parse(localStorage.getItem('users')).map(item => item.email)
+       });
     });
   }
 

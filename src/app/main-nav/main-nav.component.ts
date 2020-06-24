@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
@@ -13,7 +15,7 @@ export class MainNavComponent implements OnInit {
   @ViewChild('drawer', {static: false}) drawer: any;
   drawerClosed: boolean = true;
 
-  currentUserId:string = "";
+  cred:string = "";
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -21,15 +23,16 @@ export class MainNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {}
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService, public fb: AngularFireModule) {}
 
   ngOnInit() {
 
 
     try {
       
-      this.currentUserId = JSON.parse(localStorage.getItem('user'))['id'];
-      console.log(this.currentUserId);
+      this.cred = localStorage.getItem('cred');
+      console.log(this.cred);
+      
     } catch (error) {
       
     }

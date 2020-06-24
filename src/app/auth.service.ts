@@ -55,6 +55,8 @@ export class AuthService {
     SignIn(email, password) {
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then((result) => {
+          console.log(result.credential);
+          localStorage.setItem('cred', JSON.stringify(result.credential.toJSON()));
           this.ngZone.run(() => {
             this.router.navigate(['/']);
           });
@@ -110,6 +112,7 @@ export class AuthService {
     AuthLogin(provider) {
       return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
+        localStorage.setItem('cred', JSON.stringify(result.credential));
          this.ngZone.run(() => {
             this.router.navigate(['/']);
           })
