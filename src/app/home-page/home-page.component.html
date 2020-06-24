@@ -1,76 +1,110 @@
-<mat-card style="margin: 2rem; max-width: 500px;">
-    <mat-card-header>
+<mat-grid-list cols="2" rowHeight="1:1">
+  <mat-grid-tile>
+
+
+
+    <mat-card class="card-list" style="margin: 2rem; max-width: 400px; background-color:rgba(71, 70, 70, 0.548); max-height: 500; box-shadow: currentColor;">
+      <mat-card-header>
         <mat-card-title>{{user.displayName}}</mat-card-title>
+        {{user.email}}
         <mat-card-subtitle>Investor</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image  src={{user.photoURL}}>
+      <img mat-card-image src={{user.photoURL}}>
       <mat-card-content>
-        <h1>Total Investment: {{totalUserInvestment}}$</h1>
-        <h1>Total Share Value: {{totalShareValue}}$</h1>
-        <h1>Total Profit: {{profit}}$</h1>
-      </mat-card-content>
-</mat-card>
-
-
-
-
-
-<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem;">
-    <mat-card *ngFor="let stock of filteredStocks let i=index" style="margin-bottom:2rem; max-width: 1000px;">
-        <mat-card-header>
-            <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">arrow_drop_up</mat-icon>
-            <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">arrow_drop_down</mat-icon>
-            <p mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">+{{stock.change_pct}}%</p>
-            <p mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">{{stock.change_pct}}%</p>
-          <mat-card-title>{{stock.description}}</mat-card-title>
-          <mat-card-title>{{stock.symbol}}</mat-card-title>
-          <div *ngIf="stock.prediction">
-            <mat-card-subtitle style="color: green;" *ngIf="stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-            <mat-card-subtitle style="color: red;" *ngIf="stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-            <mat-card-subtitle>Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
-          </div>
-          
-          <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}$</mat-card-subtitle>
-          <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Details
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-          <h3>Profit: {{(this.findByID(stock.id).amount*stock.last) - this.findByID(stock.id).investment}}$ </h3>
-          <p>Previous Close: {{stock.prevclose}}</p>
-          <p>Open: {{stock.open}}</p>
-          <p>Price: {{stock.last}}</p>
-          <p>Volume: {{stock.volume}}</p>
-          <p>Change Percent: {{stock.change_percentage}}%</p>
-          <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            Investment Details
+          </mat-expansion-panel-header>
+          <h6>Total Investment: {{totalUserInvestment}}$</h6>
+          <h6>Total Share Value: {{totalShareValue}}$</h6>
+          <h6>Total Profit: {{profit}}$</h6>
         </mat-expansion-panel>
-        </mat-card-content>
-        <div *ngIf="isLoggedIn()">
-            <mat-card-actions >
-              <button mat-button class="buyBtn"  (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
-              <mat-form-field>
-                <input matInput type="number" min="1" placeholder="Amount" value="value" name="amountInput" [(ngModel)]="stockAmount">
-              </mat-form-field>
-              <button mat-button *ngIf="(this.stockAmount <= this.findByID(stock.id).amount)" (click)="sellStocks(stock.symbol, this.stockAmount)">Sell</button>
-              <mat-form-field>
-                <input matInput type="number" placeholder="Buy If Price Below" value="value" name="amountMin" [(ngModel)]="amountMin">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput type="number" placeholder="Sell If Price Above" value="value" name="amountMax" [(ngModel)]="amountMax">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput type="number" placeholder="Maximum Investment Amount" value="value" name="maxInvestment" [(ngModel)]="maxInvestment">
-              </mat-form-field>
+      </mat-card-content>
 
-              <button mat-button *ngIf="this.intervalId == null" (click)="autoTrade(stock, this.amountMin, this.amountMax, this.maxInvestment, this.stockAmount)">AutoTrade</button>
-              <button mat-button *ngIf="this.intervalId!=null" (click)="stopAutoTrade()">Stop Autotrade</button>
-            
-              <!-- <button mat-button class="sellBtn" *ngIf="(this.stockAmount <= this.findByID(stock.id).amount)" (click)="sellStocks(stock.symbol, this.stockAmount)">Sell</button> -->
-            </mat-card-actions>
-          </div>
     </mat-card>
+
+
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <!-- <div class="logo">
+
+    <img mat-card-image src="./assets/l4.png">
+
+
+
+</div> -->
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+
+<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem; margin-top: 3rem;">
+  <!-- <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle(); toggle()"
+        >
+        <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="!drawerClosed">toggle_off</mat-icon>
+        <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="drawerClosed">toggle_on</mat-icon>
+      Skloni</button> -->
+  <mat-card *ngFor="let stock of filteredStocks let i=index" style="margin-bottom:2rem; max-width: 1000px;">
+    <mat-card-header>
+      <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">arrow_drop_up</mat-icon>
+      <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">arrow_drop_down</mat-icon>
+      <p mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">+{{stock.change_pct}}%</p>
+      <p mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">{{stock.change_pct}}%</p>
+      <mat-card-title>{{stock.description}}</mat-card-title>
+      <mat-card-title>{{stock.symbol}}</mat-card-title>
+      <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}$</mat-card-subtitle>
+      <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3>Profit: {{(this.findByID(stock.id).amount*stock.last) - this.findByID(stock.id).investment}}$ </h3>
+        <p>Previous Close: {{stock.prevclose}}</p>
+        <p>Open: {{stock.open}}</p>
+        <p>Price: {{stock.last}}</p>
+        <p>Volume: {{stock.volume}}</p>
+        <p>Change Percent: {{stock.change_percentage}}%</p>
+        <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;">
+        </div>
+      </mat-expansion-panel>
+    </mat-card-content >
+    <div *ngIf="isLoggedIn()">
+      <mat-card-actions>
+        <button mat-button class="buyBtn" (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
+        <mat-form-field>
+          <input matInput type="number" min="1" placeholder="Amount" value="value" name="amountInput"
+            [(ngModel)]="stockAmount">
+        </mat-form-field>
+        <button mat-button *ngIf="(this.stockAmount <= this.findByID(stock.id).amount)"
+          (click)="sellStocks(stock.symbol, this.stockAmount)">Sell</button>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Buy If Price Below" value="value" name="amountMin"
+            [(ngModel)]="amountMin">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Sell If Price Above" value="value" name="amountMax"
+            [(ngModel)]="amountMax">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Maximum Investment Amount" value="value" name="maxInvestment"
+            [(ngModel)]="maxInvestment">
+        </mat-form-field>
+
+        <button mat-button *ngIf="this.intervalId == null"
+          (click)="autoTrade(stock, this.amountMin, this.amountMax, this.maxInvestment, this.stockAmount)">AutoTrade</button>
+        <button mat-button *ngIf="this.intervalId!=null" (click)="stopAutoTrade()">Stop Autotrade</button>
+
+        <button mat-button class="sellBtn" *ngIf="(this.stockAmount <= this.findByID(stock.id).amount)"
+          (click)="sellStocks(stock.symbol, this.stockAmount)">Sell</button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
 </div>

@@ -39,6 +39,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyEmailAddressComponent } from './verify-email-address/verify-email-address.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { UsersListComponent } from './users-list/users-list.component';
     ForgotPasswordComponent,
     VerifyEmailAddressComponent,
     MyProfileComponent,
-    UsersListComponent
+    UsersListComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

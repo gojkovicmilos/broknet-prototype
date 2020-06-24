@@ -38,6 +38,9 @@ export class FirebaseService {
   {
     return this.db.doc('users/'+ id).snapshotChanges();
   }
+  updateUser(userID, updateData){
+    return this.db.doc(`users/${userID}`).update(updateData);
+  }
 
   getUsers(){
     return this.db.collection('users').snapshotChanges();

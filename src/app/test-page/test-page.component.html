@@ -1,50 +1,65 @@
+<div class="container">
+  <div class="container-inner">
+    <div class="container-front">
+      <div class="container-back">
 
 
-<div style="margin-top: 2rem">
-    
-
-    
-
-    <mat-form-field appearance="outline">
-        <mat-label>Label</mat-label>
-        <input name ="input" type="text" placeholder="Choose Listing" [(ngModel)]="typed" (keyup)="onKey($event)" aria-label="Number" matInput [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let listing of filteredListings" [value]="listing.symbol">
-              {{listing.symbol}}: {{listing.companyName}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-
-    <button mat-button (click)="getNewApi(typed)">Add to Watchlist</button>
+      <img mat-card-image src="./assets/l4.png" style="width:300px;height:300px;" >
+      </div>
+    </div>
+  </div>
+</div>
 
 
-<mat-grid-list cols='2' rowHeight="6:1">
-  <mat-grid-tile>
-    <button mat-icon-button [matMenuTriggerFor]="basic">Sort By:{{parameter}}
-  </button>
 
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-icon-button [matMenuTriggerFor]="basic1">Orientation: {{ort}}
-    </button>
-
-  </mat-grid-tile>
-</mat-grid-list>
-        
+<div style="margin-top: 2rem; margin-left: auto; margin-right: auto;">
 
 
-    <mat-menu #basic="matMenu">
-      <button mat-menu-item (click)="parameter = 'Change Percentage';sortStocks(parameter, ort)">Change Percentage</button>
-      <button mat-menu-item (click)="parameter = 'Price';sortStocks(parameter, ort)">Price</button>
-      <button mat-menu-item (click)="parameter = 'Name';sortStocks(parameter, ort)">Name</button>
-    </mat-menu>
 
-    
+
+  <mat-form-field style="margin-top: 2rem; margin-left: auto; margin-right: auto;" appearance="outline">
+    <mat-label>Label</mat-label>
+    <input name="input" type="text" placeholder="Choose Listing" [(ngModel)]="typed" (keyup)="onKey($event)"
+      aria-label="Number" matInput [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let listing of filteredListings" [value]="listing.symbol">
+        {{listing.symbol}}: {{listing.companyName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <button mat-button style="margin-top: 2rem; margin-left: auto; margin-right: auto;" (click)="getNewApi(typed)">Add to
+    Watchlist</button>
+
+
+  <mat-grid-list cols='2' rowHeight="4:1" style="margin-left: auto; margin-right: auto;">
+    <mat-grid-tile>
+      <button mat-icon-button [matMenuTriggerFor]="basic">Sort By: {{parameter}}
+      </button>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-icon-button [matMenuTriggerFor]="basic1">Orientation: {{ort}}
+      </button>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+
+  <mat-menu #basic="matMenu">
+    <button mat-menu-item (click)="parameter = 'change_percentage';sortStocks(parameter, ort)">Change
+      Percentage</button>
+    <button mat-menu-item (click)="parameter = 'last';sortStocks(parameter, ort)">Price</button>
+    <button mat-menu-item (click)="parameter = 'description';sortStocks(parameter, ort)">Name</button>
+  </mat-menu>
+
+
 
 
   <mat-menu #basic1="matMenu">
-    <button mat-menu-item (click)="ort = 'Ascending';sortStocks(parameter, ort)">Ascending</button>
-    <button mat-menu-item (click)="ort = 'Descending';sortStocks(parameter, ort)">Descending</button>
+    <button mat-menu-item (click)="ort = 'asc';sortStocks(parameter, ort)">Ascending</button>
+    <button mat-menu-item (click)="ort = 'desc';sortStocks(parameter, ort)">Descending</button>
   </mat-menu>
 
 </div>
@@ -52,48 +67,45 @@
 
 
 
-<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem">
-        <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:2rem; max-width: 1000px;">
-            <mat-card-header>
-              
-              <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">arrow_drop_up</mat-icon>
-              <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">arrow_drop_down</mat-icon>
-              <p mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">+{{stock.change_percentage}}%</p>
-              <p mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">{{stock.change_percentage}}%</p>
-              <!-- <mat-card-title>{{stock.description}}</mat-card-title> -->
-              <mat-card-title>{{stock.symbol}}</mat-card-title>
-              <div *ngIf="stock.prediction">
-                <mat-card-subtitle style="color: green;" *ngIf="stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-                <mat-card-subtitle style="color: red;" *ngIf="stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-                <mat-card-subtitle>Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
-              </div>
+<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem; margin-left: auto; margin-right: auto;">
+  <mat-card *ngFor="let stock of stocks; let i=index"
+    style="margin-bottom:2rem; max-width: 1000px; margin-left: auto; margin-right: auto;">
+    <mat-card-header>
 
-              
-            </mat-card-header>
-            <mat-card-content>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      {{stock.description}}
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
+      <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">arrow_drop_up</mat-icon>
+      <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">arrow_drop_down</mat-icon>
+      <p mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">+{{stock.change_percentage}}%</p>
+      <p mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">{{stock.change_percentage}}%</p>
+      <!-- <mat-card-title>{{stock.description}}</mat-card-title> -->
+      <mat-card-title>{{stock.symbol}}</mat-card-title>
 
-              <p>Previous Close: ${{stock.prevclose}}</p>
-              <p>Open: ${{stock.open}}</p>
-              <p>Price: ${{stock.last}}</p>
-              <p>Volume: {{stock.volume}}</p>
-              <p>Change Percent: {{stock.change_percentage}}%</p>
-              <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
-            </mat-expansion-panel>
-            </mat-card-content>
-            <div *ngIf="isLoggedIn()">
-            <mat-card-actions style="margin-right: 15px;">
-              <button mat-button class="buyBtn" (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
-              <mat-form-field style="margin-left: 15px;">
-                <input matInput type="number" style="margin-left: 15px;" placeholder="Amount" value="value" name="amountInput" [(ngModel)]="stockAmount">
-              </mat-form-field>
-              
-            </mat-card-actions>
-          </div>
-        </mat-card>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-expansion-panel style="background-color:#1C1C1C" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{stock.description}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p>Previous Close: ${{stock.prevclose}}</p>
+        <p>Open: ${{stock.open}}</p>
+        <p>Price: ${{stock.last}}</p>
+        <p>Volume: {{stock.volume}}</p>
+        <p>Change Percent: {{stock.change_percentage}}%</p>
+        <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;">
+        </div>
+      </mat-expansion-panel>
+    </mat-card-content>
+    <div *ngIf="isLoggedIn()">
+      <mat-card-actions style="margin-right: 15px;">
+        <button mat-button class="buyBtn" style=" " (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
+        <mat-form-field style="margin-left: 15px;">
+          <input matInput type="number" style="margin-left: 15px;" placeholder="Amount" value="value" min='1'
+            name="amountInput" [(ngModel)]="stockAmount">
+        </mat-form-field>
+
+      </mat-card-actions>
     </div>
+  </mat-card>
+</div>

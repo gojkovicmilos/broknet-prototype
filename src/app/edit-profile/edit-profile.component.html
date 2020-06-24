@@ -1,0 +1,37 @@
+<div class="container login-container">
+    <div class="row">
+      <div class="col-md-6 login-form-2">
+        <h3>Edit profile !</h3>
+        <form [formGroup]="angForm" novalidate>
+          <div class="form-group">
+            <label class="col-xs-4">Email: </label>
+            <input type="text" class="form-control" formControlName="email" #email
+              [(ngModel)]="userData.email" />
+          </div>
+          <div
+            *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['email'].errors.required">
+              Email is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-4">Display Name: </label>
+            <input type="text" class="form-control" formControlName="displayName" #displayName [(ngModel)]="userData.displayName" />
+          </div>
+          <div
+            *ngIf="angForm.controls['displayName'].invalid && (angForm.controls['displayName'].dirty || angForm.controls['displayName'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['displayName'].errors.required">
+                Display name is required.
+            </div>
+          </div>
+          <div class="form-group" style="padding-top:20px;">
+            <button (click)="updateUser(email.value, displayName.value)"
+              [disabled]="angForm.invalid" class="btn btn-primary"><i class="fa fa-refresh"></i>
+              Update user</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
