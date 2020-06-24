@@ -17,23 +17,3 @@
     color:red;
 
   }
-  .img.mat-card-image{
-
-    background-color:red;
-
-  }
-
-
-  .mat-card-image:first-child {
-    background-color:red;
-
-  }
-  
-/* .card-list{
-  max-width: 600px;
-  max-height: 450 px;
-  width: 500px;
-  height: 380px;
-} */
-
-

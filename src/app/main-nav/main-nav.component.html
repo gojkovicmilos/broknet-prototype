@@ -1,34 +1,4 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar style="background-color:#1C1C1C ;">Menu</mat-toolbar>
-    <mat-nav-list class="menuList" style="padding-top:50px;">
-      <a mat-list-item href="" class="aNav" style="margin-bottom: 20px;">
-        <mat-icon style=" margin-right: 2px;">home</mat-icon>Home
-      </a>
-      <a mat-list-item href="news" style="margin-bottom: 20px;" class="aNav">
-        <mat-icon> import_contacts</mat-icon>News
-      </a>
-      <a mat-list-item *ngIf="authService.isLoggedIn()" href="user" style="margin-bottom: 20px;" class="aNav">
-        <mat-icon>account_circle</mat-icon>Your Portfolio
-      </a>
-      <a mat-list-item *ngIf="!authService.isLoggedIn()" href="login" style="margin-bottom: 20px;" class="aNav">
-        <mat-icon> publish</mat-icon>
-        Log In
-      </a>
-      <a mat-list-item *ngIf="!authService.isLoggedIn()" href="register" style="margin-bottom: 20px;" class="aNav">
-        <mat-icon> publish</mat-icon>
-        Register
-      </a>
-
-      <a target='_blank' *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
-        href='https://broknet-684ba.firebaseapp.com/login/{{this.currentUserId}}' mat-list-item>
-        <mat-icon> message</mat-icon>BrokNet Chat
-      </a>
-      <a mat-list-item *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
-        (click)="authService.SignOut()">
-        <mat-icon> transit_enterexit</mat-icon>Sign Out
-      </a>
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -46,27 +16,23 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar style="background-color: #1C1C1C">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle(); toggle()">
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle(); toggle()"
+        >
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="!drawerClosed">toggle_off</mat-icon>
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="drawerClosed">toggle_on</mat-icon>
       </button>
-      <div class="container">
-        <span routerLink='' style="cursor: pointer; margin-left: 1rem">BrokNet Prototype </span>
-        <!-- <img src="./assets/logo2.png" style="width: 70px; height: 70px; margin-right: 5px; padding-right: 5 px;"> -->
-
-
-      </div>
-      <!-- <div class="fill-space">
-        <img src="./assets/l4.png" style="width: 70px; height: 70px; margin-right: 25px; padding-right: 25 px;">
-      </div> -->
-      <button *ngIf='authService.isLoggedIn()' mat-icon-button routerLink='profile'>
-        <mat-icon style="font-size: 35px;">account_circle</mat-icon>
-      </button>
+      <span routerLink='' style="cursor: pointer; margin-left: 1rem">BrokNet Prototype</span>
+      <div class="fill-space"></div>
+      <button *ngIf='authService.isLoggedIn()' mat-icon-button routerLink='profile'><mat-icon style="font-size: 35px;">account_circle</mat-icon></button>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div style="padding: 1rem">
-      <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
