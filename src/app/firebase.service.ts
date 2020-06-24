@@ -23,6 +23,10 @@ export class FirebaseService {
   {
     return this.db.collection('stocks').snapshotChanges();
   }
+  getUsers()
+  {
+    return this.db.collection('users').snapshotChanges();
+  }
 
   getNews()
   {

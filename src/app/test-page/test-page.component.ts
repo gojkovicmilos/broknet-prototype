@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsApiService } from '../news-api.service';
 import { FirebaseService } from '../firebase.service';
-import * as CanvasJS from '../../assets/canvasjs.min.js'
+import * as CanvasJS from '../../assets/canvasjs.min.js';
 import { Listing } from '../listing';
 import {FormControl} from '@angular/forms';
+// import { setInterval } from 'timers';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { FinancialApiService } from '../financial-api.service';
 
@@ -15,22 +16,31 @@ import { FinancialApiService } from '../financial-api.service';
   styleUrls: ['./test-page.component.css']
 })
 export class TestPageComponent implements OnInit {
+
+  constructor(private fs: FinancialApiService, private ns: NewsApiService, private fbs: FirebaseService) { }
   myControl = new FormControl();
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
-  stockAmount:number = 0;
+  stockAmount = 0;
 
 
 
-  listings:Listing[] = this.convertToListings();
+  listings: Listing[] = this.convertToListings();
 
-  filteredListings:Listing[] = [];
+  filteredListings: Listing[] = [];
 
+  parameter = 'change_percentage';
+  ort = 'desc';
   parameter:string = 'Change Percentage';
   ort:string = 'desc';
 
   user = JSON.parse(localStorage.getItem('user'));
-  stocks:any[] = [];
+  stocks: any[] = [];
+
+
+  symbols = ['msft', 'aapl'];
+
+  typed = '';
 
   onKey(event: any) { // without type info
     this.filterListings();
@@ -45,55 +55,76 @@ export class TestPageComponent implements OnInit {
   constructor(private ns:NewsApiService, private fs: FinancialApiService, private fbs:FirebaseService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    
-    this.fbs.getStocks().subscribe(actionArray =>{
 
-      this.stocks = actionArray.map(item =>{
+    this.fbs.getStocks().subscribe(actionArray => {
+
+      this.stocks = actionArray.map(item => {
         return{
             id: item.payload.doc.id,
             ...item.payload.doc.data() as {} };
-          
+
       });
+
+
+
+
     });
 
-    setTimeout(()=>
+    setTimeout(() =>
         this.stocks.forEach(element => {
           this.drawChart(this.stocks.indexOf(element));
+          console.table(this.stocks[0].history);
       })
       , 2000);
 
+    this.stocks.forEach(item => this.fs.getNewApi(item.symbol));
 
-      this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
+    this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
 
-    
+
 
   }
 
- 
 
+
+  sortStocks(parameter: string, ort: string) {
+    if (parameter == 'change_percentage' && ort == 'desc') {
   sortStocks(parameter:string, ort:string)
   {
     if(parameter == "Change Percentage" && ort == "Descending")
     this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
+    } else
+    if (parameter == 'change_percentage' && ort == 'asc') {
     else 
     if(parameter == "Change Percentage" && ort == "Ascending")
     this.stocks.sort((a, b) => a.change_percentage - b.change_percentage);
+    } else
+    if (parameter == 'last' && ort == 'asc') {
     else 
     if(parameter == "Price" && ort == "Ascending")
     this.stocks.sort((a, b) => a.last - b.last);
+    } else
+    if (parameter == 'last' && ort == 'desc') {
     else 
     if(parameter == "Price" && ort == "Descending")
     this.stocks.sort((a, b) => b.last - a.last);
+    } else
+    if (parameter == 'description' && ort == 'desc') {
     else 
     if(parameter == "Name" && ort == "Descending")
     this.stocks.sort((a, b) => b.description - a.description);
+    } else
+    if (parameter == 'description' && ort == 'asc') {
     else 
     if(parameter == "Name" && ort == "Ascending")
     this.stocks.sort((a, b) => a.description - b.description);
-    
+    }
+
 
   }
 
+  filterListings() {
+    this.filteredListings = [];
   getNewApi(symbol:string){
     this.fs.getNewApi(symbol);
   }
@@ -103,36 +134,45 @@ export class TestPageComponent implements OnInit {
     this.filteredListings = []
     this.listings.forEach(element => {
 
-      if(element.companyName.toLowerCase().includes(this.typed) || element.symbol.toLowerCase().includes(this.typed) )
+      if (element.companyName.toLowerCase().includes(this.typed) || element.symbol.toLowerCase().includes(this.typed) ) {
         this.filteredListings.push(element);
-      
+      }
+
     });
 
-    
+
   }
 
+  getNewApi(symbol: string) {
+    return this.fs.getNewApi(symbol);
+  }
+
+  getTopHeadlines() {
   getTopHeadlines()
   {
     return this.ns.getTopHeadlines();
   }
 
 
-  addToPortfolio(symbol:string, amount: number)
-  {
+  addToPortfolio(symbol: string, amount: number) {
 
 
     let stock;
-    this.stocks.forEach(x =>{
-      if(x.symbol == symbol)
+    this.stocks.forEach(x => {
+      if (x.symbol == symbol) {
       stock = x;
-    })
+      }
+    });
 
-    let obj = {id: stock.id, amount:+amount, investment: +stock.last*amount};
-    let arr = [];
+    const obj = {id: stock.id, amount: +amount, investment: +stock.last * amount};
+    const arr = [];
     arr.push(obj);
-    let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
-    if(portfolio!= undefined && portfolio!={})
+    const portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
+    if (portfolio != undefined && portfolio != {}) {
     portfolio.forEach(element => {
+      if (element.id == stock.id) {
+        arr[0].amount += +element.amount;
+        arr[0].investment += +element.investment;
       if(element.id == stock.id)
       {
         arr[0].amount+=+element.amount;
@@ -142,6 +182,7 @@ export class TestPageComponent implements OnInit {
         });
         this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just bought ${amount} shares of ${symbol}!`);
 
+      } else { arr.push(element); }
 
       }
       else {arr.push(element);
@@ -151,26 +192,31 @@ export class TestPageComponent implements OnInit {
       this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just bought ${amount} shares of ${symbol}!`);
     };
     });
+    }
+    // console.log(JSON.parse(localStorage.getItem('user')));
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
   }
 
-  sellStocks(symbol:string, amount: number)
-  {
+  sellStocks(symbol: string, amount: number) {
 
 
     let stock;
-    this.stocks.forEach(x =>{
-      if(x.symbol == symbol)
+    this.stocks.forEach(x => {
+      if (x.symbol == symbol) {
       stock = x;
-    })
+      }
+    });
 
-    let obj = {id: stock.id, amount:+amount*-1, investment: +stock.last*amount*-1};
-    let arr = [];
+    const obj = {id: stock.id, amount: +amount * -1, investment: +stock.last * amount * -1};
+    const arr = [];
     arr.push(obj);
-    let portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
-    if(portfolio != {})
+    const portfolio = JSON.parse(localStorage.getItem('user')).portfolio;
+    if (portfolio != {}) {
     portfolio.forEach(element => {
+      if (element.id == stock.id) {
+        arr[0].amount += +element.amount;
+        arr[0].investment += +element.investment;
       if(element.id == stock.id)
       {
         arr[0].amount+=+element.amount;
@@ -180,6 +226,7 @@ export class TestPageComponent implements OnInit {
         });
         this.fbs.addStockNotification(`User ${JSON.parse(localStorage.getItem('user')).displayName} just sold ${amount} shares of ${symbol}!`);
 
+      } else { arr.push(element); }
       }
       else{
       arr.push(element);
@@ -190,96 +237,93 @@ export class TestPageComponent implements OnInit {
     };
         
     });
+    }
 
     this.fbs.updatePortfolio(JSON.parse(localStorage.getItem('user')).uid, arr);
   }
 
-  fillDb()
-  {
+  fillDb() {
     this.stocks.forEach(element => {
 
       this.fbs.createStock(element);
-      
+
     });
   }
 
- 
-  drawChart(i:number)
-  {
-    let dataPointsClose = [];
-    let dataPointsOpen = [];
-    let dataPointsHigh = [];
-    let dataPointsLow = [];
-    let dataPointsVolume = [];
+
+  drawChart(i: number) {
+    const dataPointsClose = [];
+    const dataPointsOpen = [];
+    const dataPointsHigh = [];
+    const dataPointsLow = [];
+    const dataPointsVolume = [];
     this.stocks[i].history.forEach(element => {
 
-      dataPointsClose.push({x: new Date(element.date),y: Math.round(element.close)});
-      dataPointsOpen.push({x: new Date(element.date),y: Math.round(element.open)});
-      dataPointsHigh.push({x: new Date(element.date),y: Math.round(element.high)});
-      dataPointsLow.push({x: new Date(element.date),y: Math.round(element.low)});
+      dataPointsClose.push({x: new Date(element.date), y: Math.round(element.close)});
+      dataPointsOpen.push({x: new Date(element.date), y: Math.round(element.open)});
+      dataPointsHigh.push({x: new Date(element.date), y: Math.round(element.high)});
+      dataPointsLow.push({x: new Date(element.date), y: Math.round(element.low)});
       dataPointsVolume.push({y: Math.round(element.volume)});
-      
+
     });
 
-    let chart = new CanvasJS.Chart("chartContainer" + i, {
+    const chart = new CanvasJS.Chart('chartContainer' + i, {
       zoomEnabled: true,
       animationEnabled: true,
       exportEnabled: true,
-      theme: "dark1",
+      theme: 'dark1',
       title: {
-        text: "Daily Chart"
+        text: 'Daily Chart'
       },
-      axisX:{      
-        valueFormatString: "DD-MM-YYYY" ,
+      axisX: {
+        valueFormatString: 'DD-MM-YYYY' ,
         labelAngle: -50
       },
       data: [
       {
-        type: "line",                
+        type: 'line',
         dataPoints: dataPointsClose,
-        name: "Close",
+        name: 'Close',
         showInLegend: true
       },
       {
-        type: "line",                
+        type: 'line',
         dataPoints: dataPointsOpen,
-        name: "Open",
+        name: 'Open',
         showInLegend: true
       },
       {
-        type: "line",                
+        type: 'line',
         dataPoints: dataPointsHigh,
-        name: "High",
+        name: 'High',
         showInLegend: true
       },
       {
-        type: "line",                
+        type: 'line',
         dataPoints: dataPointsLow,
-        name: "Low",
+        name: 'Low',
         showInLegend: true
       }]
     });
-      
+
     chart.render();
 
   }
 
 
 
-  isLoggedIn()
-  {
-    return(!(localStorage.getItem('user') == "null"))
-    
+  isLoggedIn() {
+    return(!(localStorage.getItem('user') == 'null'));
+
   }
 
-  
-  
- 
 
-    convertToListings():Listing[]
-    {
 
-      let csv = `ACT Symbol,Company Name
+
+
+    convertToListings(): Listing[] {
+
+      const csv = `ACT Symbol,Company Name
       A,"Agilent Technologies, Inc. Common Stock"
       AA,Alcoa Inc. Common Stock
       AA$B,Alcoa Inc. Depository Shares Representing 1/10th Preferred Convertilble Class B Series 1
@@ -3567,21 +3611,21 @@ export class TestPageComponent implements OnInit {
       ZTR,"Zweig Total Return Fund, Inc. (The) Common Stock"
       ZTS,Zoetis Inc. Class A Common Stock
       ZX,"China Zenix Auto International Limited American Depositary Shares, each representing four ordinary shares."`;
-  
 
-        let listings:Listing[] = [];
 
-        let csvArr:string[] = csv.split('\n');
+      const listings: Listing[] = [];
 
-        csvArr.forEach(element => {
+      const csvArr: string[] = csv.split('\n');
 
-            let listingArr:string[] = element.split(",");
+      csvArr.forEach(element => {
+
+            const listingArr: string[] = element.split(',');
             listings.push({symbol: listingArr[0].trim(), companyName: listingArr[1]});
-            
+
         });
 
 
-        return listings;
+      return listings;
     }
 
 }

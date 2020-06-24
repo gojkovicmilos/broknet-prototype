@@ -13,7 +13,7 @@ export class MyProfileComponent implements OnInit {
 
   constructor(private as: AuthService) { }
 
-  userData = {displayName:""};
+  userData = {displayName:"",photoURL:"" };
   portfolio = [];
 
   ngOnInit() {
@@ -21,5 +21,7 @@ export class MyProfileComponent implements OnInit {
     this.portfolio = this.userData['portfolio'];
     console.log(this.portfolio);
   }
+
+
 
 }
