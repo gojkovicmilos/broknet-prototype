@@ -22,7 +22,7 @@
       </a>
 
       <a target='_blank' *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
-        href='https://broknet-684ba.firebaseapp.com/login/{{this.currentUserId}}' mat-list-item>
+        href='https://broknet-684ba.firebaseapp.com/login/{{this.cred}}' mat-list-item>
         <mat-icon> message</mat-icon>BrokNet Chat
       </a>
       <a mat-list-item *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"

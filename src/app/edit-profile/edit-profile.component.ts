@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
     private fb: FormBuilder) {
     this.createForm();
   }
-  userData = { displayName: "", photoURL: "", email:"" , uid:""};
+  userData = { displayName: "",  email:"" , uid:""};
 
   createForm() {
     this.angForm = this.fb.group({
@@ -40,7 +40,7 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  updateUser(email, displayName, photoURL) {
+  updateUser(email, displayName) {
 
     const user = {email: email, displayName: displayName}
     this.fbs.updateUser(JSON.parse(localStorage.getItem('user'))['id'], user);

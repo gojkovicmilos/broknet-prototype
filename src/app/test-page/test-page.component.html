@@ -17,7 +17,7 @@
 
 
 
-  <mat-form-field style="margin-top: 2rem; margin-left: auto; margin-right: auto;" appearance="outline">
+  <mat-form-field style="display: flex; justify-content: center; align-items: center" appearance="outline">
     <mat-label>Label</mat-label>
     <input name="input" type="text" placeholder="Choose Listing" [(ngModel)]="typed" (keyup)="onKey($event)"
       aria-label="Number" matInput [matAutocomplete]="auto">
@@ -27,8 +27,8 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-
-  <button mat-button style="margin-top: 2rem; margin-left: auto; margin-right: auto;" (click)="getNewApi(typed)">Add to
+  
+  <button mat-button style="display: flex; justify-content: center; align-items: center" (click)="getNewApi(typed)">Add to
     Watchlist</button>
 
 
@@ -78,6 +78,9 @@
       <p mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">{{stock.change_percentage}}%</p>
       <!-- <mat-card-title>{{stock.description}}</mat-card-title> -->
       <mat-card-title>{{stock.symbol}}</mat-card-title>
+      <mat-card-subtitle style="color: green;" *ngIf="stock.prediction && stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: red;" *ngIf="stock.prediction && stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="stock.prediction">Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
 
     </mat-card-header>
     <mat-card-content>

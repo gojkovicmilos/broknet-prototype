@@ -143,7 +143,7 @@ const makePredictions = (X, model) =>
   }
 
 const logger = (epoch, log) => {
-    // console.log(log);
+    console.log({epoch: epoch, log: log});
 };
 
 
@@ -179,8 +179,6 @@ const getIndicators = nns => {
     nns.forEach((stock, i) => {
         console.log(
             {
-                symbol: stocks[i].symbol,
-                price: stocks[i].last,
                 abandonedBaby: indicators.abandonedbaby(stock),
                 eveningStar: indicators.eveningstar(stock),
                 threeBlackCrows: indicators.threeblackcrows(stock),
