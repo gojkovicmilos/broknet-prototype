@@ -12,6 +12,9 @@
       <a mat-list-item *ngIf="authService.isLoggedIn()" href="user" style="margin-bottom: 20px;" class="aNav">
         <mat-icon>account_circle</mat-icon>Your Portfolio
       </a>
+      <a mat-list-item *ngIf="authService.isLoggedIn()" href="users" style="margin-bottom: 20px;" class="aNav">
+        <mat-icon>list</mat-icon>List of Users
+      </a>
       <a mat-list-item *ngIf="!authService.isLoggedIn()" href="login" style="margin-bottom: 20px;" class="aNav">
         <mat-icon> publish</mat-icon>
         Log In
@@ -20,6 +23,7 @@
         <mat-icon> publish</mat-icon>
         Register
       </a>
+      
 
       <a target='_blank' *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
         href='https://broknet-684ba.firebaseapp.com/login/{{this.cred}}' mat-list-item>

@@ -1,12 +1,12 @@
 <body>
   <div class="container">
-      <table id="example" class="table table-responsive w-100 d-block d-md-table" style="width:100%">
+      <table id="example" class="table table-responsive w-100 d-block d-md-table">
           <thead> 
-              <tr style="text-align: center;">
+              <tr>
                   <th>Display Name</th>
                   <th>Email</th>
-                  <th>Total Investment</th>
-                  <th>Total Profit</th>
+                  <!-- <th>Total Investment</th>
+                  <th>Total Profit</th> -->
               </tr>
           </thead>
 
@@ -14,8 +14,8 @@
               <tr *ngFor="let user of users">
                   <td style="text-align: center;">{{ user?.displayName }}</td>
                   <td style="text-align: center;"> {{ user?.email }}</td>
-                  <td style="text-align: center;"> {{ user?.email }}</td>
-                  <td style="text-align: center;"> {{ user?.email }}</td>
+                  <!-- <td style="text-align: center;"> {{ user?.email }}</td>
+                  <td style="text-align: center;"> {{ user?.email }}</td> -->
 
                   
               </tr>

@@ -1,21 +1,14 @@
-<div class="profile" style="padding: 30 rem; margin-left: 90 rem">
-    <h1>Welcome, {{userData.displayName}}!</h1>
-    
-    <div class="pic" style="width: 9 rem; height: 9rem; margin-top: 300 vw; margin-left: 10%;">
-        <img  mat-card-image src="{{userData.photoURL}}" alt="photo" style="width: inherit; height: inherit; border-radius: 50%;">
-    
+<body>
+
+    <h2 style="text-align:center">Welcome, {{userData.displayName}}!</h2>
+    <div class="card">
+        <img src="{{userData.photoURL}}" style="width:100%">
+        <div style="margin: 24px 0;" *ngFor='let p of portfolio'>
+            <p>Your ID: {{p.id}}</p>
+            <p>Amount: {{p.amount}}</p>
+            <br>
+        </div>
+        <button routerLink="edit" class="btn btn-primary"> Edit User</button>
     </div>
-    
-    
-    <hr>
-    <h3>Portfolio: </h3>
-    
-    
-    <div *ngFor='let p of portfolio'>
-        <p>ID: {{p.id}}</p>
-        <p>Amount: {{p.amount}}</p>
-        <hr class="test">
-    </div>
-    <a routerLink="edit" class="btn btn-primary">
-                                <i class="fa fa-pencil-square"></i> Edit User</a>
-    </div>
+
+</body>
