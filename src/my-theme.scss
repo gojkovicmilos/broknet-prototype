@@ -3,11 +3,28 @@
 
 @include mat-core();
 
-$app-primary: mat-palette($mat-indigo, 700);
+$app-primary: mat-palette($mat-blue, 300);
 $app-accent:  mat-palette($mat-orange, 900);
 $app-warn:    mat-palette($mat-red);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+.color-primary {
+  color: mat-color($app-primary);
+}
+.aNav{
+  color: mat-color($app-primary);
+}
+a:hover{
+  box-shadow: 0 0px 12px 0  mat-color($app-primary);
+  color:mat-color($app-primary);;
+    -moz-box-shadow: 0 0px 12px 0  mat-color($app-primary);
+    -webkit-box-shadow: 0 0px 12px 0 mat-color($app-primary);  
+    opacity: 1; 
+      transform: scale(1, 1);
+      transition: all 0.3s;
+      background-color: rgba(255,255,255,0.1);
+      
 
+}
 @include angular-material-theme($app-theme);
 @include component-themes($app-theme);
 
@@ -18,6 +35,34 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
   $app-dark-warn:    mat-palette($mat-red);
   $app-dark-theme: mat-dark-theme($app-dark-primary, $app-dark-accent, $app-dark-warn);
   
+  .color-primary {
+    color: mat-color($app-primary);
+  }
+
+  
+  .aNav{
+    color: mat-color($app-primary);
+  }
+
+  // hover za dark temu
+  a:hover{
+    box-shadow: 0 0px 12px 0  mat-color($app-primary);
+    color:#f7ac0d;;
+      -moz-box-shadow: 0 0px 12px 0 #f7ac0d;;
+      -webkit-box-shadow: 0 0px 12px 0 #f7ac0d;;   
+      opacity: 1; 
+        transform: scale(1, 1);
+        transition: all 0.3s;
+        background-color: rgba(255,255,255,0.1);
+        
+  
+  }
   @include angular-material-theme($app-dark-theme);
   @include component-themes($app-dark-theme);
 }
+
+
+.color-primary {
+  color: mat-color($app-primary);
+}
+

@@ -1,31 +1,31 @@
-mat-card {
-    margin-bottom: 1rem; 
-    border: 1px solid #48a999; 
+.mat-card {
+    margin-bottom: 1rem;
+    border: 1px solid #48a999;
     box-shadow: 0 0px 8px 0 #48a999;
     /* max-width: 600px;
     max-height: 400px; */
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 4px;
+    margin-bottom: 0px;
 }
 
-
-.newsDiv{
+.newsDiv {
     padding-right: 2rem;
-     padding-left: 2rem;
-      margin-top: 30px;
-       margin-bottom: 30px;
-        max-width: 700px;
-         max-height: 400px;
-          margin-left:auto; 
-          margin-right: auto;
-
+    padding-left: 2rem;
+    padding-top: 5 rem;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    max-width: 700px;
+    max-height: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
-mat-card:hover {
+
+.mat-card:hover {
     box-shadow: 0 0px 24px 0 #48a999;
     -moz-box-shadow: 0 0px 24px 0 #48a999;
-    -webkit-box-shadow: 0 0px 24px 0 #48a999;   
+    -webkit-box-shadow: 0 0px 24px 0 #48a999;
 }
 
 mat-card:first-child {
-    margin-top: 10 rem;
+    margin-top: 0 rem;
 }
