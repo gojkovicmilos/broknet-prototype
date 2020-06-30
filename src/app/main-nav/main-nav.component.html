@@ -6,27 +6,27 @@
       <a mat-list-item href="" class="aNav" style="margin-bottom: 20px;">
         <mat-icon style=" margin-right: 2px;">home</mat-icon>Home
       </a>
-      <a mat-list-item href="news" style="margin-bottom: 20px;" class="aNav">
+      <a mat-list-item routerLink="news" style="margin-bottom: 20px;" class="aNav">
         <mat-icon> import_contacts</mat-icon>News
       </a>
-      <a mat-list-item *ngIf="authService.isLoggedIn()" href="user" style="margin-bottom: 20px;" class="aNav">
+      <a mat-list-item *ngIf="authService.isLoggedIn()" routerLink="user" style="margin-bottom: 20px;" class="aNav">
         <mat-icon>account_circle</mat-icon>Your Portfolio
       </a>
-      <a mat-list-item *ngIf="authService.isLoggedIn()" href="users" style="margin-bottom: 20px;" class="aNav">
+      <a mat-list-item *ngIf="authService.isLoggedIn()" routerLink="users" style="margin-bottom: 20px;" class="aNav">
         <mat-icon>list</mat-icon>List of Users
       </a>
-      <a mat-list-item *ngIf="!authService.isLoggedIn()" href="login" style="margin-bottom: 20px;" class="aNav">
+      <a mat-list-item *ngIf="!authService.isLoggedIn()" routerLink="login" style="margin-bottom: 20px;" class="aNav">
         <mat-icon> publish</mat-icon>
         Log In
       </a>
-      <a mat-list-item *ngIf="!authService.isLoggedIn()" href="register" style="margin-bottom: 20px;" class="aNav">
+      <a mat-list-item *ngIf="!authService.isLoggedIn()" routerLink="register" style="margin-bottom: 20px;" class="aNav">
         <mat-icon> publish</mat-icon>
         Register
       </a>
       
 
       <a target='_blank' *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
-        href='https://broknet-684ba.firebaseapp.com/login/{{this.cred}}' mat-list-item>
+      routerLink='https://broknet-684ba.firebaseapp.com/login/{{this.cred}}' mat-list-item>
         <mat-icon> message</mat-icon>BrokNet Chat
       </a>
       <a mat-list-item *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
