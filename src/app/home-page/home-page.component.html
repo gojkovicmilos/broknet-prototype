@@ -3,7 +3,7 @@
 
 
 
-    <mat-card class="card-list" style="margin: 2rem; max-width: 400px; background-color:rgba(71, 70, 70, 0.548); max-height: 500; box-shadow: currentColor;">
+    <mat-card class="color-primary" style="margin: 2rem; max-width: 400px; background-color:rgba(71, 70, 70, 0.548); max-height: 500; box-shadow: currentColor;">
       <mat-card-header>
         <mat-card-title>{{user.displayName}}</mat-card-title>
         {{user.email}}
@@ -63,7 +63,7 @@
       <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-expansion-panel>
+      <mat-expansion-panel class="color-primary">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Details

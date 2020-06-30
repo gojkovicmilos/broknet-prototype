@@ -11,11 +11,11 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
   color: mat-color($app-primary);
 }
 .aNav{
-  color: mat-color($app-primary);
+  color: white;
 }
 a:hover{
   box-shadow: 0 0px 12px 0  mat-color($app-primary);
-  color:mat-color($app-primary);;
+  color:white;
     -moz-box-shadow: 0 0px 12px 0  mat-color($app-primary);
     -webkit-box-shadow: 0 0px 12px 0 mat-color($app-primary);  
     opacity: 1; 
@@ -25,6 +25,48 @@ a:hover{
       
 
 }
+#example {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+  margin-left:auto;
+  margin-right:auto;
+  color:black;
+  
+}
+
+#example tr:hover {background-color: mat-color($app-primary)};
+
+#example th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: mat-color( $app-primary);
+  color: black;
+}
+.mat-card {
+  margin-bottom: 1rem;
+  border: 1px solid  mat-color($app-primary);
+  box-shadow: 0 3px 8px 0  mat-color($app-primary);
+}
+
+.mat-card:hover {
+  box-shadow: 0 0px 24px 0  mat-color($app-primary);
+  color:mat-color($app-primary);
+  box-shadow: 0 0px 24px 0  mat-color($app-primary);
+  -moz-box-shadow: 0 0px 24px 0  mat-color($app-primary);
+  -webkit-box-shadow: 0 0px 24px 0  mat-color($app-primary);
+
+  -moz-box-shadow: 0 0px 24px 0  mat-color($app-primary);
+  -webkit-box-shadow: 0 0px 24px 0 mat-color($app-primary);;
+}
+.buyBtn:hover{
+  box-shadow: 0 0px 24px 0 mat-color($app-primary);
+  -moz-box-shadow: 0 0px 24px 0 mat-color($app-primary);
+  -webkit-box-shadow: 0 0px 24px 0 mat-color($app-primary);   
+}
+
+
 @include angular-material-theme($app-theme);
 @include component-themes($app-theme);
 
@@ -47,9 +89,9 @@ a:hover{
   // hover za dark temu
   a:hover{
     box-shadow: 0 0px 12px 0  mat-color($app-primary);
-    color:#f7ac0d;;
-      -moz-box-shadow: 0 0px 12px 0 #f7ac0d;;
-      -webkit-box-shadow: 0 0px 12px 0 #f7ac0d;;   
+    color:#f7ac0d;
+      -moz-box-shadow: 0 0px 12px 0 #f7ac0d;
+      -webkit-box-shadow: 0 0px 12px 0 #f7ac0d; 
       opacity: 1; 
         transform: scale(1, 1);
         transition: all 0.3s;
@@ -57,6 +99,46 @@ a:hover{
         
   
   }
+
+  #example {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+    margin-left:auto;
+    margin-right:auto;
+    
+  }
+  
+  #example tr:hover {background-color: #f7ac0d; };
+  #example th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f7ac0d;
+    color: black;
+  }
+
+  .mat-card {
+    margin-bottom: 1rem;
+    border: 1px solid #f7ac0d;
+    box-shadow: 0 0px 8px 0 #f7ac0d;
+  }
+
+  .mat-card:hover {
+    box-shadow:#f7ac0d;
+    color:#f7ac0d;
+   
+    -moz-box-shadow: 0 0px 24px 0 #f7ac0d;
+    -webkit-box-shadow: 0 0px 24px 0 #f7ac0d;
+
+    -moz-box-shadow: 0 0px 24px 0 #f7ac0d;
+    -webkit-box-shadow: 0 0px 24px 0#f7ac0d;
+}
+.buyBtn:hover{
+  box-shadow: 0 0px 24px 0 #f7ac0d;
+  -moz-box-shadow: 0 0px 24px 0 #f7ac0d;
+  -webkit-box-shadow: 0 0px 24px 0 #f7ac0d;   
+}
   @include angular-material-theme($app-dark-theme);
   @include component-themes($app-dark-theme);
 }
@@ -65,4 +147,20 @@ a:hover{
 .color-primary {
   color: mat-color($app-primary);
 }
+#example {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+  margin-left:auto;
+  margin-right:auto;
+  
+}
+#example th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:  mat-color($app-primary);
+  color: white;
+}
 
+// #example tr:hover {background-color: #f7ac0d; };

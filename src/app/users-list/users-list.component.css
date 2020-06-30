@@ -1,9 +1,10 @@
 #example {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 50%;
+    width: 40%;
     margin-left:auto;
     margin-right:auto;
+    
   }
   
   #example td, #example th {
@@ -11,12 +12,16 @@
     padding: 8px;
   }
   
-  #example tr:hover {background-color: #019281;}
+  /* #example tr:hover {background-color: #04bba6;} */
   
   #example th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #019281;
+    /* background-color: #019281; */
     color: white;
   }
+.container{
+  height: 700px;
+  
+}

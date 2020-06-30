@@ -17,18 +17,18 @@
 
 
 
-  <mat-form-field style="display: flex; justify-content: center; align-items: center" appearance="outline">
+  <mat-form-field class="color-primary" style="display: flex; justify-content: center; align-items: center" appearance="outline">
     <mat-label>Label</mat-label>
     <input name="input" type="text" placeholder="Choose Listing" [(ngModel)]="typed" (keyup)="onKey($event)"
       aria-label="Number" matInput [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
+    <mat-autocomplete #auto="matAutocomplete" class="color-primary">
       <mat-option *ngFor="let listing of filteredListings" [value]="listing.symbol">
         {{listing.symbol}}: {{listing.companyName}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
   
-  <button mat-button style="display: flex; justify-content: center; align-items: center" (click)="getNewApi(typed)">Add to
+  <button mat-button class="color-primary" style="display: flex; justify-content: center; align-items: center" (click)="getNewApi(typed)">Add to
     Watchlist</button>
 
 
@@ -47,7 +47,7 @@
 
 
 
-  <mat-menu #basic="matMenu">
+  <mat-menu #basic="matMenu" class="color-primary">
     <button mat-menu-item (click)="parameter = 'change_percentage';sortStocks(parameter, ort)">Change
       Percentage</button>
     <button mat-menu-item (click)="parameter = 'last';sortStocks(parameter, ort)">Price</button>
