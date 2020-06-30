@@ -67,10 +67,10 @@
 
 
 
-<div class="color-primary" style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem; margin-left: auto; margin-right: auto;">
-  <mat-card *ngFor="let stock of stocks; let i=index" class="color-primary"
+<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem; margin-left: auto; margin-right: auto;">
+  <mat-card *ngFor="let stock of stocks; let i=index"
     style="margin-bottom:2rem; max-width: 1000px; margin-left: auto; margin-right: auto;">
-    <mat-card-header class="color-primary">
+    <mat-card-header>
 
       <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">arrow_drop_up</mat-icon>
       <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_percentage<0">arrow_drop_down</mat-icon>
@@ -83,10 +83,10 @@
       <mat-card-subtitle *ngIf="stock.prediction">Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
 
     </mat-card-header>
-    <mat-card-content class="color-primary">
-      <mat-expansion-panel class="color-primary">
-        <mat-expansion-panel-header class="color-primary">
-          <mat-panel-title class="color-primary">
+    <mat-card-content>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
             {{stock.description}}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -96,14 +96,14 @@
         <p>Price: ${{stock.last}}</p>
         <p>Volume: {{stock.volume}}</p>
         <p>Change Percent: {{stock.change_percentage}}%</p>
-        <div class="color-primary" id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;">
+        <div id="{{'chartContainer' + i}}" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;">
         </div>
       </mat-expansion-panel>
     </mat-card-content>
     <div *ngIf="isLoggedIn()">
-      <mat-card-actions style="margin-right: 15px;" class="color-primary">
+      <mat-card-actions style="margin-right: 15px;">
         <button mat-button class="buyBtn" style=" " (click)="addToPortfolio(stock.symbol, this.stockAmount)">Buy</button>
-        <mat-form-field class="color-primary"style="margin-left: 15px;">
+        <mat-form-field style="margin-left: 15px;">
           <input matInput type="number" style="margin-left: 15px;" placeholder="Amount" value="value" min='1'
             name="amountInput" [(ngModel)]="stockAmount">
         </mat-form-field>

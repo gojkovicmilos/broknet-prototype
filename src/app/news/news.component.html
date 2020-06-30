@@ -1,17 +1,18 @@
-<div style="height: 700px;">
-  <div class="newsDiv">
+
+<!-- <button mat-button (click)="fillDb()">Fill Firebase</button> -->
+
+<div class="newsDiv">
     <mat-card *ngFor="let article of sortedArticles">
-      <mat-card-header>
-        <mat-card-title>{{article.title}}</mat-card-title>
-        <mat-card-subtitle>Written by: {{article.author}} at {{article.publishedAt}}</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image src="{{article.urlToImage}}">
-      <mat-card-content>
-        <p>{{article.description}}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-raised-button color="primary" href="{{article.url}}">Learn More</a>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+        <mat-card-header>
+          <mat-card-title>{{article.title}}</mat-card-title>
+          <mat-card-subtitle>Written by: {{article.author}} at {{article.publishedAt}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{article.urlToImage}}" >
+        <mat-card-content>
+          <p>{{article.description}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-raised-button color="primary" href="{{article.url}}">Learn More</a>
+        </mat-card-actions>
+      </mat-card>
 </div>
