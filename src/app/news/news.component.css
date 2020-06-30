@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 .mat-card {
     margin-bottom: 1rem;
     /* border: 1px solid #48a999;
@@ -7,6 +8,8 @@
     margin-top: 4px;
     margin-bottom: 0px;
 =======
+=======
+>>>>>>> parent of 7e70e5fb... dark tema
 mat-card {
     margin-bottom: 1rem; 
     border: 1px solid #48a999; 
@@ -15,6 +18,9 @@ mat-card {
     max-height: 400px; */
     margin-top: 40px;
     margin-bottom: 40px;
+<<<<<<< HEAD
+>>>>>>> parent of 7e70e5fb... dark tema
+=======
 >>>>>>> parent of 7e70e5fb... dark tema
 }
 
@@ -30,12 +36,20 @@ mat-card {
           margin-right: auto;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* .mat-card:hover {
     box-shadow: 0 0px 24px 0 #48a999;
     -moz-box-shadow: 0 0px 24px 0 #48a999;
     -webkit-box-shadow: 0 0px 24px 0 #48a999;
 } */
 =======
+=======
+}
+mat-card:hover {
+    box-shadow: 0 0px 24px 0 #48a999;
+    -moz-box-shadow: 0 0px 24px 0 #48a999;
+    -webkit-box-shadow: 0 0px 24px 0 #48a999;   
+>>>>>>> parent of 7e70e5fb... dark tema
 }
 mat-card:hover {
     box-shadow: 0 0px 24px 0 #48a999;
