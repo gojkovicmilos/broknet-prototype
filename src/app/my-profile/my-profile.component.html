@@ -1,22 +1,14 @@
-<aside class="profile-card">
-    <header *ngFor='let p of portfolio'>
-      <!-- here’s the avatar -->
-      <a target="_blank" href="#">
-        <img src="{{userData.photoURL}}" class="hoverZoomLink">
-      </a>
-      <h1>
-        Investor
-      </h1>
-      <h2>
-        {{userData.displayName}}
-      </h2>
-      <h2>
-        Amount: {{p.amount}}
-            </h2>
-    </header>
-    <div class="profile-bio">
-      <p>
-        <button routerLink="edit" class="button-one"> Edit User</button>
-      </p>
+<body>
+
+    <h2 style="text-align:center">Welcome, {{userData.displayName}}!</h2>
+    <div class="card">
+        <img src="{{userData.photoURL}}" style="width:100%">
+        <div style="margin: 24px 0;" *ngFor='let p of portfolio'>
+            <p>Your ID: {{p.id}}</p>
+            <p>Amount: {{p.amount}}</p>
+            <br>
+        </div>
+        <button routerLink="edit" class="btn btn-primary"> Edit User</button>
     </div>
-  </aside>
+
+</body>
