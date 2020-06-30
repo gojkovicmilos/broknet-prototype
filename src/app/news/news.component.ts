@@ -4,6 +4,8 @@ import { Article } from 'src/article';
 import { element } from 'protractor';
 import { FirebaseService } from '../firebase.service';
 import { analytics } from 'firebase';
+import { Observable } from 'rxjs';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-news',
@@ -12,12 +14,15 @@ import { analytics } from 'firebase';
 })
 export class NewsComponent implements OnInit {
 
-  constructor(private ns:NewsApiService, private fbs: FirebaseService) { }
+  constructor(private ns:NewsApiService, private fbs: FirebaseService, private themeService: ThemeService) { }
 
+  isDarkTheme: Observable<boolean>;
   articles:any[] = [];
   sortedArticles:any[] = [];
 
   ngOnInit() {
+    
+    this.isDarkTheme = this.themeService.isDarkTheme;
 
     this.fbs.getNews().subscribe(actionArray =>{
 
@@ -46,15 +51,15 @@ export class NewsComponent implements OnInit {
       });
 
       newHeadlines.forEach(item => this.fbs.createArticle(item));
-
-      
-      
-      
-
       this.sortedArticles = this.articles.sort((a: any, b:any ) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
     });
     });
+    console.log(this.isDarkTheme._isScalar)
     
   }
+  toggleDarkTheme(checked: boolean) {
+    this.themeService.setDarkTheme(checked);
+  }
+  
 
 }

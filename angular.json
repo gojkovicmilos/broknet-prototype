@@ -25,6 +25,7 @@
             ],
             "styles": [
               "src/my-theme.scss",
+              "src/component-themes.scss",
               "src/styles.css"
             ],
             "scripts": []

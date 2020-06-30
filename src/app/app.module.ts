@@ -40,6 +40,8 @@ import { VerifyEmailAddressComponent } from './verify-email-address/verify-email
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { MatSlideToggleModule } from '@angular/material';
+import { ThemeService } from './theme.service';
 
 @NgModule({
   declarations: [
@@ -85,11 +87,14 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     AngularFireAuthModule,
     MatExpansionModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
     
     
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

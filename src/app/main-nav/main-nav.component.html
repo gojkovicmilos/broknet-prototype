@@ -1,7 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar style="background-color:#1C1C1C ;">Menu</mat-toolbar>
+    <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list class="menuList" style="padding-top:50px;">
       <a mat-list-item href="" class="aNav" style="margin-bottom: 20px;">
         <mat-icon style=" margin-right: 2px;">home</mat-icon>Home
@@ -36,23 +36,20 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar style="background-color: #1C1C1C">
+    <mat-toolbar>
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle(); toggle()">
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="!drawerClosed">toggle_off</mat-icon>
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="drawerClosed">toggle_on</mat-icon>
       </button>
       <div class="container">
         <span routerLink='' style="cursor: pointer; margin-left: 1rem">BrokNet Prototype </span>
-        <!-- <img src="./assets/logo2.png" style="width: 70px; height: 70px; margin-right: 5px; padding-right: 5 px;"> -->
-
-
       </div>
-      <!-- <div class="fill-space">
-        <img src="./assets/l4.png" style="width: 70px; height: 70px; margin-right: 25px; padding-right: 25 px;">
-      </div> -->
+      <div style="margin-left:auto;">
       <button *ngIf='authService.isLoggedIn()' mat-icon-button routerLink='profile'>
         <mat-icon style="font-size: 35px;">account_circle</mat-icon>
       </button>
+      <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
+    </div>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div style="padding: 1rem">

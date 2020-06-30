@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
+import { ThemeService } from '../theme.service';
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
@@ -12,9 +13,10 @@ import { AngularFireModule } from '@angular/fire';
 })
 export class MainNavComponent implements OnInit {
 
+  
+
   @ViewChild('drawer', {static: false}) drawer: any;
   drawerClosed: boolean = true;
-
   cred:string = "";
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -23,7 +25,7 @@ export class MainNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService, public fb: AngularFireModule) {}
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService, public fb: AngularFireModule, private themeService: ThemeService) {}
 
   ngOnInit() {
 
@@ -36,9 +38,10 @@ export class MainNavComponent implements OnInit {
     } catch (error) {
       
     }
-    
+  }
 
-    
+  toggleDarkTheme(isDarkTheme: boolean) {
+    this.themeService.setDarkTheme(isDarkTheme);
   }
 
 
