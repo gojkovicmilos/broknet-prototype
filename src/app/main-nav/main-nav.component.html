@@ -3,7 +3,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list class="menuList" style="padding-top:50px;">
-      <a mat-list-item href="" class="aNav" style="margin-bottom: 20px;">
+      <a mat-list-item routerLink="" class="aNav" style="margin-bottom: 20px;">
         <mat-icon style=" margin-right: 2px;">home</mat-icon>Home
       </a>
       <a mat-list-item routerLink="news" style="margin-bottom: 20px;" class="aNav">
@@ -26,7 +26,7 @@
       
 
       <a target='_blank' *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
-      routerLink='https://broknet-684ba.firebaseapp.com/login/{{this.cred}}' mat-list-item>
+      href='https://broknet-684ba.firebaseapp.com/login/{{this.cred}}' mat-list-item>
         <mat-icon> message</mat-icon>BrokNet Chat
       </a>
       <a mat-list-item *ngIf="authService.isLoggedIn()" style="margin-bottom: 20px;" class="aNav"
