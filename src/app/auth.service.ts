@@ -133,7 +133,10 @@ export class AuthService {
         displayName: user.displayName,
         photoURL: user.photoURL,
         emailVerified: user.emailVerified,
-        private: false
+        private: false,
+        followRequests: [],
+        followers: [],
+        following: []
       }
       return userRef.set(userData, {
         merge: true
