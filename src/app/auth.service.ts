@@ -133,23 +133,31 @@ export class AuthService {
     provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
     SetUserData(user, cred='') {
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-      const userData: User = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-        private: false,
-        followRequests: [],
-        followers: [],
-        following: [],
-        isDarkTheme: false,
-        credential: cred
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
-      return userRef.set(userData, {
-        merge: true
-      })
+      userRef.get().subscribe(res => {
+
+        const userDbData = res.data();
+
+        const userData: User = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          emailVerified: userDbData.emailVerified? userDbData.emailVerified : user.emailVerified,
+          private: userDbData.private ? userDbData.private : false,
+          followRequests: userDbData.followRequests ? userDbData.followRequests : [],
+          followers: userDbData.followers ? userDbData.followers : [],
+          following:userDbData.following ? userDbData.following : [],
+          isDarkTheme: userDbData.isDarkTheme ? userDbData.isDarkTheme : false,
+          credential: cred
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        return userRef.set(userData, {
+          merge: true
+        })
+
+
+      });
+      
     }
   
     // Sign out 
