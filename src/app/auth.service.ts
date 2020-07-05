@@ -142,12 +142,12 @@ export class AuthService {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          emailVerified: userDbData.emailVerified? userDbData.emailVerified : user.emailVerified,
-          private: userDbData.private ? userDbData.private : false,
-          followRequests: userDbData.followRequests ? userDbData.followRequests : [],
-          followers: userDbData.followers ? userDbData.followers : [],
-          following:userDbData.following ? userDbData.following : [],
-          isDarkTheme: userDbData.isDarkTheme ? userDbData.isDarkTheme : false,
+          emailVerified: user.emailVerified,
+          private: userDbData.private != null ? userDbData.private : false,
+          followRequests: userDbData.followRequests != null ? userDbData.followRequests : [],
+          followers: userDbData.followers != null ? userDbData.followers : [],
+          following: userDbData.following != null ? userDbData.following : [],
+          isDarkTheme: userDbData.isDarkTheme != null ? userDbData.isDarkTheme : false,
           credential: cred
         };
         localStorage.setItem('user', JSON.stringify(userData));
