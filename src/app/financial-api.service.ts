@@ -5,6 +5,7 @@ import { Stock } from './stock';
 import { StockData } from './stock-data';
 import { element } from 'protractor';
 import { elementAt } from 'rxjs/operators';
+import { query } from '@angular/animations';
 
 
 @Injectable({
@@ -27,6 +28,7 @@ export class FinancialApiService
   stockData:any = {};
   stockDaily:StockData[] = [];
   ids:string[] = [];
+  listings:[] = [];
 
   fbStock:Stock = {id:"", low:0, high:0, symbol:"", open:0, price:0, 
   volume:0, changePercent:"", latestDay:"", prevClose:0, change:0, daily:[], weekly:[], monthly:[]  };
@@ -46,6 +48,8 @@ export class FinancialApiService
     // return("https://api.worldtradingdata.com/api/v1/history?symbol=" + symbol + "&date_from=2019-01-01&sort=newest&api_token=sySzGtkx78DcEf17uY7ACXz1Er97WaAHDPeSIbUjcgnmyUVa42puP5mD9OGU&date_from=2019-01-01");
     return("https://sandbox.tradier.com/v1/markets/history?symbol=" + symbol)
   }
+
+  reqSymbols = (query:string) => `https://sandbox.tradier.com/v1/markets/lookup?q=${query}&types=stock`;
 
   
 
@@ -101,6 +105,11 @@ export class FinancialApiService
 
       
     });
+  }
+
+  getSymbols = async (query:string) => {
+
+    return this.http.get(this.reqSymbols(query), this.requestOptions).toPromise()
   }
 
   

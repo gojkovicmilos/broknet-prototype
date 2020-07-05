@@ -24,7 +24,7 @@ export class TestPageComponent implements OnInit {
 
   listings:Listing[] = this.convertToListings();
 
-  filteredListings:Listing[] = [];
+  filteredListings = [];
 
   parameter:string = 'Change Percentage';
   ort:string = 'desc';
@@ -34,8 +34,8 @@ export class TestPageComponent implements OnInit {
   stocks:any[] = [];
 
   onKey(event: any) { // without type info
-    this.filterListings();
-    console.log(this.typed);
+    this.fs.getSymbols(this.typed).then(res => this.filteredListings = res['securities']['security'].map(listing => {return {symbol: listing.symbol, description: listing.description}}));
+    // console.log(this.typed);
   }
 
 
@@ -106,8 +106,11 @@ export class TestPageComponent implements OnInit {
 
   }
 
-  getNewApi(symbol:string){
+  getNewApi(symbol:string, description:string = symbol){
     this.fs.getNewApi(symbol);
+    this._snackBar.open(`You just added ${description} to the watchlist!`, "Got It", {
+      duration: 2000,
+    });
   }
 
   filterListings()

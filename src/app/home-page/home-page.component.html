@@ -48,7 +48,7 @@
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="!drawerClosed">toggle_off</mat-icon>
         <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="drawerClosed">toggle_on</mat-icon>
       Skloni</button> -->
-  <mat-card *ngFor="let stock of filteredStocks let i=index" style="margin-bottom:2rem; max-width: 1000px;">
+  <mat-card *ngFor="let stock of filteredStocks, let i=index" style="margin-bottom:2rem; max-width: 1000px;">
     <mat-card-header>
       <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">arrow_drop_up</mat-icon>
       <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">arrow_drop_down</mat-icon>
@@ -58,7 +58,7 @@
       <mat-card-title>{{stock.symbol}}</mat-card-title>
       <mat-card-subtitle style="color: green;" *ngIf="stock.prediction && stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
       <mat-card-subtitle style="color: red;" *ngIf="stock.prediction && stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
-      <mat-card-subtitle s*ngIf="stock.prediction">Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="stock.prediction">Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
       <mat-card-subtitle>Investment: {{this.findByID(stock.id).investment}}$</mat-card-subtitle>
       <mat-card-subtitle>Amount of stocks: {{this.findByID(stock.id).amount}}</mat-card-subtitle>
     </mat-card-header>
