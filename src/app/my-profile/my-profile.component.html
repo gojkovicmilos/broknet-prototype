@@ -1,4 +1,4 @@
-<body>
+<!-- <body>
 
     <h2 style="text-align:center">Welcome, {{userData.displayName}}!</h2>
     <div class="card">
@@ -11,4 +11,19 @@
         <button routerLink="edit" class="btn btn-primary"> Edit User</button>
     </div>
 
-</body>
+</body> -->
+
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Welcome, {{userData.displayName}} !</mat-card-title>
+      <mat-card-subtitle>Investor</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{userData.photoURL}}" >
+    <mat-card-content *ngFor='let p of portfolio'>
+        <p>Your ID: {{p.id}}</p>
+        <p>Amount: {{p.amount}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button routerLink="edit" style="width: 40%;margin-left: 30%; margin-right: 30%;" mat-fab color="primary"> Edit User</button>
+    </mat-card-actions>
+  </mat-card>

@@ -5,8 +5,6 @@
               <tr>
                   <th>Display Name</th>
                   <th>Email</th>
-                  <!-- <th>Total Investment</th>
-                  <th>Total Profit</th> -->
               </tr>
           </thead>
 
@@ -14,10 +12,6 @@
               <tr *ngFor="let user of users">
                   <td style="text-align: center;">{{ user?.displayName }}</td>
                   <td style="text-align: center;"> {{ user?.email }}</td>
-                  <!-- <td style="text-align: center;"> {{ user?.email }}</td>
-                  <td style="text-align: center;"> {{ user?.email }}</td> -->
-
-                  
               </tr>
           </tbody>
       </table>
