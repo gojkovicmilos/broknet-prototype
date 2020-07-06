@@ -1,9 +1,4 @@
-<mat-grid-list cols="2" rowHeight="1:1">
-  <mat-grid-tile>
-
-
-
-    <mat-card class="card-list" style="margin: 2rem; max-width: 400px; background-color:rgba(71, 70, 70, 0.548); max-height: 500; box-shadow: currentColor;">
+<mat-card class="card-list">
       <mat-card-header>
         <mat-card-title>{{user.displayName}}</mat-card-title>
         {{user.email}}
@@ -20,35 +15,9 @@
           <h6>Total Profit: {{profit}}$</h6>
         </mat-expansion-panel>
       </mat-card-content>
-
-    </mat-card>
-
-
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <!-- <div class="logo">
-
-    <img mat-card-image src="./assets/l4.png">
-
-
-
-</div> -->
-  </mat-grid-tile>
-
-</mat-grid-list>
-
-
-<div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem; margin-top: 3rem;">
-  <!-- <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle(); toggle()"
-        >
-        <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="!drawerClosed">toggle_off</mat-icon>
-        <mat-icon style="font-size: 40px;" aria-label="Side nav toggle icon" *ngIf="drawerClosed">toggle_on</mat-icon>
-      Skloni</button> -->
-  <mat-card *ngFor="let stock of filteredStocks, let i=index" style="margin-bottom:2rem; max-width: 1000px;">
+</mat-card>
+<br>
+  <mat-card *ngFor="let stock of filteredStocks, let i=index" style="margin-bottom:2rem; max-width: 100%;">
     <mat-card-header>
       <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_pct>0">arrow_drop_up</mat-icon>
       <mat-icon mat-card-avatar style="color: red" *ngIf="stock.change_pct<0">arrow_drop_down</mat-icon>
@@ -110,4 +79,3 @@
       </mat-card-actions>
     </div>
   </mat-card>
-</div>

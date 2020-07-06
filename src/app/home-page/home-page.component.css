@@ -17,14 +17,13 @@
     color:red;
 
   }
-  .img.mat-card-image{
-
-    background-color:red;
-
-  }
-
-
-  .mat-card-image:first-child {
-    background-color:red;
-
-  }
+  
+.card-list{
+  margin: 2rem; 
+  max-width: 400px; 
+  background-color:rgba(71, 70, 70, 0.548); 
+  max-height: 100%; 
+  box-shadow: currentColor; 
+  margin-top: 3%;
+  margin: 0 auto;
+}
