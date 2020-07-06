@@ -25,11 +25,13 @@
         </form>
 
       </div>
-      <div class="box-1">
+      <!-- <div class="box-1">
         <div class="btn btn-one">
           <span value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">Log In</span>
         </div>
-      </div>
+      </div> -->
+
+      <button mat-raised-button color="primary" (click)="authService.SignIn(userName.value, userPassword.value)">Log in</button>
 
       <!-- <div class="authBlock" style="padding-top: 1rem; padding-bottom: 1rem">
           <div class="form-group">

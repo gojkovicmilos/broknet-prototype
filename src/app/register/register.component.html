@@ -18,12 +18,15 @@
         </form>
       </div>
 
-      <div class="box-1">
+      <!-- <div class="box-1">
         <div class="btn btn-one">
-          <span value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign up</span>
+          <spanz value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign up</span>
         </div>
-      </div>
+      </div> -->
 
+
+      <button mat-raised-button color="primary" (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign up</button>
+     
 
 
     </mat-card-content>
