@@ -18,7 +18,7 @@ export class MainNavComponent implements OnInit {
   @ViewChild('drawer', {static: false}) drawer: any;
   drawerClosed: boolean = true;
   cred:string = "";
-  isDarkTheme:boolean = false;
+  isDarkTheme;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,13 +31,13 @@ export class MainNavComponent implements OnInit {
   ngOnInit() {
 
       if(localStorage.getItem('user')){
-      this.cred = JSON.parse(localStorage.getItem('user')).email;
+      this.cred = JSON.parse(localStorage.getItem('user')).id;
       this.isDarkTheme = JSON.parse(localStorage.getItem('user')).isDarkTheme;
       this.toggleDarkTheme(this.isDarkTheme);
       }
   }
 
-  toggleDarkTheme(isDarkTheme: boolean) {
+  toggleDarkTheme(isDarkTheme) {
     this.themeService.setDarkTheme(isDarkTheme);
   }
 

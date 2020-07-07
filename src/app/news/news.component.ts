@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsApiService } from '../news-api.service';
-import { Article } from 'src/article';
-import { element } from 'protractor';
 import { FirebaseService } from '../firebase.service';
-import { analytics } from 'firebase';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../theme.service';
 
