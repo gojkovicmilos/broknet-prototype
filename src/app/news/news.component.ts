@@ -31,25 +31,25 @@ export class NewsComponent implements OnInit {
       });
 
       let newHeadlines:any[] = [];
-      this.ns.getTopHeadlines().subscribe(res => {
+      // this.ns.getTopHeadlines().subscribe(res => {
         
         
-        newHeadlines = res['articles'];
+      //   newHeadlines = res['articles'];
         
-        newHeadlines.forEach(item => {
+      //   newHeadlines.forEach(item => {
 
-        this.articles.forEach(article =>{
-          if(item.title == article.title)
-          newHeadlines.splice(newHeadlines.indexOf(item));
-        });
+      //   this.articles.forEach(article =>{
+      //     if(item.title == article.title)
+      //     newHeadlines.splice(newHeadlines.indexOf(item));
+      //   });
 
         
 
-      });
+      // });
 
       newHeadlines.forEach(item => this.fbs.createArticle(item));
       this.sortedArticles = this.articles.sort((a: any, b:any ) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-    });
+    // });
     });
     console.log(this.isDarkTheme._isScalar)
     

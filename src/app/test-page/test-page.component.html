@@ -14,9 +14,6 @@
 
 <div style="margin-top: 2rem; margin-left: auto; margin-right: auto;">
 
-
-
-
   <mat-form-field style="display: flex; justify-content: center; align-items: center" appearance="outline">
     <mat-label>Label</mat-label>
     <input name="input" type="text" placeholder="Choose Listing" [(ngModel)]="typed" (keyup)="onKey($event)"
@@ -28,7 +25,7 @@
     </mat-autocomplete>
   </mat-form-field>
   
-  <button mat-button style="display: flex; justify-content: center; align-items: center" (click)="getNewApi(typed)">Add to
+  <button mat-button style="display: flex; justify-content: center; align-items: center; margin: 0 auto;" (click)="getNewApi(typed)">Add to
     Watchlist</button>
 
 
@@ -69,7 +66,7 @@
 
 <div style="padding-right: 2rem; padding-left: 2rem; margin-bottom: 2rem; margin-left: auto; margin-right: auto;">
 
-  <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:10%; min-width: 500px; max-width: 1000px; margin-left: 10%; margin-right: 10%; min-height: fit-content;">
+  <mat-card *ngFor="let stock of stocks; let i=index" style="margin-bottom:10%; min-width: 50%; max-width: 100%; margin-left: 10%; margin-right: 10%; min-height: fit-content;">
     <mat-card-header>
 
       <mat-icon mat-card-avatar style="color: green" *ngIf="stock.change_percentage>0">arrow_drop_up</mat-icon>

@@ -48,7 +48,7 @@
       <button *ngIf='authService.isLoggedIn()' mat-icon-button routerLink='profile'>
         <mat-icon style="font-size: 35px;">account_circle</mat-icon>
       </button>
-      <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark Mode</mat-slide-toggle>
+      <mat-slide-toggle *ngIf='authService.isLoggedIn()' [checked]="isDarkTheme" (change)="toggleDarkTheme($event.checked, this.id)">{{this.isDarkTheme ? 'Dark' : 'Light'}}</mat-slide-toggle>
     </div>
     </mat-toolbar>
     <!-- Add Content Here -->

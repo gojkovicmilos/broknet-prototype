@@ -1,185 +1,125 @@
-html {
-    height: 100%;
+@import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
   }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .authBlock{
+      margin-bottom: 15px;
+  }
+  /* .field{
+      margin-left: 30%;
+      margin-right: 30%;
+  } */
+
+
+  
+
+  html,
   body {
-    margin:0;
-    padding:0;
-    font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
-  }
-  
-  .login-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    padding: 40px;
-    transform: translate(-50%, -50%);
-    background: rgba(0,0,0,.5);
-    box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border-radius: 10px;
-  }
-  
-  .login-box h2 {
-    margin: 0 0 30px;
-    padding: 0;
-    color: #fff;
-    text-align: center;
-  }
-  
-  .login-box .user-box {
-    position: relative;
-  }
-  
-  .login-box .user-box input {
     width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-  }
-  .login-box .user-box label {
-    position: absolute;
-    top:0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
-  }
-  
-  .login-box .user-box input:focus ~ label,
-  .login-box .user-box input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #48a999;
-    font-size: 12px;
-  }
-  
-  .login-box form a {
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    color: #48a999;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
+    height: 100%;
     overflow: hidden;
-    transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-family: 'Open Sans Condensed', sans-serif;
   }
   
-  .login-box a:hover {
-    background: #48a999;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #48a999,
-                0 0 25px #48a999,
-                0 0 50px #48a999,
-                0 0 100px #48a999;
+  div[class*=box] {
+      height: 33.33%;
+      width: 80%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
   }
   
-  .login-box a span {
-    position: absolute;
-    display: block;
-  }
-  
-  .login-box a span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #48a999);
-    animation: btn-anim1 1s linear infinite;
-  }
-  
-  @keyframes btn-anim1 {
-    0% {
-      left: -100%;
+  .box-1 {
+       background-color: #00796b; 
+       width: 150px ;
+       margin: 10 px;
+       margin-left: auto;
+       margin-right: auto;
+       padding-top: 10px;
+       padding-bottom: 10px;
+       padding-left: 10px;
+       padding-right: 10px;
+       margin-bottom: 15px;
     }
-    50%,100% {
-      left: 100%;
-    }
+ 
+  
+  .btn {
+      line-height: 50px;
+      height: 50px;
+      text-align: center;
+      width: 350px;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: auto;
   }
   
-  .login-box a span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, #48a999);
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: .25s
+  /* 
+  ========================
+        BUTTON ONE
+  ========================
+  */
+  .btn-one {
+      color: #FFF;
+      transition: all 0.3s;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .btn-one span {
+      
+      transition: all 0.3s;
+  }
+  .btn-one::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
+      transition: all 0.3s;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-top-style: solid;
+      border-bottom-style: solid;
+      border-top-color: rgba(255,255,255,0.5);
+      border-bottom-color: rgba(255,255,255,0.5);
+      transform: scale(0.1, 1);
+  }
+  .btn-one:hover span {
+      letter-spacing: 2px;
+  }
+  .btn-one:hover::before {
+      opacity: 1; 
+      transform: scale(1, 1); 
+  }
+  .btn-one::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: all 0.3s;
+      background-color: rgba(255,255,255,0.1);
+  }
+  .btn-one:hover::after {
+      opacity: 0; 
+      transform: scale(0.1, 1);
   }
   
-  @keyframes btn-anim2 {
-    0% {
-      top: -100%;
-    }
-    50%,100% {
-      top: 100%;
-    }
-  }
-  
-  .login-box a span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, #48a999);
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: .5s
-  }
-  
-  @keyframes btn-anim3 {
-    0% {
-      right: -100%;
-    }
-    50%,100% {
-      right: 100%;
-    }
-  }
-  
-  .login-box a span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, #48a999);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .75s
-  }
-  
-  @keyframes btn-anim4 {
-    0% {
-      bottom: -100%;
-    }
-    50%,100% {
-      bottom: 100%;
-    }
-  }
-
-
-    .button-one, .button-two, .button-three{
-    text-align: center;
-    cursor: pointer;
-    font-size:15px;
-    margin: 0 0 0 0;
-  }
-  
-  
-  
-  /*Button One*/
-  .button-one {
-    outline: none;
-    background-color:#48a999;
-    border: none;
-    border-radius:5px;
-  }

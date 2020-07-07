@@ -5,6 +5,7 @@ import * as CanvasJS from '../../assets/canvasjs.min.js'
 import {FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { FinancialApiService } from '../financial-api.service';
+import { ThemeService } from '../theme.service';
 
 //import { setInterval } from 'timers';
 
@@ -18,6 +19,10 @@ export class TestPageComponent implements OnInit {
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
   stockAmount:number = 0;
+
+  isDarkTheme:boolean;
+
+
 
   filteredListings = [];
 
@@ -38,7 +43,7 @@ export class TestPageComponent implements OnInit {
 
   typed:string = "";
 
-  constructor(private ns:NewsApiService, private fs: FinancialApiService, private fbs:FirebaseService, private _snackBar: MatSnackBar) { }
+  constructor(private ns:NewsApiService,private ts:ThemeService, private fs: FinancialApiService, private fbs:FirebaseService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     
@@ -61,18 +66,18 @@ export class TestPageComponent implements OnInit {
       });
     });
 
-    
-
-    
-
-    
-
     setTimeout(()=>
         this.stocks.forEach(element => {
           this.drawChart(this.stocks.indexOf(element));
       })
       , 2000);
       this.stocks.sort((a, b) => b.change_percentage - a.change_percentage);
+    if(this.user){
+      this.isDarkTheme = this.user.isDarkTheme;
+      console.log(this.isDarkTheme);
+    }
+
+      
 
   }
 
@@ -222,7 +227,7 @@ export class TestPageComponent implements OnInit {
       zoomEnabled: true,
       animationEnabled: true,
       exportEnabled: true,
-      theme: "dark1",
+      theme: this.isDarkTheme ? "dark1" : 'light1',
       title: {
         text: "Daily Chart"
       },

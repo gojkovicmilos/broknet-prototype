@@ -1,41 +1,27 @@
-<div class="login-box">
-  <h2>Update User</h2>
-  <form [formGroup]="angForm" novalidate>
-    <div class="user-box">
-      <input type="text" class="form-control" formControlName="email" #email [(ngModel)]="userData.email" />
-      <label>Email</label>
-    </div>
-    <div
-      *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)"
-      class="alert alert-danger">
-      <div *ngIf="angForm.controls['email'].errors.required">
-        Email is required.
+<head> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<div class="field" style="padding-top: 5%">
+  <mat-card style="max-width: 500px; margin-left:auto;
+  margin-right:auto; ">
+    <mat-card-header>
+      <mat-card-title>Change your account credentianls</mat-card-title>
+      <mat-card-subtitle>You can change your Fullname or E-mail</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="authBlock" style="padding-top: 1rem; padding-bottom: 1rem">
+        <form class="example-form" [formGroup]="angForm" novalidate>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Display Name" type="text" #displayName required formControlName="displayName" #displayName [(ngModel)]="userData.displayName">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" type="email" #email required formControlName="email" #email [(ngModel)]="userData.email">
+          </mat-form-field>
+        </form>
       </div>
-    </div>
-    <br>
-    <div class="user-box">
-      <input type="text" class="form-control" formControlName="displayName" #displayName
-        [(ngModel)]="userData.displayName" />
-      <label>Display Name</label>
-    </div>
-    <div
-      *ngIf="angForm.controls['displayName'].invalid && (angForm.controls['displayName'].dirty || angForm.controls['displayName'].touched)"
-      class="alert alert-danger">
-      <div *ngIf="angForm.controls['displayName'].errors.required">
-        Display name is required.
-      </div>
-    </div>
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <div class="sub-main">
-        <button class="button-one"(click)="updateUser(email.value, displayName.value)"
-        [disabled]="angForm.invalid">Update User</button>
-      </div>
-      <!-- <button class="w3-button w3-black" (click)="updateUser(email.value, displayName.value)"
-      [disabled]="angForm.invalid">Update User</button> -->
-    </a>
-  </form>
+      <button style="width: 40%;margin-left: 30%; margin-right: 30%;" mat-fab color="primary" (click)="updateUser(email.value, displayName.value)" 
+      [disabled]="angForm.invalid">Update</button>
+    </mat-card-content>
+  </mat-card>
 </div>
+
