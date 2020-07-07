@@ -78,6 +78,9 @@
       <mat-card-subtitle style="color: green;" *ngIf="stock.prediction && stock.prediction.close.prediction>=0">Prediction: +{{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
       <mat-card-subtitle style="color: red;" *ngIf="stock.prediction && stock.prediction.close.prediction<0">Prediction: {{stock.prediction.close.prediction.toFixed(2)}}</mat-card-subtitle>
       <mat-card-subtitle *ngIf="stock.prediction">Accuracy: {{stock.prediction.close.accuracy.toFixed(4)*100}} %</mat-card-subtitle>
+      <mat-spinner *ngIf="this.isWaiting[stock.symbol]"></mat-spinner>
+      <p *ngIf="this.isWaiting[stock.symbol]">This is going to take a while...</p>
+      <button mat-raised-button color="primary" *ngIf="!this.isWaiting[stock.symbol]" (click)="predictSymbol(stock.symbol)">PREDICT</button>
 
     </mat-card-header>
     <mat-card-content>

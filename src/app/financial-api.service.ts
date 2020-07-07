@@ -6,6 +6,7 @@ import { StockData } from './stock-data';
 import { element } from 'protractor';
 import { elementAt } from 'rxjs/operators';
 import { query } from '@angular/animations';
+import { async } from '@angular/core/testing';
 
 
 @Injectable({
@@ -110,6 +111,14 @@ export class FinancialApiService
   getSymbols = async (query:string) => {
 
     return this.http.get(this.reqSymbols(query), this.requestOptions).toPromise()
+  }
+
+  getPrediction = async (symbol:string) => {
+    const response = await this.http.get(`https://188.246.38.20:4444/single/${symbol}`).toPromise();
+
+    console.log(response);
+
+    return(response);
   }
 
   

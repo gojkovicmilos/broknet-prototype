@@ -4,6 +4,7 @@ import { FirebaseService } from '../firebase.service';
 import * as CanvasJS from '../../assets/canvasjs.min.js'
 import {FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import { FinancialApiService } from '../financial-api.service';
 import { ThemeService } from '../theme.service';
 
@@ -19,6 +20,8 @@ export class TestPageComponent implements OnInit {
   links = ['All', 'Stock', 'Crypto', 'Forex'];
   activeLink = this.links[0];
   stockAmount:number = 0;
+
+  isWaiting = {};
 
   isDarkTheme:boolean;
 
@@ -63,6 +66,7 @@ export class TestPageComponent implements OnInit {
           };
         });
         localStorage.setItem('users', JSON.stringify(this.users));
+        this.users.forEach(user => this.isWaiting[user] = false);
       });
     });
 
@@ -82,6 +86,20 @@ export class TestPageComponent implements OnInit {
   }
 
  
+  predictSymbol(symbol:string){
+
+
+    this.isWaiting[symbol] = true;
+    this.fs.getPrediction(symbol).then(res => {
+
+      this.isWaiting[symbol] = false;
+  
+      this._snackBar.open(res['message'], "Got It", {
+        duration: 2000,
+      });
+    });
+    
+  }
 
   sortStocks(parameter:string, ort:string)
   {

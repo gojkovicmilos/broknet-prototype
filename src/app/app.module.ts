@@ -29,7 +29,8 @@ import {
   MatSnackBarModule,
   MatGridListModule,
   MatExpansionModule,
-  MatMenuModule
+  MatMenuModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -88,7 +89,8 @@ import { ThemeService } from './theme.service';
     MatExpansionModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
     
     
   ],
